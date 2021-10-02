@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Superstar";
+  src: local("Superstar"),
+    url("./fonts/Superstar.ttf") format("truetype");
+  font-weight: normal;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +12,252 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #1A2340;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h2{
+  font-family: Superstar;
+}
+
+.App{
+  display: flex;
+  height: 100vh;
+}
+.col-left{
+  width: 35%;
+  padding-left: 5%;
+}
+.col-right{
+  width: 65%;
+  display: flex;
+}
+
+.game-window{
+  width: 1300px;
+  height: 857px;
+    margin: auto;
+    background: url('./images/GameBG.png') no-repeat 50%; 
+    background-size: contain;
+}
+
+.game-window iframe{
+  padding-top: 39px;
+}
+/*.game-window::before{
+  content: 'CONNECT WALLET';
+  font-family: Superstar;
+  font-size: 32px;
+  color: #e063ef;
+  padding-top: 60px;
+  width: 500px;
+  height: 100px;
+  background: url('./images/WalletLabel.png') no-repeat 50%; 
+  background-size: contain;
+display: block;
+margin: 0 auto;
+margin-top: -105px;
+
+}*/
+
+.sec1{
+  background: url('./images/optionsMenu.png') no-repeat 0%; 
+  background-size: 450px;
+  width: 450px;
+  height: 432px;
+  position: absolute;
+  left: 70px;
+}
+.sec1::before{
+  content: "Retro Arcade";
+  font-family: Superstar;
+  font-size: 32px;
+    color: white;
+    position: absolute;
+    top: 44px;
+    left: 102px;
+}
+.menuList{
+  width: 311px;
+  height: 230px;
+  left: 21px;
+  top: 117px;
+    position: absolute;
+}
+.listItem{
+  border: solid 1px #ffa50000;
+  height: 25%;
+  width: 100%;
+    font-size: 18px;
+    text-align: left;
+    color: #978692;
+}
+.menuList h2{
+  margin: 15px 55px;
+}
+
+.active{
+  color: #F8FBC5;
+}
+
+
+.sec2{
+  background: url('./images/upgradesMenu.png') no-repeat 0%; 
+  background-size: 450px;
+    width: 450px;
+    height: 346px;
+    position: absolute;
+    left: 78px;
+    top: 350px;
+}
+.sec2::before{
+  content: "Featured Assets";
+  font-family: Superstar;
+  font-size: 32px;
+    color: #6C72A2;
+    position: absolute;
+    top: 87px;
+    left: 112px;
+}
+.sec3{
+  background: url('./images/levelsMenu.png') no-repeat 0%; 
+  background-size: 400px;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  left: 70px;
+  bottom: 0px;
+}
+.sec3::before{
+  content: "Games";
+  font-family: Superstar;
+  font-size: 32px;
+    color: #6C72A2;
+    position: absolute;
+    left: 160px;
+    bottom: 343px;
+}
+.background-container{
+	position: fixed;
+	top: 0;
+	left:0;
+	bottom: 0;
+	right: 0;
+  z-index: -1;
+}
+
+.stars {
+ background: #1A2340 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+ position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: block;
+  	z-index: 0;
+}
+
+.twinkling{
+  display: none;
+	width:10000px;
+	height: 100%;
+	background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+	background-size: 1000px 1000px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    
+    -moz-animation:move-background 70s linear infinite;
+  -ms-animation:move-background 70s linear infinite;
+  -o-animation:move-background 70s linear infinite;
+  -webkit-animation:move-background 70s linear infinite;
+  animation:move-background 70s linear infinite;
+	
+}
+
+.gameList{
+  height: 225px;
+    margin-top: 79px;
+    width: 358px;
+    margin-left: 21px;
+    background-color: #ff000000;
+}
+
+.game{
+  height: 50%;
+  display: flex;
+}
+
+.gameIcon{
+  width: 45px;
+  height: 42px;
+  margin: 21px 37px;
+}
+#spaceInvaders{
+  background: url('./images/SpaceInvaders.png') no-repeat 0%; 
+  background-size: contain;
+
+}
+#comingSoon{
+  background: url('./images/ComingSoon.png') no-repeat 0%; 
+  background-size: contain;
+}
+
+.gameName{
+  margin-left: 10px;
+  text-align: left;
+  margin-top: 8px;
+}
+.gameName h2{
+  color: white;
+  margin-bottom: 0px;
+}
+
+.gameName h3{
+  font-family: Superstar;
+  font-size: 32px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: -webkit-linear-gradient(#ff9c00, #f83600);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (max-width: 1672px) {
+.game-window iframe{
+  padding-top: 106px;
+    width: 824px;
+    height: 620px;
+}
+.game-window {
+  width: 883px;
+  height: 837px;
+}
+.sec1{
+  left: 40px;
+}
+.sec3{
+  left: 40px;
+}
+}
+
+@media only screen and (max-width: 1400px) {
+  .game-window iframe{
+    padding-top: 169px;
+    width: 665px;
+    height: 501px;
+  }
+  .game-window {
+    width: 713px;
+    height: 837px;
+  }
+  .col-right{
+    margin-right: 70px;
+  }
+  }
