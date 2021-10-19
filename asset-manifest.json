@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/retromoon/static/css/main.ed1c1e1c.chunk.css",
+    "main.js": "/retromoon/static/js/main.55270e69.chunk.js",
+    "main.js.map": "/retromoon/static/js/main.55270e69.chunk.js.map",
+    "runtime-main.js": "/retromoon/static/js/runtime-main.ed236951.js",
+    "runtime-main.js.map": "/retromoon/static/js/runtime-main.ed236951.js.map",
+    "static/css/2.a627b6fb.chunk.css": "/retromoon/static/css/2.a627b6fb.chunk.css",
+    "static/js/2.67300c47.chunk.js": "/retromoon/static/js/2.67300c47.chunk.js",
+    "static/js/2.67300c47.chunk.js.map": "/retromoon/static/js/2.67300c47.chunk.js.map",
+    "static/js/3.d06e423a.chunk.js": "/retromoon/static/js/3.d06e423a.chunk.js",
+    "static/js/3.d06e423a.chunk.js.map": "/retromoon/static/js/3.d06e423a.chunk.js.map",
+    "index.html": "/retromoon/index.html",
+    "static/css/2.a627b6fb.chunk.css.map": "/retromoon/static/css/2.a627b6fb.chunk.css.map",
+    "static/css/main.ed1c1e1c.chunk.css.map": "/retromoon/static/css/main.ed1c1e1c.chunk.css.map",
+    "static/js/2.67300c47.chunk.js.LICENSE.txt": "/retromoon/static/js/2.67300c47.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/retromoon/static/media/upgradesMenu.9e6e7b65.png",
+    "static/media/logo.6ce24c58.svg": "/retromoon/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ed236951.js",
+    "static/css/2.a627b6fb.chunk.css",
+    "static/js/2.67300c47.chunk.js",
+    "static/css/main.ed1c1e1c.chunk.css",
+    "static/js/main.55270e69.chunk.js"
+  ]
+}
