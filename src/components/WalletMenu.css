@@ -1,0 +1,89 @@
+.wallet-container {
+  position: absolute;
+  color: white;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #000000c9;
+}
+.animationFront {
+  margin: auto;
+}
+
+.wallet-modal {
+  margin: auto;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 500px;
+}
+
+.modalBG {
+  height: 500px;
+}
+
+.closeBTN {
+  margin-left: 21px;
+  margin-top: 65px;
+  position: absolute;
+}
+.closeBTN:hover {
+  cursor: pointer;
+}
+
+.wallet-actions h2 {
+  position: relative;
+  color: white;
+  width: 100%;
+  margin: 7px;
+  margin-bottom: 70px;
+}
+
+.btn {
+  background-image: url("../images/ButtonBG.png");
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  font-size: 23px;
+  color: white;
+  font-family: Superstar;
+  padding: 5px 39px;
+  margin: 50px 36px 0px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  color: #f8fbc5;
+  transform: translate(0px, 1px);
+}
+
+.wallet-actions {
+  position: absolute;
+}
+
+.wallet-actions p {
+  font-size: 20px;
+}
+
+.coins {
+  background: -webkit-linear-gradient(#f4d33a, #e79500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 25px;
+}
+
+.coinLogo {
+  width: 13px;
+  margin-left: 5px;
+}
+
+.yourWallet {
+  color: #f8fbc5;
+}
+
+.buyCoins {
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+}
