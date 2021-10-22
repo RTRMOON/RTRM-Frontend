@@ -8,12 +8,15 @@ import coinLogo from '../images/coinLogo.png'
 
 
 export const WalletMenu = ({showModal, setShowModal}) => {
+
+
     const modalRef = useRef()
 
     const animation = useSpring ({
         config: {
             duration: 300
         },
+        overlay: {zIndex: 1000},
         transform: showModal ? `translateY(0%)` : `translatey(-100%)`
     })
 
@@ -38,7 +41,7 @@ export const WalletMenu = ({showModal, setShowModal}) => {
             <div className='wallet-modal'>
                 <div className='wallet-actions'>
                 <h2>Your Wallet</h2>
-                    <p>Your adress: <a className='yourWallet'>0xx1dh12rghhhhbb1fff0</a></p>
+                    <p>Your adress: <a className='yourWallet'>...</a></p>
                     <p>Deposited coins: <a className='coins'>1000</a><img className='coinLogo' src={coinLogo} /></p>
                     <button className='deposit btn'>Deposit</button>
                     <button className='withdraw btn'>Withdraw</button>
@@ -49,7 +52,8 @@ export const WalletMenu = ({showModal, setShowModal}) => {
             </div>
             </animated.div>
         </div>
-        </animated.div> : null}
+        </animated.div>
+        : null}
         </>
     )
 }

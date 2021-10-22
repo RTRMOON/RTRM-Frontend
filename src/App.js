@@ -1,22 +1,38 @@
+import React, {Component, useState} from 'react'
 import logo from './logo.svg';
 import './App.css';
 import GameWindow from './components/GameWindow';
+import Staking from './components/Staking'
 import homeIcon from './images/social/home.png';
 import twitterIcon from './images/social/twitter.png'
 import discordIcon from './images/social/discord.png'
 import telegramIcon from './images/social/telegram.png'
 import instagramIcon from './images/social/ig.png'
+import { Web3ReactProvider } from '@web3-react/core'
+import Web3 from 'web3'
 
+function getLibrary(provider) {
+  return new Web3(provider)
+}
+class App extends Component {
 
-function App() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: "arcade",
+    };
+  }
 
-  return (
+  render(){
+
+  return(
+    <Web3ReactProvider getLibrary={getLibrary}>
     <div className="App">
       <div className="col-left">
         <div className="sec1">
           <h1>Dashboard</h1>
           <div className="menuList">
-            <div className="listItem 1 active">
+            <div className="listItem 1 active" onClick={() => this.setState({ active: "arcade" })}>
               <h2>Arcade</h2>
             </div>
             <div className="listItem 1 notactive">
@@ -58,14 +74,17 @@ function App() {
         </div>
       </div>
       <div className="col-right">
-<GameWindow />
+      {this.state.active  === "arcade" && <GameWindow />}
+      {this.state.active  === "staking" && <Staking />}
       </div>
       <div class="background-container">
           <div class="stars"></div>
           <div class="twinkling"></div>
       </div>
     </div>
+    </Web3ReactProvider>
   );
+  }
 }
 
 export default App;

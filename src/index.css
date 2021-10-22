@@ -70,7 +70,7 @@ h2 {
   position: absolute;
   top: 7px;
   margin: 0;
-  width: 86%;
+  width: 50%;
 }
 
 .sec1 h1 {
@@ -100,6 +100,7 @@ h2 {
   margin: 3px 0px;
   padding: 22px 47px;
   position: relative;
+  max-width: 250px;
 }
 
 .menuList h2 {
@@ -252,8 +253,33 @@ h2 {
     bottom: 110px;
   }
 }
+.active:hover {
+  cursor: pointer;
+}
 
 .notactive h2:hover {
   animation: shake 0.82s linear;
   cursor: pointer;
+}
+.notset:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.active::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 11.5px;
+  background-color: green;
+  margin-left: -36.5px;
+  background: rgb(209, 250, 110);
+  background: linear-gradient(
+    180deg,
+    rgba(209, 250, 110, 1) 0%,
+    rgba(154, 201, 39, 1) 100%
+  );
+  margin-top: -8px;
+  position: absolute;
+  border-bottom: solid 1.5px #2b074d;
 }

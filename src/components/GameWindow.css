@@ -58,3 +58,10 @@ FOCUSED
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.nowConnected {
+  font-size: 1.2rem;
+  text-shadow: none;
+  background: -webkit-linear-gradient(#5a93ff, #7fcbff);
+  -webkit-background-clip: text;
+}
