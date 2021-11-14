@@ -72,9 +72,15 @@ FOCUSED
   padding-left: 4px;
 }
 
-.Rmoon-token {
+.RMOON-Token {
   margin-left: 40px;
   background: -webkit-linear-gradient(#c83af4, #a100e7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (min-width: 1500px) {
+  .col-right {
+    right: 12%;
+  }
 }

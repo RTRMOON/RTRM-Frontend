@@ -1,7 +1,14 @@
 import React, {Component, useState} from 'react'
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
 import logo from './logo.svg';
 import './App.css';
 import GameWindow from './components/GameWindow';
+import MobileWindow from './components/MobileWindow';
 import Staking from './components/Staking'
 import homeIcon from './images/social/home.png';
 import twitterIcon from './images/social/twitter.png'
@@ -26,6 +33,8 @@ class App extends Component {
   render(){
 
   return(
+    <>
+    <BrowserView>
     <Web3ReactProvider getLibrary={getLibrary}>
     <div className="App">
       <div className="col-left">
@@ -83,6 +92,11 @@ class App extends Component {
       </div>
     </div>
     </Web3ReactProvider>
+    </BrowserView>
+    <MobileView>
+      <MobileWindow />
+    </MobileView>
+    </>
   );
   }
 }
