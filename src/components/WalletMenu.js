@@ -4,11 +4,10 @@ import './WalletMenu.css'
 import walletBG from '../images/ModalMenu.png'
 import closeBTN from '../images/closeBTN.png'
 import coinLogo from '../images/coinLogo.png'
+import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 
 
-
-export const WalletMenu = ({showModal, setShowModal}) => {
-
+export const WalletMenu = ({showModal, setShowModal, BNBbalance, Rmoonbalance, account}) => {
 
     const modalRef = useRef()
 
@@ -41,11 +40,10 @@ export const WalletMenu = ({showModal, setShowModal}) => {
             <div className='wallet-modal'>
                 <div className='wallet-actions'>
                 <h2>Your Wallet</h2>
-                    <p>Your adress: <a className='yourWallet'>...</a></p>
-                    <p>Deposited coins: <a className='coins'>1000</a><img className='coinLogo' src={coinLogo} /></p>
-                    <button className='deposit btn'>Deposit</button>
-                    <button className='withdraw btn'>Withdraw</button>
-                    <button className='buyCoins btn'>Buy Coins</button>
+                    <p>Your adress: <a className='yourWallet'>...{account.substring(33, 43)}</a></p>
+                    <p>BNB Balance: <a className='coins'>{BNBbalance}</a><img className='BNBlogo' src={BNBlogo}/></p>
+                    <p>RMOON Balance: <a className='coins RMOON'>{Rmoonbalance} $R</a></p>
+                    <button className='deposit btn'>Buy RMOON Token</button>
                 </div>
                 <img src={closeBTN} className='closeBTN' onClick={() => setShowModal(prev => !prev)}/>
                 <img src={walletBG} className='modalBG'/>

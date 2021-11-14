@@ -12,8 +12,9 @@ FOCUSED
 
 .col-right {
   display: flex;
+  right: 2%;
+  top: 12%;
   position: absolute;
-  margin: 6% 0% auto 35%;
 }
 .game-window {
   width: 102vh;
@@ -64,4 +65,16 @@ FOCUSED
   text-shadow: none;
   background: -webkit-linear-gradient(#5a93ff, #7fcbff);
   -webkit-background-clip: text;
+}
+
+.BNBlogo {
+  width: 14px;
+  padding-left: 4px;
+}
+
+.Rmoon-token {
+  margin-left: 40px;
+  background: -webkit-linear-gradient(#c83af4, #a100e7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

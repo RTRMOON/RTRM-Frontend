@@ -48,8 +48,9 @@
   font-size: 23px;
   color: white;
   font-family: Superstar;
-  padding: 5px 39px;
+  padding: 13px 39px;
   margin: 50px 36px 0px;
+  overflow: visible;
 }
 
 .btn:hover {
@@ -60,6 +61,7 @@
 
 .wallet-actions {
   position: absolute;
+  width: 100%;
 }
 
 .wallet-actions p {
@@ -87,4 +89,10 @@
   display: block;
   margin: auto;
   margin-top: 40px;
+}
+
+.RMOON {
+  background: -webkit-linear-gradient(#c83af4, #a100e7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
