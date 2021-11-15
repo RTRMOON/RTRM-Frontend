@@ -1,6 +1,6 @@
 {
   "name": "retromoon",
-  "homepage": "retromoon.netlify.app",
+  "homepage": "http://retromoon.netlify.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
