@@ -12,7 +12,7 @@ import MobileWindow from './components/MobileWindow';
 import Staking from './components/Staking'
 import homeIcon from './images/social/home.png';
 import twitterIcon from './images/social/twitter.png'
-import discordIcon from './images/social/discord.png'
+import chartIcon from './images/social/chart.png'
 import telegramIcon from './images/social/telegram.png'
 import instagramIcon from './images/social/ig.png'
 import { Web3ReactProvider } from '@web3-react/core'
@@ -62,22 +62,22 @@ class App extends Component {
               <div className="gameIcon" id="spaceInvaders"></div>
               <div className="gameName">
                 <h2>Space Invaders</h2>
-                <h3>Insert Coins</h3>
+                <h3>Game Selected</h3>
               </div>
             </div>
             <div className="game">
             <div className="gameIcon" id="comingSoon"></div>
               <div className="gameName">
-                <h2>Coming Soon</h2>
+                <h2>Coming Soon...</h2>
               </div>
             </div>
           </div>
           <div className='social-icons'>
             <a href='https://www.retromoonbsc.com/' target='_blank'><img src={homeIcon} /></a>
-            <a href='/'><img src={discordIcon} /></a>
-            <a href='/'><img src={telegramIcon} /></a>
-            <a href='/'><img src={twitterIcon} /></a>
-            <a href='/'><img src={instagramIcon} /></a>
+            <a href='/'><img src={chartIcon} /></a>
+            <a href='https://t.me/retromoonofficial' target='_blank'><img src={telegramIcon} /></a>
+            <a href='https://twitter.com/retromoontoken1' target='_blank'><img src={twitterIcon} /></a>
+            <a href='https://instagram.com/retromoonbsc' target='_blank'><img src={instagramIcon} /></a>
 
           </div>
         </div>

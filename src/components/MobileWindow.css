@@ -29,7 +29,23 @@
 }
 .gameboy p {
   font-size: 32px;
-  color: white;
+  color: #f9fbc6;
   padding: 0px 22px;
   text-align: center;
+}
+
+.mobileWindow .social-icons {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+.mobileWindow .social-icons a {
+  width: 20%;
+  margin: auto;
+  margin: 0% 2%;
+}
+
+.mobileWindow .social-icons img {
+  width: 90%;
 }
