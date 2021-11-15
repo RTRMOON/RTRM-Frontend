@@ -62,7 +62,7 @@ class App extends Component {
               <div className="gameIcon" id="spaceInvaders"></div>
               <div className="gameName">
                 <h2>Space Invaders</h2>
-                <h3>Game Selected</h3>
+                <h3>Selected</h3>
               </div>
             </div>
             <div className="game">
@@ -76,7 +76,7 @@ class App extends Component {
             <a href='https://www.retromoonbsc.com/' target='_blank'><img src={homeIcon} /></a>
             <a href='/'><img src={chartIcon} /></a>
             <a href='https://t.me/retromoonofficial' target='_blank'><img src={telegramIcon} /></a>
-            <a href='https://twitter.com/retromoontoken1' target='_blank'><img src={twitterIcon} /></a>
+            <a href='https://twitter.com/Retromoonbsc' target='_blank'><img src={twitterIcon} /></a>
             <a href='https://instagram.com/retromoonbsc' target='_blank'><img src={instagramIcon} /></a>
 
           </div>
