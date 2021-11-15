@@ -1,6 +1,6 @@
 {
   "name": "retromoon",
-  "homepage": "http://Aceofspadesp50.github.io/retromoon",
+  "homepage": "retromoon.netlify.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
