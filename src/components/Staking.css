@@ -1,0 +1,121 @@
+.stakingWindow {
+  font-family: superstar;
+  color: white;
+}
+
+.stakingWindow {
+  width: 102vh;
+  height: 84vh;
+  margin-top: -5vh;
+  background: url("../images/StakingMenu.png") no-repeat 50%;
+  background-size: contain;
+}
+
+.stakingHeader {
+  height: 47px;
+  width: 310px;
+  margin: auto;
+  font-size: 2.2rem;
+  line-height: 6vh;
+}
+
+.stakingContent {
+  width: 47%;
+  height: 88%;
+  margin: auto;
+  margin-top: 6vh;
+  font-size: 3vh;
+}
+
+.stakingContent p {
+  margin: 0px;
+  margin-top: 10px;
+}
+
+.TVLUSD {
+  font-size: 2.5vh;
+  color: #b7b7b7;
+  margin-top: 0px !important;
+}
+
+.tokenNumber {
+  color: #f8fbc5;
+}
+
+.stakingInfo {
+  display: flex;
+  text-align: left;
+  margin: 4vh 0px;
+}
+.col-2 {
+  width: 50%;
+}
+
+.right-col p {
+  padding-left: 90px;
+}
+
+.stakeButtons input,
+.unstakeButtons input {
+  font-family: superstar;
+  color: white;
+  background: url("../images/Large-button.png") no-repeat;
+  background-size: contain;
+  width: 33vh;
+  height: 4.8vh;
+  border: none;
+  font-size: 3vh;
+  padding: 0 2vh 0 2vh;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.max-button {
+  font-family: superstar;
+  color: white;
+  background: url("../images/max-button.png") no-repeat;
+  background-size: contain;
+  width: 8vh;
+  margin: 0;
+  height: 5vh;
+  border: none;
+  font-size: 3vh;
+  padding-bottom: 5px;
+  margin-left: 2vh;
+}
+.max-button:hover,
+.stake-button:hover,
+.claim-button:hover {
+  cursor: pointer;
+  transform: translate(0px, 1px);
+}
+
+.stake-button {
+  font-family: superstar;
+  color: #2d323c;
+  background: url("../images/confirm-button-large.png") no-repeat;
+  border: none;
+  width: 47vh;
+  background-size: contain;
+  font-size: 3vh;
+  height: 5vh;
+  margin-top: 1vh;
+}
+.claim-button {
+  font-family: superstar;
+  color: white;
+  background: url("../images/button-large.png") no-repeat;
+  border: none;
+  width: 47vh;
+  background-size: contain;
+  font-size: 3vh;
+  height: 5vh;
+  margin-top: 1vh;
+}
+
+.unstakeButtons {
+  margin-top: 3vh;
+}

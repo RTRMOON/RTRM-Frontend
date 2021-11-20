@@ -18,6 +18,7 @@ import instagramIcon from './images/social/ig.png'
 import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
 
+
 function getLibrary(provider) {
   return new Web3(provider)
 }
@@ -28,8 +29,8 @@ class App extends Component {
     this.state = {
       active: "arcade",
     };
+    
   }
-
   render(){
 
   return(
@@ -41,7 +42,7 @@ class App extends Component {
         <div className="sec1">
           <h1>Dashboard</h1>
           <div className="menuList">
-            <div className="listItem 1 active" onClick={() => this.setState({ active: "arcade" })}>
+            <div className={this.state.active === 'arcade' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "arcade" })}>
               <h2>Arcade</h2>
             </div>
             <div className="listItem 1 notactive">
@@ -50,7 +51,7 @@ class App extends Component {
             <div className="listItem 1 notactive">
             <h2>NFT Farming</h2>
             </div>
-            <div className="listItem 1 notactive">
+            <div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>
             <h2>Staking</h2>
             </div>
           </div>
@@ -61,7 +62,7 @@ class App extends Component {
             <div className="game">
               <div className="gameIcon" id="spaceInvaders"></div>
               <div className="gameName">
-                <h2>Space Invaders</h2>
+                <h2>Moon Invaders</h2>
                 <h3>Selected</h3>
               </div>
             </div>

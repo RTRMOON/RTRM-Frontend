@@ -41,9 +41,9 @@ export const WalletMenu = ({showModal, setShowModal, BNBbalance, Rmoonbalance, a
                 <div className='wallet-actions'>
                 <h2>Your Wallet</h2>
                     <p>Your adress: <a className='yourWallet'>...{account.substring(33, 43)}</a></p>
-                    <p>BNB Balance: <a className='coins'>{BNBbalance}</a><img className='BNBlogo' src={BNBlogo}/></p>
-                    <p>RMOON Balance: <a className='coins RMOON'>{Rmoonbalance} $R</a></p>
-                    <button className='deposit btn'>Buy RMOON Token</button>
+                    <p>$BNB Balance: <a className='coins'>{BNBbalance}</a><img className='BNBlogo' src={BNBlogo}/></p>
+                    <p>$RETRO Balance: <a className='coins RMOON'>{Rmoonbalance} $R</a></p>
+                    <button className='deposit btn'>Buy $RETRO Token</button>
                 </div>
                 <img src={closeBTN} className='closeBTN' onClick={() => setShowModal(prev => !prev)}/>
                 <img src={walletBG} className='modalBG'/>
