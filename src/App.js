@@ -26,7 +26,7 @@ const audioList1 = [
     name: 'Moon Invaders Theme',
     singer: 'Dramshop Sound',
     cover:
-      'http://res.cloudinary.com/alick/image/upload/v1502375978/bedtime_stories_bywggz.jpg',
+      'https://retromoon.netlify.app/music/mooninvaders-theme-cover.jpg',
     musicSrc:
       'https://retromoon.netlify.app/music/mooninvaders-theme.wav',
   },
@@ -37,6 +37,8 @@ const options = {
   audioLists: audioList1,
   showDownload: false,
   glassBg: false,
+  defaultVolume: 0.2,
+  autoPlay: true,
 }
 
 function getLibrary(provider) {
