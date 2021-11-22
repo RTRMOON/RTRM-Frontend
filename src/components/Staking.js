@@ -8,7 +8,7 @@ function Staking() {
                 <div className='stakingHeader'>Staking</div>
                 <div className='stakingContent'>
                     <p>Total Value Locked (TVL):</p>
-                    <p>2,342,524,444 $RETROM</p>
+                    <p>2,342,524,444 $RETRO</p>
                     <p className='TVLUSD'>$2,523,444</p>
                     <div className='stakingInfo'>
                         <div className='col-2'><p>Earned</p><p><a className='tokenNumber'>2.444</a> $RETRO</p><p>Staked</p><p><a className='tokenNumber'>10.244</a> $RETRO</p></div>

@@ -15,14 +15,44 @@ import twitterIcon from './images/social/twitter.png'
 import chartIcon from './images/social/chart.png'
 import telegramIcon from './images/social/telegram.png'
 import instagramIcon from './images/social/ig.png'
+import soundIcon from './images/sound_locked.png'
 import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
+import ReactJkMusicPlayer from 'react-jinke-music-player'
+import 'react-jinke-music-player/assets/index.css'
 
+const audioList1 = [
+  {
+    name: 'Moon Invaders Theme',
+    singer: 'Dramshop Sound',
+    cover:
+      'http://res.cloudinary.com/alick/image/upload/v1502375978/bedtime_stories_bywggz.jpg',
+    musicSrc:
+      'https://retromoon.netlify.app/music/mooninvaders-theme.wav',
+  },
+]
+
+const options = {
+  // audio lists model
+  audioLists: audioList1,
+  showDownload: false,
+  glassBg: false,
+}
 
 function getLibrary(provider) {
   return new Web3(provider)
 }
 class App extends Component {
+
+  state = {
+    unmount: false,
+    params: {
+      ...options,
+      getAudioInstance: (audio) => {
+        this.audio = audio
+      },
+    },
+  }
 
   constructor(props) {
     super(props);
@@ -38,6 +68,7 @@ class App extends Component {
     <BrowserView>
     <Web3ReactProvider getLibrary={getLibrary}>
     <div className="App">
+    <ReactJkMusicPlayer {...options} />
       <div className="col-left">
         <div className="sec1">
           <h1>Dashboard</h1>

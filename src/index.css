@@ -261,8 +261,8 @@ h2 {
   animation: shake 0.82s linear;
   cursor: pointer;
 }
-.notset:hover {
-  color: white;
+
+.listItem h2:hover {
   cursor: pointer;
 }
 
@@ -282,4 +282,81 @@ h2 {
   margin-top: -8px;
   position: absolute;
   border-bottom: solid 1.5px #2b074d;
+}
+
+.notSet:hover {
+  color: white !important;
+  cursor: pointer;
+}
+
+.notSet h2:hover {
+  color: white;
+}
+
+.reload-btn,
+.rc-switch,
+.loop-btn,
+.audio-lists-btn {
+  display: none !important;
+}
+
+.music-player-panel {
+  font-family: superstar !important;
+  height: 70px;
+  border-top: solid 9px #575d6b;
+}
+
+.rc-slider-handle {
+  border-radius: 0;
+}
+
+.react-jinke-music-player {
+  right: 0px;
+  bottom: 0px;
+  left: unset !important;
+  top: unset !important;
+  display: block !important;
+}
+.react-jinke-music-player:hover {
+  transform: translate(0px, 1px) !important;
+}
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-handle,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-track {
+  background-color: #2b074d !important;
+}
+
+.react-jinke-music-player-main svg:active,
+.react-jinke-music-player-main svg:hover {
+  color: #f300ffa6 !important;
+}
+
+.music-player-controller {
+  background: url("./images/sound_locked.png") 50% no-repeat !important;
+  border: none !important;
+}
+.music-player-controller .controller-title {
+  display: none;
+}
+.react-jinke-music-player .music-player-controller.music-player-playing:before {
+  display: none !important;
+}
+.music-player-controller:hover {
+  color: none !important;
+}
+.react-jinke-music-player
+  .music-player-controller
+  .music-player-controller-setting {
+  color: rgba(255, 0, 0, 0) !important;
+  background: none !important;
+}
+.react-jinke-music-player
+  .music-player-controller
+  .music-player-controller-setting {
+  background: none;
 }
