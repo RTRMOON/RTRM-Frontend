@@ -1,10 +1,6 @@
-import React, {Component, useState} from 'react'
-import {
-  BrowserView,
-  MobileView,
-  isBrowser,
-  isMobile
-} from "react-device-detect";
+import React, {Component, useState} from 'react';
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+
 import logo from './logo.svg';
 import './App.css';
 import GameWindow from './components/GameWindow';
@@ -20,6 +16,9 @@ import { Web3ReactProvider } from '@web3-react/core'
 import Web3 from 'web3'
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
+
+import Protect from 'react-app-protect'
+import 'react-app-protect/dist/index.css'
 
 const audioList1 = [
   {
@@ -66,7 +65,8 @@ class App extends Component {
   render(){
 
   return(
-    <>
+    <Protect sha512='76F08707050E5674BCA900A54782DCCD6EF4B452EF8E18FABAA259D4447825515CD7C29281C93BE96438F7859DF701498CBC99F7642A1C1B11335742C67B6766'>
+
     <BrowserView>
     <Web3ReactProvider getLibrary={getLibrary}>
     <div className="App">
@@ -130,7 +130,7 @@ class App extends Component {
     <MobileView>
       <MobileWindow />
     </MobileView>
-    </>
+    </Protect>
   );
   }
 }

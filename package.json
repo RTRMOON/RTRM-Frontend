@@ -19,6 +19,7 @@
     "ethers": "^5.5.1",
     "fortmatic": "^2.2.1",
     "react": "^17.0.2",
+    "react-app-protect": "^1.0.8",
     "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-godot": "^1.0.0",
