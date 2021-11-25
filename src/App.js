@@ -70,7 +70,7 @@ class App extends Component {
     <BrowserView>
     <Web3ReactProvider getLibrary={getLibrary}>
     <div className="App">
-    <ReactJkMusicPlayer {...options} />
+    {/*<ReactJkMusicPlayer {...options} />*/}
       <div className="col-left">
         <div className="sec1">
           <h1>Dashboard</h1>

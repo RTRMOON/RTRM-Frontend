@@ -60,7 +60,7 @@ h2 {
   width: 374px;
   height: 300px;
   left: 50px;
-  top: 50px;
+  top: 10%;
   position: absolute;
 }
 .sec1 h2 {
@@ -136,7 +136,7 @@ h2 {
   height: 330px;
   position: absolute;
   left: 50px;
-  bottom: 40px;
+  bottom: 10%;
 }
 .sec3::before {
   content: "Games";
@@ -246,11 +246,11 @@ h2 {
 @media screen and (min-height: 900px) {
   .sec1 {
     left: 120px;
-    top: 70px;
+    top: 13%;
   }
   .sec3 {
     left: 130px;
-    bottom: 110px;
+    bottom: 13%;
   }
 }
 .active:hover {
