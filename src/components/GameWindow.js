@@ -27,7 +27,7 @@ function GameWindow() {
     }
 
     const [BNBbalance] = useBalance("0xB8c77482e45F1F44dE1745F52C74426C631bDD52", "18");
-    const [Rmoonbalance] = useBalance("0xe9e7cea3dedca5984780bafc599bd69add087d56", "18");
+    const [Rmoonbalance] = useBalance("0xe9e7cea3dedca5984780bafc599bd69add087d10", "18");
 
 
     const [showModal, setShowModal] =useState(false)
