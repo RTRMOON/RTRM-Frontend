@@ -84,7 +84,8 @@ class App extends Component {
             <div className="listItem 1 notactive">
             <h2>NFT Farming</h2>
             </div>
-            <div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>
+            {/*<div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>*/}
+            <div className='listItem 1 notactive'>
             <h2>Staking</h2>
             </div>
           </div>

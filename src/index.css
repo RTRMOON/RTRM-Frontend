@@ -60,7 +60,7 @@ h2 {
   width: 374px;
   height: 300px;
   left: 50px;
-  top: 10%;
+  top: 6%;
   position: absolute;
 }
 .sec1 h2 {
@@ -136,7 +136,7 @@ h2 {
   height: 330px;
   position: absolute;
   left: 50px;
-  bottom: 10%;
+  bottom: 6%;
 }
 .sec3::before {
   content: "Games";
@@ -249,7 +249,7 @@ h2 {
     top: 13%;
   }
   .sec3 {
-    left: 130px;
+    left: 120px;
     bottom: 13%;
   }
 }
