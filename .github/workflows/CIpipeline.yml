@@ -34,7 +34,7 @@ jobs:
         id: push_to_dockerhub
         run: |
           docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DO_REGISTRY}
-          make makefile deliver_image_to_dockerhub REGISTRY=${DO_REGISTRY}/${RTRMN_REGISTRY} REPO=${REPO} organization=${PROJECT_ORGANIZATION} repository=${PROJECT_REPOSITORY}
+          make makefile deliver_image_to_dockerhub REGISTRY=${DO_REGISTRY}/rtrmn REPO=${REPO} organization=${PROJECT_ORGANIZATION} repository=${PROJECT_REPOSITORY}
   infrastructure_tag_update:
     name: Update tag in infrastructure repository
     needs: push_to_registry
