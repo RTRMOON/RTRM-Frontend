@@ -1,0 +1,64 @@
+name: front-pipeline
+on:
+  push:
+    branches:
+      - main      
+jobs:
+  release-git:
+    name: release-on-git
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: "semantic-release npm"
+        run: npm run release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    needs: release-git
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DO_REGISTRY: "registry.digitalocean.com"
+      REPO: "dev"
+      PROJECT_ORGANIZATION: ${{ secrets.PROJECT_ORGANIZATION }}
+      PROJECT_REPOSITORY: ${{ secrets.PROJECT_REPOSITORY }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Push to Docker Hub
+        id: push_to_dockerhub
+        run: |
+          docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DO_REGISTRY}
+          make makefile deliver_image_to_dockerhub REGISTRY=${DO_REGISTRY}/${RTRMN_REGISTRY} REPO=${REPO} organization=${PROJECT_ORGANIZATION} repository=${PROJECT_REPOSITORY}
+  infrastructure_tag_update:
+    name: Update tag in infrastructure repository
+    needs: push_to_registry
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GIT_USERNAME : ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL : ${{ secrets.GIT_EMAIL }}
+      INFRASTRUCTURE_ORGANIZATION: ${{ secrets.PROJECT_ORGANIZATION }}
+      INFRASTRUCTURE_REPOSITORY: ${{ secrets.INFRASTRUCTURE_REPOSITORY }}
+      INFRASTRUCTURE_DO_REPOSITORY: ${{ secrets.INFRASTRUCTURE_DO_REPOSITORY }}
+      INFRASTRUCTURE_ENVIRONMENT_FOLDER: "rtrmn-frontend"
+      PROJECT_ORGANIZATION: ${{ secrets.PROJECT_ORGANIZATION }}
+      PROJECT_REPOSITORY: ${{ secrets.PROJECT_REPOSITORY }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: update infrastructure
+        run: |
+          tag=$(make retrivetag organization=${PROJECT_ORGANIZATION} repository=${PROJECT_REPOSITORY})
+          git config --global user.email "${GIT_EMAIL}"
+          git config --global user.name "${GIT_USERNAME}"
+          git clone http://${GIT_USERNAME}:${GH_TOKEN}@github.com/${INFRASTRUCTURE_ORGANIZATION}/${INFRASTRUCTURE_DO_REPOSITORY}.git
+          cd ${INFRASTRUCTURE_DO_REPOSITORY}
+          sed -i "s/frontend:v[0-9]*\\.[0-9]*\\.[0-9]*.*/${tag}/g" ${INFRASTRUCTURE_ENVIRONMENT_FOLDER}/values.yaml
+          git add ${INFRASTRUCTURE_ENVIRONMENT_FOLDER}/values.yaml
+          git commit -m "update tag" && git push http://${GIT_USERNAME}:${GH_TOKEN}@github.com/${INFRASTRUCTURE_ORGANIZATION}/${INFRASTRUCTURE_DO_REPOSITORY}.git || :
