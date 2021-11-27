@@ -37,7 +37,44 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "release": "npx -p @semantic-release/changelog@^5.0.0 -p @semantic-release/git@^9.0.0  -p semantic-release@^17.0.0 semantic-release --no-ci --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RTRMOON/RTRM-Frontend"
+  },
+  "release": {
+    "branches": [
+      "master",
+      {
+        "name": "main",
+        "channel": "develop"
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package-lock.json",
+            "package.json",
+            "CHANGELOG.md"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
   },
   "eslintConfig": {
     "extends": [
