@@ -1,7 +1,11 @@
 {
   "name": "retromoon",
   "homepage": "http://retromoon.netlify.app",
+<<<<<<< HEAD
   "version": "1.0.0",
+=======
+  "version": "1.0.2",
+>>>>>>> 20242871c9b9822eb5f693076c29fce7185b63c5
   "private": true,
   "dependencies": {
     "@ethersproject/providers": "^5.5.0",

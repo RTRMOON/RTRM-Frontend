@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.1...v1.0.2) (2021-11-29)
+
+
+### Bug Fixes
+
+* buy link updated ([0699479](https://github.com/RTRMOON/RTRM-Frontend/commit/069947976716a01ba19a6b4494d69bd53c317378))
+* new link ([dea5e69](https://github.com/RTRMOON/RTRM-Frontend/commit/dea5e691cf28c8f3c0fd4f012346c631a4e53510))
+
 ## [1.0.1](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.0...v1.0.1) (2021-11-29)
 
 
