@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.3...v1.0.4) (2021-12-03)
+
+
+### Bug Fixes
+
+* typos and BNB2 ([3ffb97c](https://github.com/RTRMOON/RTRM-Frontend/commit/3ffb97c0278f2a4e805c9e480e07cdedafa2a402))
+* typos2 ([4a61ac8](https://github.com/RTRMOON/RTRM-Frontend/commit/4a61ac8cb1d7d97b4309dfe6e87eea5105db194f))
+
 ## [1.0.3](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.2...v1.0.3) (2021-12-03)
 
 
