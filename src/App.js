@@ -108,7 +108,7 @@ class App extends Component {
           </div>
           <div className='social-icons'>
             <a href='https://www.retromoonbsc.com/' target='_blank'><img src={homeIcon} /></a>
-            <a href='/'><img src={chartIcon} /></a>
+            <a href='https://poocoin.app/tokens/0xe81fe8bbbea13a0fd5cc0aafb6062631c659ec54' target='_blank'><img src={chartIcon} /></a>
             <a href='https://t.me/retromoonofficial' target='_blank'><img src={telegramIcon} /></a>
             <a href='https://twitter.com/Retromoonbsc' target='_blank'><img src={twitterIcon} /></a>
             <a href='https://instagram.com/retromoonbsc' target='_blank'><img src={instagramIcon} /></a>

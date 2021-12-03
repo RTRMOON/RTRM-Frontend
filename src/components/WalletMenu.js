@@ -40,7 +40,7 @@ export const WalletMenu = ({showModal, setShowModal, BNBbalance, Rmoonbalance, a
             <div className='wallet-modal'>
                 <div className='wallet-actions'>
                 <h2>Your Wallet</h2>
-                    <p>Your adress: <a className='yourWallet'>...{account.substring(33, 43)}</a></p>
+                    <p>Your address: <a className='yourWallet'>...{account.substring(33, 43)}</a></p>
                     <p>$BNB Balance: <a className='coins'>{BNBbalance}</a><img className='BNBlogo' src={BNBlogo}/></p>
                     <p>$RETRO Balance: <a className='coins RMOON'>{Rmoonbalance} $R</a></p>
                     <a href='https://pancakeswap.finance/swap#/swap?outputCurrency=0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54' target='_blank'><button className='deposit btn' onClick="window.open('https://pancakeswap.finance/swap#/swap?outputCurrency=0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54')">Buy $RETRO Tokens</button></a>

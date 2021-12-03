@@ -1,11 +1,7 @@
 {
   "name": "retromoon",
   "homepage": "http://retromoon.netlify.app",
-<<<<<<< HEAD
-  "version": "1.0.0",
-=======
   "version": "1.0.2",
->>>>>>> 20242871c9b9822eb5f693076c29fce7185b63c5
   "private": true,
   "dependencies": {
     "@ethersproject/providers": "^5.5.0",
@@ -39,7 +35,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "export SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "npx -p @semantic-release/changelog@^5.0.0 -p @semantic-release/git@^9.0.0  -p semantic-release@^17.0.0 semantic-release --no-ci --debug"
