@@ -8,7 +8,7 @@ RUN npm ci --silent
 # RUN npm install react-scripts@3.4.1 -g --silent --save
 RUN chmod +x node_modules/.bin/react-scripts
 COPY ./ ./
-RUN npm run build
+RUN npm run buildserv
 # stage 2 - build the final image and copy the react build files
 FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
