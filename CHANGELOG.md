@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.7...v1.0.8) (2021-12-06)
+
+
+### Bug Fixes
+
+* new testbuild ([41eba36](https://github.com/RTRMOON/RTRM-Frontend/commit/41eba3623c1740a60d5f57616a127d20a8baaec2))
+
 ## [1.0.7](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.6...v1.0.7) (2021-12-06)
 
 
