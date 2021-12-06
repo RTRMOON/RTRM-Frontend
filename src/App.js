@@ -1,9 +1,10 @@
 import React, {Component, useState} from 'react';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-
+import {Switch, Route} from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import GameWindow from './components/GameWindow';
+import GameWindowDev from './components/GameWindowDev'
 import MobileWindow from './components/MobileWindow';
 import Staking from './components/Staking'
 import homeIcon from './images/social/home.png';
@@ -19,6 +20,7 @@ import 'react-jinke-music-player/assets/index.css'
 
 import Protect from 'react-app-protect'
 import 'react-app-protect/dist/index.css'
+import devtest from './pages/devtest';
 
 const audioList1 = [
   {
@@ -45,6 +47,9 @@ function getLibrary(provider) {
 }
 class App extends Component {
 
+
+  
+
   state = {
     unmount: false,
     params: {
@@ -65,7 +70,8 @@ class App extends Component {
   render(){
 
   return(
-<>
+    <Switch>
+      <Route exact path='/'>
     <BrowserView>
     <Web3ReactProvider getLibrary={getLibrary}>
     <div className="App">
@@ -130,7 +136,79 @@ class App extends Component {
     <MobileView>
       <MobileWindow />
     </MobileView>
-    </>
+    </Route>
+    <Route exact path='/devtest'>
+    <Protect sha512='76F08707050E5674BCA900A54782DCCD6EF4B452EF8E18FABAA259D4447825515CD7C29281C93BE96438F7859DF701498CBC99F7642A1C1B11335742C67B6766'
+blur={true}
+boxTitle={'Mint mode is almost here, come back at 9PM UTC!'}
+>
+    <BrowserView>
+    <Web3ReactProvider getLibrary={getLibrary}>
+    <div className="App">
+    {/*<ReactJkMusicPlayer {...options} />*/}
+      <div className="col-left">
+        <div className="sec1">
+          <h1>Dashboard</h1>
+          <div className="menuList">
+            <div className={this.state.active === 'arcade' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "arcade" })}>
+              <h2>Arcade</h2>
+            </div>
+            <div className="listItem 1 notactive">
+              <h2>Marketplace</h2>
+            </div>
+            <div className="listItem 1 notactive">
+            <h2>NFT Farming</h2>
+            </div>
+            {/*<div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>*/}
+            <div className='listItem 1 notactive'>
+            <h2>Staking</h2>
+            </div>
+          </div>
+        </div>
+        {/*<div className="sec2"></div>*/}
+        <div className="sec3">
+          <div className="gameList">
+            <div className="game">
+              <div className="gameIcon" id="spaceInvaders"></div>
+              <div className="gameName">
+                <h2>Moon Invaders</h2>
+                <h3>Selected</h3>
+              </div>
+            </div>
+            <div className="game">
+            <div className="gameIcon" id="comingSoon"></div>
+              <div className="gameName">
+                <h2>Coming Soon...</h2>
+              </div>
+            </div>
+          </div>
+          <div className='social-icons'>
+            <a href='https://www.retromoonbsc.com/' target='_blank'><img src={homeIcon} /></a>
+            <a href='https://poocoin.app/tokens/0xe81fe8bbbea13a0fd5cc0aafb6062631c659ec54' target='_blank'><img src={chartIcon} /></a>
+            <a href='https://t.me/retromoonofficial' target='_blank'><img src={telegramIcon} /></a>
+            <a href='https://twitter.com/Retromoonbsc' target='_blank'><img src={twitterIcon} /></a>
+            <a href='https://instagram.com/retromoonbsc' target='_blank'><img src={instagramIcon} /></a>
+
+          </div>
+        </div>
+      </div>
+      <div className="col-right">
+      {this.state.active  === "arcade" && <GameWindowDev />}
+      {this.state.active  === "staking" && <Staking />}
+      </div>
+      <div class="background-container">
+          <div class="stars"></div>
+          <div class="twinkling"></div>
+      </div>
+    </div>
+    </Web3ReactProvider>
+    </BrowserView>
+    <MobileView>
+      <MobileWindow />
+    </MobileView>
+    </Protect>
+    </Route>
+    </Switch>
   );
   }
 }
