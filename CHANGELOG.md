@@ -1,3 +1,11 @@
+## [1.0.7](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.6...v1.0.7) (2021-12-06)
+
+
+### Bug Fixes
+
+* devtest upload ([13df1e7](https://github.com/RTRMOON/RTRM-Frontend/commit/13df1e740c2d8ae168399c43a19175fe97a305bc))
+* devtest upload ([20813cf](https://github.com/RTRMOON/RTRM-Frontend/commit/20813cf42428e28fcdfa053a68a4ad42584cc322))
+
 ## [1.0.6](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.5...v1.0.6) (2021-12-06)
 
 
