@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.8...v1.0.9) (2021-12-06)
+
+
+### Bug Fixes
+
+* mint mode live ([c312f6c](https://github.com/RTRMOON/RTRM-Frontend/commit/c312f6cc2db2189125caa0a4fa733830271e35c5))
+
 ## [1.0.8](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.7...v1.0.8) (2021-12-06)
 
 
