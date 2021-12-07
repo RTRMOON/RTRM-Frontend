@@ -7,7 +7,7 @@ import coinLogo from '../images/coinLogo.png'
 import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 
 
-export const WalletMenu = ({showModal, setShowModal, BNBbalance, Rmoonbalance, account}) => {
+export const WalletMenu = ({showModal, setShowModal, onModalClose, BNBbalance, Rmoonbalance, account}) => {
 
     const modalRef = useRef()
 
@@ -29,8 +29,8 @@ export const WalletMenu = ({showModal, setShowModal, BNBbalance, Rmoonbalance, a
     const closeModal = e => {
         if(modalRef.current === e.target){
             setShowModal(false);
+            onModalClose();
         }
-
     };
 
     return (

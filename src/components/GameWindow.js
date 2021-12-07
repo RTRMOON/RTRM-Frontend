@@ -10,20 +10,17 @@ import { injected } from "../wallet/connectors"
 import useBalance from '../actions/useBalance'
 import Web3 from 'web3'
 import BNBlogo from '../images/binance-coin-bnb-logo.webp'
-import FocusLock from 'react-focus-lock';
 
 
 function GameWindow() {
     const web3 = new Web3('https://bsc-dataseed1.binance.org:443');
-    const focusPoint = useRef(null);
 
     const providerUrl = process.env.PROVIDER_URL || 'https://bsc-dataseed1.binance.org';
 
     const { active, account, library, connector, activate, deactivate } = useWeb3React()
 
-    setTimeout(() => {
-      console.log('test')
-     },)
+    const iframeRef = useRef(null);
+    const focusGame = () => iframeRef.current.contentDocument.querySelector('canvas').focus();
 
     async function connect() {
       try {
@@ -31,22 +28,28 @@ function GameWindow() {
       } catch (ex) {
         console.log(ex)
       }
+
+      focusGame();
     }
 
     const [BNBbalance] = useBalance("0xB8c77482e45F1F44dE1745F52C74426C631bDD52", "18");
     const [Rmoonbalance] = useBalance("0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54", "18");
 
 
-    const [showModal, setShowModal] =useState(false)
+    const [showModal, setShowModal] = useState(false)
+
+    const onLoad = () => iframeRef.current.contentWindow.onclick = focusGame;
 
     const openModal = () => {
         setShowModal(prev => !prev)
     }
 
+    const onModalClose = () => focusGame();
+
 
     return (
         <>
-        <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account}/>
+        <WalletMenu showModal={showModal} setShowModal={setShowModal} onModalClose={onModalClose} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account}/>
 
         <div className="game-window">
             <div className='button-wrapper'>
@@ -54,10 +57,10 @@ function GameWindow() {
                 {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo}/></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div> }
                 </div>
             </div>
-            <FocusLock>
-            <iframe title="Moon Invaders RetroMoon" tabindex="0"src="https://retromoonbsc.app/mooninvaders/index.html" height="768" width="1024" frameborder="0"><a href="">Moon Invaders</a></iframe>
-            </FocusLock>
-            </div>
+            {/* use the following when testing locally */}
+            {/* <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="./mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div> */}
+            <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="https://retromoonbsc.app/mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div>
+        </div>
         </>
     )
 }
