@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.11...v1.0.12) (2021-12-07)
+
+
+### Bug Fixes
+
+* focus game when iframe clicked ([9a9c4ac](https://github.com/RTRMOON/RTRM-Frontend/commit/9a9c4acff58f4b86a50cf59505de01652b18433c))
+
 ## [1.0.11](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.10...v1.0.11) (2021-12-07)
 
 
