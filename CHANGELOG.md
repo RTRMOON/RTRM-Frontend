@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.12...v1.0.13) (2021-12-07)
+
+
+### Bug Fixes
+
+* continue restores 3 lives ([30fb113](https://github.com/RTRMOON/RTRM-Frontend/commit/30fb113db5e72c1d4989a6842085042dab3dc4f9))
+
 ## [1.0.12](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.11...v1.0.12) (2021-12-07)
 
 
