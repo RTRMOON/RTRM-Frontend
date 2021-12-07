@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.10...v1.0.11) (2021-12-07)
+
+
+### Bug Fixes
+
+* focus ([4a0fe59](https://github.com/RTRMOON/RTRM-Frontend/commit/4a0fe5929b63ecf9716c30ade033436fea79b112))
+
 ## [1.0.10](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.9...v1.0.10) (2021-12-07)
 
 
