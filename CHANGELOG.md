@@ -1,3 +1,10 @@
+## [1.0.14](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.13...v1.0.14) (2021-12-07)
+
+
+### Bug Fixes
+
+* purchasing a continue only gives 1 life again ([9c3f064](https://github.com/RTRMOON/RTRM-Frontend/commit/9c3f064080cb7e491b95401677d54dc2a32ead06))
+
 ## [1.0.13](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.12...v1.0.13) (2021-12-07)
 
 
