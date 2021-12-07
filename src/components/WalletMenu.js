@@ -30,7 +30,6 @@ export const WalletMenu = ({showModal, setShowModal, BNBbalance, Rmoonbalance, a
         if(modalRef.current === e.target){
             setShowModal(false);
         }
-        document.querySelector("iframe").focus()
 
     };
 

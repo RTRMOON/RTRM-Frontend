@@ -40,7 +40,6 @@ function GameWindow() {
     const [showModal, setShowModal] =useState(false)
 
     const openModal = () => {
-      document.querySelector("iframe").focus()
         setShowModal(prev => !prev)
     }
 
