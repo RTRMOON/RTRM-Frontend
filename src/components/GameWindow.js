@@ -43,7 +43,8 @@ function GameWindow() {
     const openModal = () => {
         setShowModal(prev => !prev)
     }
-
+    
+    //
     const onModalClose = () => focusGame();
 
 
