@@ -1,3 +1,10 @@
+## [1.0.18](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.17...v1.0.18) (2021-12-13)
+
+
+### Bug Fixes
+
+* DDos attack issue ([57c8b04](https://github.com/RTRMOON/RTRM-Frontend/commit/57c8b04a0125f7b341c09d9042e1900f4e1371ae))
+
 ## [1.0.17](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.16...v1.0.17) (2021-12-13)
 
 
