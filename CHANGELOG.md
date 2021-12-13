@@ -1,3 +1,10 @@
+## [1.0.16](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.15...v1.0.16) (2021-12-13)
+
+
+### Bug Fixes
+
+* increase worker conn ([0b46379](https://github.com/RTRMOON/RTRM-Frontend/commit/0b463790fcdfeda7831b6741fa1aad4665ff7347))
+
 ## [1.0.15](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.14...v1.0.15) (2021-12-10)
 
 
