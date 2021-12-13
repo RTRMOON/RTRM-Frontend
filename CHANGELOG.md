@@ -1,3 +1,10 @@
+## [1.0.17](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.16...v1.0.17) (2021-12-13)
+
+
+### Bug Fixes
+
+* edit nginxConf ([e8cffbb](https://github.com/RTRMOON/RTRM-Frontend/commit/e8cffbbda564d43071e29a524a89b53a21661016))
+
 ## [1.0.16](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.15...v1.0.16) (2021-12-13)
 
 
