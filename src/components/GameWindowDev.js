@@ -47,7 +47,7 @@ function GameWindow() {
                 {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo}/></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div> }
                 </div>
             </div>
-        <iframe title="Moon Invaders RetroMoon" src="https://retromoonbsc.app/mooninvadersDev/index.html" height="768" width="1024" frameborder="0"><a href="">Moon Invaders</a></iframe>
+        <iframe title="Moon Invaders RetroMoon" src="./mooninvadersDev/index.html" height="768" width="1024" frameborder="0"><a href="">Moon Invaders</a></iframe>
         </div>
         </>
     )
