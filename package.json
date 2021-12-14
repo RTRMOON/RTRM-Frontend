@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.9.1",
-    "@types/react": "^17.0.20",
+    "@types/react": "^17.0.36",
     "@types/react-dom": "^17.0.9",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
