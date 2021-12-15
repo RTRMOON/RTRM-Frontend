@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import ReactGodot from 'react-godot'
 import './GameWindow.css';
 import styled from 'styled-components'
@@ -18,28 +18,36 @@ function GameWindow() {
 
     const { active, account, library, connector, activate, deactivate } = useWeb3React()
 
+    const iframeRef = useRef(null);
+    const focusGame = () => iframeRef.current.contentDocument.querySelector('canvas').focus();
+
     async function connect() {
       try {
         await activate(injected)
       } catch (ex) {
         console.log(ex)
       }
+
+      focusGame();
     }
 
     const [BNBbalance] = useBalance("0xB8c77482e45F1F44dE1745F52C74426C631bDD52", "18");
     const [Rmoonbalance] = useBalance("0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54", "18");
 
 
-    const [showModal, setShowModal] =useState(false)
+    const [showModal, setShowModal] = useState(false)
+
+    const onLoad = () => iframeRef.current.contentWindow.onClick = focusGame;
 
     const openModal = () => {
         setShowModal(prev => !prev)
     }
 
+    const onModalClose = () => focusGame();
 
     return (
         <>
-        <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account}/>
+        <WalletMenu showModal={showModal} setShowModal={setShowModal} onModalClose={onModalClose} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account}/>
 
         <div className="game-window">
             <div className='button-wrapper'>
@@ -47,7 +55,8 @@ function GameWindow() {
                 {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo}/></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div> }
                 </div>
             </div>
-        <iframe title="Moon Invaders RetroMoon" src="./mooninvadersDev/index.html" height="768" width="1024" frameborder="0"><a href="">Moon Invaders</a></iframe>
+        <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="./mooninvadersDev/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe>
+          <div className='iframe-overlay'></div>
         </div>
         </>
     )
