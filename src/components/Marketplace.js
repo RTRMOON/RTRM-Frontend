@@ -11,16 +11,50 @@ import useBalance from '../actions/useBalance'
 import Web3 from 'web3'
 import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 import nftExample from '../images/nftexample.png'
+import nftAbi from '../abi/RetromoonNFT.json'
+import marketplaceAbi from '../abi/RetromoonMarket.json'
+
+const rarities = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"]
 
 class Marketplace extends Component{
-
   constructor(props) {
     super(props);
     this.state = {
       active: "for-sale",
+      listings: []
     };
-    
+    this.web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545/')
+
+    this.getListings().then(data => {
+      this.setState({ listings: data })
+    })
   }
+
+  async getListings() {
+    const contract = new this.web3.eth.Contract(marketplaceAbi, '0xE09A83E2a95376D25b0F02239DDa418B39E1729c')
+    const listings = await contract.methods.getActiveListings().call()
+    return Promise.all(listings.map(async listing => {
+      await this.getNftData(listing.nftAddress, listing.tokenId)
+      return (
+        <div className='nft'>
+          <img src={nftExample} />
+          <h3>Staking: 1.5x</h3>
+          <h3>Rarity: {rarities[listing.rarity]}</h3>
+          <h3>{this.web3.utils.fromWei(listing.price)} BNB</h3>
+        </div>
+      )
+    }))
+  }
+
+  async getNftData(address, id) {
+    const contract = new this.web3.eth.Contract(nftAbi, address)
+    const name = await contract.methods.name().call()
+    // To get images, this returns a json file from IPFS which if read has another ipfs link under "image" property for the mp4 we use
+    // But it would probably be easier to use local image/mp4 files based off of nft contract address instead of reading ipfs
+    const tokenUri = await contract.methods.tokenURI(id).call()
+    console.log(tokenUri)
+  }
+
   render(){
     return (
         <>
@@ -43,66 +77,7 @@ class Marketplace extends Component{
   }
             {this.state.active  === "for-sale" &&
             <div className='nftBox'>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
-            <div className='nft'>
-              <img src={nftExample} />
-              <h3>Rarity: Rare</h3>
-              <h3>Staking: 1.5X</h3>
-              <h3>300,000$RETRO</h3>
-            </div>
+              {this.state.listings}
             </div>
             }
             {this.state.active  === "your-nft" &&
