@@ -1,3 +1,10 @@
+## [1.0.19](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.18...v1.0.19) (2021-12-20)
+
+
+### Bug Fixes
+
+* release challenges ([5556920](https://github.com/RTRMOON/RTRM-Frontend/commit/5556920441cd602b57d583b85e46dc380806025a))
+
 ## [1.0.18](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.17...v1.0.18) (2021-12-13)
 
 
