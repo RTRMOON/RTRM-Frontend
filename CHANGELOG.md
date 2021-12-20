@@ -1,3 +1,10 @@
+## [1.0.20](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.19...v1.0.20) (2021-12-20)
+
+
+### Bug Fixes
+
+* reset web3 import ([ad03390](https://github.com/RTRMOON/RTRM-Frontend/commit/ad03390320814d19161c6c0214be9965d78d2872))
+
 ## [1.0.19](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.18...v1.0.19) (2021-12-20)
 
 
