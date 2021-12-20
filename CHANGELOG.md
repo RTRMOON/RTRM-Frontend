@@ -1,3 +1,10 @@
+## [1.0.22](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.21...v1.0.22) (2021-12-20)
+
+
+### Bug Fixes
+
+* retro pricing bug ([9cedc58](https://github.com/RTRMOON/RTRM-Frontend/commit/9cedc5810f23745e10da01f58c30d815383f67d1))
+
 ## [1.0.21](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.20...v1.0.21) (2021-12-20)
 
 
