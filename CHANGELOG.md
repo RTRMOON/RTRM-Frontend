@@ -1,3 +1,52 @@
+## [1.0.22](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.21...v1.0.22) (2021-12-20)
+
+
+### Bug Fixes
+
+* retro pricing bug ([9cedc58](https://github.com/RTRMOON/RTRM-Frontend/commit/9cedc5810f23745e10da01f58c30d815383f67d1))
+
+## [1.0.21](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.20...v1.0.21) (2021-12-20)
+
+
+### Bug Fixes
+
+* new candidate release ([10f99a3](https://github.com/RTRMOON/RTRM-Frontend/commit/10f99a38f98814f75dbd7d886341285017834ee3))
+
+## [1.0.20](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.19...v1.0.20) (2021-12-20)
+
+
+### Bug Fixes
+
+* reset web3 import ([ad03390](https://github.com/RTRMOON/RTRM-Frontend/commit/ad03390320814d19161c6c0214be9965d78d2872))
+
+## [1.0.19](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.18...v1.0.19) (2021-12-20)
+
+
+### Bug Fixes
+
+* release challenges ([5556920](https://github.com/RTRMOON/RTRM-Frontend/commit/5556920441cd602b57d583b85e46dc380806025a))
+
+## [1.0.18](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.17...v1.0.18) (2021-12-13)
+
+
+### Bug Fixes
+
+* DDos attack issue ([57c8b04](https://github.com/RTRMOON/RTRM-Frontend/commit/57c8b04a0125f7b341c09d9042e1900f4e1371ae))
+
+## [1.0.17](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.16...v1.0.17) (2021-12-13)
+
+
+### Bug Fixes
+
+* edit nginxConf ([e8cffbb](https://github.com/RTRMOON/RTRM-Frontend/commit/e8cffbbda564d43071e29a524a89b53a21661016))
+
+## [1.0.16](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.15...v1.0.16) (2021-12-13)
+
+
+### Bug Fixes
+
+* increase worker conn ([0b46379](https://github.com/RTRMOON/RTRM-Frontend/commit/0b463790fcdfeda7831b6741fa1aad4665ff7347))
+
 ## [1.0.15](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.14...v1.0.15) (2021-12-10)
 
 
