@@ -5,7 +5,7 @@ import addresses from './addresses.json'
 export function useMarketplaceContract() {
     const { account, library, chainId } = useWeb3React()
     const contract = getMarketplaceContract(
-        chainId == 56 ? addresses.Marketplace : addresses['Testnet Marketplace'], library, account)
+        chainId === 56 ? addresses.Marketplace : addresses['Testnet Marketplace'], library, account)
     return new RetromoonMarketplace(contract)
 }
 

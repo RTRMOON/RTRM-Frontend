@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Marketplace.css';
-import { useListings, SortOrders } from '../actions/useMarketplace';
+import { useListings, SortOrders, useOwnedNfts } from '../actions/useMarketplace';
 import nftExample from '../images/nftexample.png'
 import addresses from '../assets/addresses.json'
 import { WalletMenu } from './WalletMenu'
@@ -8,7 +8,6 @@ import useBalance from '../actions/useBalance';
 import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
-import { useMarketplaceContract } from '../assets/MarketplaceContract';
 
 
 
@@ -17,7 +16,6 @@ export default function Marketplace() {
   const [sort, setSort] = useState(SortOrders.PriceAsc)
   const [filter, setFilter] = useState({})
   const { active, account, activate } = useWeb3React()
-  const marketplace = useMarketplaceContract()
 
   const [BNBbalance] = useBalance(addresses.BNB, "18");
   const [Rmoonbalance] = useBalance(addresses.Retromoon, "18");
@@ -37,6 +35,7 @@ export default function Marketplace() {
   }
 
   const listings = useListings(sort, filter)
+  const nfts = useOwnedNfts()
 
   return (
     <>
@@ -68,6 +67,9 @@ export default function Marketplace() {
         }
         {tab === "your-nft" &&
           <div className='nft-selected'>
+          <div className='nftBox'>
+            {nfts}
+          </div>
             <div className='top-section'>
               <div className='nft-image'>
                 <img src={nftExample}></img>

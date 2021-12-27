@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useMarketplaceContract } from '../assets/MarketplaceContract'
 import { useWeb3React } from '@web3-react/core'
-import nftExample from '../images/nftexample.png'
 import { ZERO_ADDRESS } from '../utils'
+import { getNftContract } from '../store/contractStore'
 
 export const Rarities = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"]
 
@@ -43,6 +43,49 @@ export function usePurchaseFee() {
   return [purchaseFee]
 }
 
+export function useOwnedNfts() {
+  const { account, library } = useWeb3React()
+  const marketplace = useMarketplaceContract()
+  const [nfts, setNfts] = useState([])
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    (async () => {
+      const ownedNfts = []
+      const characters = await marketplace.getNftsByPlayer(account)
+
+      for (const character of characters) {
+        const nftContract = getNftContract(character, library)
+        const owned = await marketplace.getOwnedTokens(account, character)
+        const tokens = await Promise.all(owned.map(async x => {
+          const rarity = await nftContract.methods.rarity().call()
+          const name = await nftContract.methods.name().call()
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(' ', '').trim()}.mp4`)
+          return (
+            <div className='nft' key={x + character} onClick={() => marketplace.createListing(character, x, library.utils.toWei('0.1'))}>
+              <video src={media} width="180" height="248" autoPlay loop muted controls='' />
+              <h3>Token ID: {x}</h3>
+              <h3>Rarity: {Rarities[rarity]}</h3>
+            </div>
+          )
+        }))
+
+        ownedNfts.push(...tokens)
+      }
+      
+      if (!isCancelled) {
+        setNfts(ownedNfts)
+      }
+    })()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [account, library])
+  return nfts
+}
+
 export function useListings(sort, filter) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
@@ -81,16 +124,19 @@ export function useListings(sort, filter) {
         }
 
         // Map to NFT listing elements
-        data = data.map(listing => {
+        data = await Promise.all(data.map(async listing => {
+          const nftContract = getNftContract(listing.nftAddress, library)
+          const name = await nftContract.methods.name().call()
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(' ', '').trim()}.mp4`)
           return (
             <div className='nft' key={listing.tokenId + listing.nftAddress} onClick={() => marketplace.purchaseListing(listing.id)}>
-              <img src={nftExample} />
-              <h3>Staking: 1.5x</h3>
+              <video src={media} width="180" height="248" autoPlay loop muted controls='' />
+              <h3>Token ID: {listing.tokenId}</h3>
               <h3>Rarity: {Rarities[listing.rarity]}</h3>
               <h3>{library.utils.fromWei(listing.price)} BNB</h3>
             </div>
           )
-        })
+        }))
         
         setListings(data)
       }
