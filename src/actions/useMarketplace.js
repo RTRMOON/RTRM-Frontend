@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMarketplaceContract } from '../assets/MarketplaceContract'
 import { useWeb3React } from '@web3-react/core'
 import { ZERO_ADDRESS } from '../utils'
 import { getNftContract } from '../store/contractStore'
+import Modal from 'react-modal';
 
 export const Rarities = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"]
 
@@ -25,6 +26,8 @@ export function usePurchaseFee() {
   const marketplace = useMarketplaceContract()
   const [purchaseFee, setPurchaseFee] = useState('0')
 
+
+  
   useEffect(() => {
     let isCancelled = false;
 
@@ -48,13 +51,21 @@ export function useOwnedNfts() {
   const marketplace = useMarketplaceContract()
   const [nfts, setNfts] = useState([])
 
+  const [price,setPrice]=useState()
+    
+  const changePrice =()=>{
+      setPrice()
+      console.log(setPrice)
+  }
+
   useEffect(() => {
     let isCancelled = false;
 
+
     (async () => {
+      
       const ownedNfts = []
       const characters = await marketplace.getNftsByPlayer(account)
-
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
         const owned = await marketplace.getOwnedTokens(account, character)
@@ -62,12 +73,20 @@ export function useOwnedNfts() {
           const rarity = await nftContract.methods.rarity().call()
           const name = await nftContract.methods.name().call()
           const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
+
           return (
-            <div className='nft' key={x + character} onClick={() => marketplace.createListing(character, x, library.utils.toWei('0.1'))}>
+            
+            <div
+            className='nft sellNFT' key={x + character}            >
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
               <h3>Token ID: {x}</h3>
               <h3>Rarity: {Rarities[rarity]}</h3>
+              <form>
+              <input type="number" name="sellPrice" placeholder='Input price in BNB' onChange={(e)=>changePrice(e.target.value)}/>
+              </form>
+              <button onClick={() => marketplace.createListing(character, x, library.utils.toWei({setPrice}))}>Sell NFT</button>
             </div>
+
           )
         }))
 
@@ -90,9 +109,22 @@ export function useListings(sort, filter) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [listings, setListings] = useState([])
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const amountForSale = 0;
+  function openBuyModal() {
+    setIsOpen(true);
+  }
 
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   useEffect(() => {
     let isCancelled = false;
+    
 
     (async () => {
       let data
@@ -125,15 +157,19 @@ export function useListings(sort, filter) {
 
         // Map to NFT listing elements
         data = await Promise.all(data.map(async listing => {
+          
           const nftContract = getNftContract(listing.nftAddress, library)
           const name = await nftContract.methods.name().call()
           const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
           return (
-            <div className='nft' key={listing.tokenId + listing.nftAddress} onClick={() => marketplace.purchaseListing(listing.id)}>
-              <video src={media} width="180" height="248" autoPlay loop muted controls='' />
+            <div className='nft nftBuyBox'
+            key={listing.tokenId + listing.nftAddress}
+            >
+              <video className='NFTvideo' src={media} width="180" height="248" autoPlay loop muted controls=''/>
               <h3>Token ID: {listing.tokenId}</h3>
               <h3>Rarity: {Rarities[listing.rarity]}</h3>
-              <h3>{library.utils.fromWei(listing.price)} BNB</h3>
+              <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
+              <button onClick={() => marketplace.purchaseListing(listing.id)}>Buy NFT</button>
             </div>
           )
         }))

@@ -8,6 +8,7 @@ import useBalance from '../actions/useBalance';
 import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
+import Modal from 'react-modal/lib/components/Modal';
 
 
 
@@ -36,7 +37,15 @@ export default function Marketplace() {
 
   const listings = useListings(sort, filter)
   const nfts = useOwnedNfts()
+  console.log(nfts)
 
+  function checkNftAmount(){
+  if(nfts.length === 0) {
+    return(
+      <h1>You currently don't own any NFTs, get playing!</h1>
+    )
+  }
+}
   return (
     <>
       <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} />
@@ -62,14 +71,20 @@ export default function Marketplace() {
         }
         {tab === "for-sale" &&
           <div className='nftBox'>
+            {active ? null : <h1>Connect your wallet to see NFTs</h1>}
+ 
             {listings}
           </div>
         }
         {tab === "your-nft" &&
           <div className='nft-selected'>
           <div className='nftBox'>
+          {active ? 
+            checkNftAmount()
+          : <h1>Connect your wallet to see NFTs</h1>}
             {nfts}
           </div>
+          {/*
             <div className='top-section'>
               <div className='nft-image'>
                 <img src={nftExample}></img>
@@ -83,6 +98,7 @@ export default function Marketplace() {
                 <div className='sell-btn'>Sell your NFT</div>
               </div>
             </div>
+          */}
           </div>
 
         }

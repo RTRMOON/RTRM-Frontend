@@ -46,18 +46,18 @@ function GameWindow() {
 
   return (
     <>
-      <WalletMenu showModal={showModal} setShowModal={setShowModal} onModalClose={onModalClose} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account}/>
+    <WalletMenu showModal={showModal} setShowModal={setShowModal} onModalClose={onModalClose} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account}/>
 
-      <div className="game-window">
+    <div className="game-window">
         <div className='button-wrapper'>
-          <div className='connector-button'>
+            <div className='connector-button'>
             {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo}/></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div> }
-          </div>
+            </div>
         </div>
         {/* use the following when testing locally */}
         {/* <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="./mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div> */}
         <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="https://retromoonbsc.app/mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div>
-      </div>
+    </div>
     </>
   )
 }

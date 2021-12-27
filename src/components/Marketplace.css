@@ -11,7 +11,6 @@
   margin: 20px 23px;
 }
 .nft:hover {
-  cursor: pointer;
 }
 .nft img {
   width: 10vw;
@@ -158,4 +157,52 @@ h1 {
 .sell-btn:hover {
   cursor: pointer;
   transform: translate(0px, 1px);
+}
+
+.NFTprice{
+  color: white !important;
+  font-size: 1.2em;
+}
+.buyBox{
+
+  opacity: 0;
+  color: white;
+  background-color: red;
+  z-index: 9999;
+  display: block;
+}
+
+.nft button:hover{
+  cursor: pointer;
+  transform: translate(0px, 1px);
+}
+.sellNFT input{
+  font-family: superstar;
+  color: white;
+  background: url("../images/Large-button.png") no-repeat;
+  background-size: cover;
+  border: none;
+  font-size: 1rem;
+  padding-left: 8px;
+  padding-top: 2.5px;
+}
+
+.nft button{
+  font-family: superstar;
+  color: white;
+  background: url("../images/ButtonBG.png") no-repeat;
+  background-size: contain;
+  border: none;
+  font-size: 1.3rem;
+  margin: 7px 0px;
+  padding: 3px 25px;
+}
+
+.nftBuyBox button{
+  font-size: 1.2rem; 
+}
+::-webkit-scrollbar-corner { background: rgba(0,0,0,0); }
+
+.nft-selected{
+  margin-top: 0px;
 }
