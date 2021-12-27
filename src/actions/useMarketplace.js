@@ -69,8 +69,8 @@ let setPrice = ''
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
         const approved = await marketplace.isApproved(character)
-        if (!approved) {
-          await marketplace.approveContract(character)
+        function approveForListing() {
+          marketplace.approveContract(character)
         }
         const owned = await marketplace.getOwnedTokens(account, character)
         const tokens = await Promise.all(owned.map(async x => {
@@ -85,6 +85,8 @@ let setPrice = ''
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
               <h3>Token ID: {x}</h3>
               <h3>Rarity: {Rarities[rarity]}</h3>
+              {approved ?
+              <>
               <form>
               <input type="number" name="sellPrice" placeholder='Input price in BNB'
               onChange={handleChangeEvent}
@@ -92,6 +94,11 @@ let setPrice = ''
               />
               </form>
               <button onClick={() => marketplace.createListing(character, x, library.utils.toWei(setPrice.toString()))}>Sell NFT</button>
+              </>  :
+              <button onClick={() => approveForListing()}>Approve</button>
+              
+            }
+
             </div>
 
           )
