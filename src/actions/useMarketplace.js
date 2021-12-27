@@ -61,7 +61,7 @@ export function useOwnedNfts() {
         const tokens = await Promise.all(owned.map(async x => {
           const rarity = await nftContract.methods.rarity().call()
           const name = await nftContract.methods.name().call()
-          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(' ', '').trim()}.mp4`)
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
           return (
             <div className='nft' key={x + character} onClick={() => marketplace.createListing(character, x, library.utils.toWei('0.1'))}>
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
@@ -127,7 +127,7 @@ export function useListings(sort, filter) {
         data = await Promise.all(data.map(async listing => {
           const nftContract = getNftContract(listing.nftAddress, library)
           const name = await nftContract.methods.name().call()
-          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(' ', '').trim()}.mp4`)
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
           return (
             <div className='nft' key={listing.tokenId + listing.nftAddress} onClick={() => marketplace.purchaseListing(listing.id)}>
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
