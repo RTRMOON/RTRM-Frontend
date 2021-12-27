@@ -54,7 +54,7 @@ function GameWindow() {
             </div>
         </div>
         {/* use the following when testing locally */}
-        {/* <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="./mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div> */}
+        {/*<iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="./mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div>*/}
         <iframe ref={iframeRef} title="Moon Invaders RetroMoon" src="https://retromoonbsc.app/mooninvaders/index.html" height="768" width="1024" frameborder="0" onLoad={onLoad}><a href="">Moon Invaders</a></iframe><div className='iframe-overlay'></div>
     </div>
     </>

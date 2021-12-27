@@ -29,7 +29,7 @@ export const WalletMenu = ({showModal, setShowModal, onModalClose, BNBbalance, R
     const closeModal = e => {
         if(modalRef.current === e.target){
             setShowModal(false);
-            
+            onModalClose();
         }
     };
 

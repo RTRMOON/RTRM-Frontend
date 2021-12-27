@@ -35,6 +35,9 @@ export default function Marketplace() {
     setShowModal(prev => !prev)
   }
 
+  const onModalClose = () => console.log('closeMenu');
+
+
   const listings = useListings(sort, filter)
   const nfts = useOwnedNfts()
   console.log(nfts)
@@ -48,7 +51,7 @@ export default function Marketplace() {
 }
   return (
     <>
-      <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} />
+      <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} onModalClose={onModalClose} />
 
       <div className="game-window">
         <div className='button-wrapper'>
