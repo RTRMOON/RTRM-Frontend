@@ -1,0 +1,372 @@
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(0px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
+
+@font-face {
+  font-family: "Superstar";
+  src: local("Superstar"), url("./fonts/Superstar.ttf") format("truetype");
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h2 {
+  font-family: Superstar;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+}
+.col-left {
+  width: 35%;
+  padding-left: 5%;
+}
+.sec1 {
+  background: url("./images/optionsMenu.png") no-repeat 0%;
+  background-size: contain;
+  width: 374px;
+  height: 300px;
+  left: 50px;
+  top: 6%;
+  position: absolute;
+}
+.sec1 h2 {
+  content: "Dashboard";
+  font-family: Superstar;
+  font-size: 27px;
+  position: absolute;
+  top: 7px;
+  margin: 0;
+  width: 50%;
+}
+
+.sec1 h1 {
+  background: -webkit-linear-gradient(#ffffff, #46b5c9);
+  text-shadow: 0px 0px 4px #23dfff78;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  content: "Dashboard";
+  font-family: Superstar;
+  font-size: 27px;
+  position: absolute;
+  top: 7px;
+  margin: 0;
+  width: 86%;
+}
+.menuList {
+  position: absolute;
+  width: 100%;
+  top: 69px;
+  left: 17px;
+}
+.listItem {
+  border: solid 1px #ffa50000;
+  font-size: 18px;
+  text-align: left;
+  color: #978692;
+  margin: 3px 0px;
+  padding: 22px 47px;
+  position: relative;
+  max-width: 250px;
+}
+
+.menuList h2 {
+  margin: 0;
+}
+
+.active {
+  color: #f8fbc5;
+}
+
+.sec2 {
+  background: url("./images/upgradesMenu.png") no-repeat 0%;
+  background-size: 450px;
+  width: 450px;
+  height: 346px;
+  position: absolute;
+  left: 78px;
+  top: 350px;
+}
+.sec2::before {
+  content: "Featured Assets";
+  font-family: Superstar;
+  font-size: 32px;
+  color: #6c72a2;
+  position: absolute;
+  top: 87px;
+  left: 112px;
+}
+.sec3 {
+  background: url("./images/levelsMenu.png") no-repeat 0%;
+  background-size: 330px;
+  width: 330px;
+  height: 330px;
+  position: absolute;
+  left: 50px;
+  bottom: 6%;
+}
+.sec3::before {
+  content: "Games";
+  font-family: Superstar;
+  font-size: 28px;
+  color: #6c72a2;
+  position: absolute;
+  left: 129px;
+  bottom: 267px;
+}
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.stars {
+  background: #1a2340 url("./images/BG.png") repeat;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 0;
+}
+
+.twinkling {
+  display: none;
+  width: 10000px;
+  height: 100%;
+  background: transparent
+    url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png")
+    repeat;
+  background-size: 1000px 1000px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+
+  -moz-animation: move-background 70s linear infinite;
+  -ms-animation: move-background 70s linear infinite;
+  -o-animation: move-background 70s linear infinite;
+  -webkit-animation: move-background 70s linear infinite;
+  animation: move-background 70s linear infinite;
+}
+
+.gameList {
+  height: 225px;
+  margin-top: 79px;
+  width: 358px;
+  margin-left: 21px;
+  background-color: #ff000000;
+}
+
+.game {
+  height: 40%;
+  display: flex;
+}
+
+.gameIcon {
+  width: 35px;
+  height: 40px;
+  margin: 17px 27px;
+}
+#spaceInvaders {
+  background: url("./images/SpaceInvaders.png") no-repeat 0%;
+  background-size: contain;
+}
+#comingSoon {
+  background: url("./images/ComingSoon.png") no-repeat 0%;
+  background-size: contain;
+}
+
+.gameName {
+  margin-left: 10px;
+  text-align: left;
+}
+.gameName h2 {
+  color: white;
+  margin-bottom: 0px;
+}
+
+.gameName h3 {
+  font-family: Superstar;
+  font-size: 29px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: -webkit-linear-gradient(#ff9c00, #f83600);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.social-icons img {
+  padding: 0px 8px;
+}
+
+.social-icons img:hover {
+  cursor: pointer;
+  transform: translate(0px, 1px);
+}
+
+@media screen and (min-height: 900px) {
+  .sec1 {
+    left: 120px;
+    top: 13%;
+  }
+  .sec3 {
+    left: 120px;
+    bottom: 13%;
+  }
+}
+.active:hover {
+  cursor: pointer;
+}
+
+.notactive h2:hover {
+  animation: shake 0.82s linear;
+  cursor: pointer;
+}
+
+.listItem h2:hover {
+  cursor: pointer;
+}
+
+.active::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 11.5px;
+  background-color: green;
+  margin-left: -36.5px;
+  background: rgb(209, 250, 110);
+  background: linear-gradient(
+    180deg,
+    rgba(209, 250, 110, 1) 0%,
+    rgba(154, 201, 39, 1) 100%
+  );
+  margin-top: -8px;
+  position: absolute;
+  border-bottom: solid 1.5px #2b074d;
+}
+
+.notSet:hover {
+  color: white !important;
+  cursor: pointer;
+}
+
+.notSet h2:hover {
+  color: white;
+}
+
+.reload-btn,
+.rc-switch,
+.loop-btn,
+.audio-lists-btn {
+  display: none !important;
+}
+
+.music-player-panel {
+  font-family: superstar !important;
+  height: 70px;
+  border-top: solid 4px #575d6b;
+}
+
+.rc-slider-handle {
+  border-radius: 0;
+}
+
+.react-jinke-music-player {
+  right: 0px;
+  bottom: 0px;
+  left: unset !important;
+  top: unset !important;
+  display: block !important;
+}
+.react-jinke-music-player:hover {
+  transform: translate(0px, 1px) !important;
+}
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-handle,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-track {
+  background-color: #2b074d !important;
+}
+
+.react-jinke-music-player-main svg:active,
+.react-jinke-music-player-main svg:hover {
+  color: #f300ffa6 !important;
+}
+
+.music-player-controller {
+  background: url("./images/sound_locked.png") 50% no-repeat !important;
+  border: none !important;
+}
+.music-player-controller .controller-title {
+  display: none;
+}
+.react-jinke-music-player .music-player-controller.music-player-playing:before {
+  display: none !important;
+}
+.music-player-controller:hover {
+  color: none !important;
+}
+.react-jinke-music-player
+  .music-player-controller
+  .music-player-controller-setting {
+  color: rgba(255, 0, 0, 0) !important;
+  background: none !important;
+}
+.react-jinke-music-player
+  .music-player-controller
+  .music-player-controller-setting {
+  background: none;
+}
+
+._37_FJ,
+._37_FJ button,
+._37_FJ input {
+  font-family: superstar;
+  text-align: center;
+}
+._1YwH3 {
+  margin: auto;
+}
