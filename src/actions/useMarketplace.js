@@ -68,6 +68,10 @@ export function useOwnedNfts() {
       const characters = await marketplace.getNftsByPlayer(account)
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
+        const approved = await marketplace.isApproved(character)
+        if (!approved) {
+          await marketplace.approveContract(character)
+        }
         const owned = await marketplace.getOwnedTokens(account, character)
         const tokens = await Promise.all(owned.map(async x => {
           const rarity = await nftContract.methods.rarity().call()

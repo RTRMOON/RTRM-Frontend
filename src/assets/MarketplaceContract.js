@@ -1,17 +1,41 @@
-import { getMarketplaceContract } from '../store/contractStore'
+import { getMarketplaceContract, getNftContract } from '../store/contractStore'
 import { useWeb3React } from '@web3-react/core'
 import addresses from './addresses.json'
 
 export function useMarketplaceContract() {
     const { account, library, chainId } = useWeb3React()
-    const contract = getMarketplaceContract(
-        chainId === 56 ? addresses.Marketplace : addresses['Testnet Marketplace'], library, account)
-    return new RetromoonMarketplace(contract)
+    return new RetromoonMarketplace(library, account, chainId)
 }
 
 export default class RetromoonMarketplace {
-    constructor(contract) {
-        this.contract = contract
+    constructor(library, account, chainId) {
+        this.library = library;
+        this.account = account;
+        this.contract = getMarketplaceContract(
+            chainId === 56 ? addresses.Marketplace : addresses['Testnet Marketplace'], library, account)
+    }
+
+    // Get contract is approved to list NFT for account
+    isApproved(nftAddress) {
+        try {
+            const nftContract = getNftContract(nftAddress, this.library)
+            return nftContract.methods.isApprovedForAll(this.account, this.contract.options.address).call()
+        }
+        catch (ex) {
+            return false
+        }
+    }
+
+    // Approve marketplace contract to transfer NFT
+    approveContract(nftAddress) {
+        try {
+            const nftContract = getNftContract(nftAddress, this.library)
+            return nftContract.methods.setApprovalForAll(this.contract.options.address, true)
+                .send({ from: this.account })
+        }
+        catch (ex) {
+            return ex
+        }
     }
 
     // Get count of all listings
