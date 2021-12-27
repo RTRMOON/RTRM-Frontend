@@ -3,7 +3,7 @@ import { useMarketplaceContract } from '../assets/MarketplaceContract'
 import { useWeb3React } from '@web3-react/core'
 import { ZERO_ADDRESS } from '../utils'
 import { getNftContract } from '../store/contractStore'
-import Modal from 'react-modal';
+import BigNumber from "bignumber.js";
 
 export const Rarities = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"]
 
@@ -51,20 +51,20 @@ export function useOwnedNfts() {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [nfts, setNfts] = useState([])
+  const [title, setTitle] = useState('')
+let setPrice = ''
 
-  const [price,setPrice]=useState()
-    
-  const changePrice =()=>{
-      setPrice()
-      console.log(setPrice)
-  }
 
   useEffect(() => {
     let isCancelled = false;
-
-
+    
     (async () => {
       
+      function handleChangeEvent(e) {
+        console.log(e.target.value);
+        setPrice = e.target.value;
+      }
+
       const ownedNfts = []
       const characters = await marketplace.getNftsByPlayer(account)
       for (const character of characters) {
@@ -76,16 +76,19 @@ export function useOwnedNfts() {
           const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
 
           return (
-            
+
             <div
             className='nft sellNFT' key={x + character}            >
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
               <h3>Token ID: {x}</h3>
               <h3>Rarity: {Rarities[rarity]}</h3>
               <form>
-              <input type="number" name="sellPrice" placeholder='Input price in BNB' onChange={(e)=>changePrice(e.target.value)}/>
+              <input type="number" name="sellPrice" placeholder='Input price in BNB'
+              onChange={handleChangeEvent}
+              
+              />
               </form>
-              <button onClick={() => marketplace.createListing(character, x, library.utils.toWei({setPrice}))}>Sell NFT</button>
+              <button onClick={() => marketplace.createListing(character, x, library.utils.toWei(setPrice.toString()))}>Sell NFT</button>
             </div>
 
           )
