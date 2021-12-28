@@ -1,3 +1,10 @@
+## [1.0.23](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.22...v1.0.23) (2021-12-27)
+
+
+### Bug Fixes
+
+* Add marketplace ([#6](https://github.com/RTRMOON/RTRM-Frontend/issues/6)) ([923568a](https://github.com/RTRMOON/RTRM-Frontend/commit/923568a7146a909f051310c9bebb802f883286b6))
+
 ## [1.0.22](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.21...v1.0.22) (2021-12-20)
 
 
