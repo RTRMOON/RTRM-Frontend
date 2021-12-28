@@ -58,7 +58,6 @@ export function useOwnedNfts() {
     (async () => {
       
       function handleChangeEvent(e) {
-        console.log(e.target.value);
         setPrice = e.target.value;
       }
 
@@ -231,5 +230,84 @@ export function useListings(sort, filter) {
       isCancelled = true
     }
   }, [sort, filter, library, account])
+  return [listings]
+}
+
+export function useOwnedListings() {
+  const { account, library } = useWeb3React()
+  const marketplace = useMarketplaceContract()
+  const [listings, setListings] = useState([])
+
+  useEffect(() => {
+    let isCancelled = false;
+    
+    (async () => {
+      let data = await marketplace.getSellerListings(account)
+
+      if (!isCancelled) {
+        // Ensure we have only valid listings (contract may return empty listings to fill array length)
+        data = data.filter(x => x.seller !== ZERO_ADDRESS)
+
+        // Map to NFT listing elements
+        data = await Promise.all(data.map(async listing => {
+          let setPrice = library.utils.fromWei(listing.price)
+          function handleChangeEvent(e) {
+            setPrice = e.target.value;
+          }
+
+          function updateListing() {
+            // TODO: Disable purchase button
+            marketplace.updateListing(listing.id, library.utils.toWei(setPrice))
+            .then(receipt => {
+              // TODO: Refresh to remove listing and add to buyer's list
+              console.log(receipt)
+            })
+            .finally(() => {
+              // TODO: Enable buy button (e.g. user rejects or tx fails)
+            })
+          }
+
+          function removeListing() {
+            // TODO: Disable remove button
+            marketplace.removeListing(listing.id)
+            .then(receipt => {
+              // TODO: Refresh to remove listing
+              console.log(receipt)
+            })
+            .finally(() => {
+              // TODO: Enable remove button (e.g. user rejects or tx fails)
+            })
+          }
+          const nftContract = getNftContract(listing.nftAddress, library)
+          const name = await nftContract.methods.name().call()
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
+          return (
+            <div className='nft sellNFT'
+            key={listing.tokenId + listing.nftAddress}
+            >
+              <video className='NFTvideo' src={media} width="180" height="248" autoPlay loop muted controls=''/>
+              <h3>Token ID: {listing.tokenId}</h3>
+              <h3>Rarity: {Rarities[listing.rarity]}</h3>
+              <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
+              <form>
+              <input type="number" min="0" defaultValue={library.utils.fromWei(listing.price)} name="sellPrice" placeholder='Input price in BNB'
+              onChange={handleChangeEvent}
+              
+              />
+              </form>
+              <button onClick={updateListing}>Update</button>
+              <button onClick={removeListing}>Remove</button>
+            </div>
+          )
+        }))
+        
+        setListings(data)
+      }
+    })()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [library, account])
   return [listings]
 }

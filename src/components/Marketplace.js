@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Marketplace.css';
-import { useListings, SortOrders, useOwnedNfts } from '../actions/useMarketplace';
+import { useListings, SortOrders, useOwnedNfts, useOwnedListings } from '../actions/useMarketplace';
 import nftExample from '../images/nftexample.png'
 import addresses from '../assets/addresses.json'
 import { WalletMenu } from './WalletMenu'
@@ -40,6 +40,7 @@ export default function Marketplace() {
 
   const listings = useListings(sort, filter)
   const nfts = useOwnedNfts()
+  const sellerListings = useOwnedListings()
 
   function checkNftAmount(){
     if(nfts.length === 0) {
@@ -84,6 +85,11 @@ export default function Marketplace() {
             checkNftAmount()
           : <h1>Connect your wallet to see NFTs</h1>}
             {nfts}
+            {active ? 
+              <>
+              <h1>Your Listings</h1>
+              {sellerListings}
+              </> : ''}
           </div>
 
         }
