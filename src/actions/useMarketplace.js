@@ -3,7 +3,6 @@ import { useMarketplaceContract } from '../assets/MarketplaceContract'
 import { useWeb3React } from '@web3-react/core'
 import { ZERO_ADDRESS } from '../utils'
 import { getNftContract } from '../store/contractStore'
-import BigNumber from "bignumber.js";
 
 export const Rarities = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"]
 
@@ -50,8 +49,7 @@ export function useOwnedNfts() {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [nfts, setNfts] = useState([])
-  const [title, setTitle] = useState('')
-let setPrice = ''
+  let setPrice = ''
 
 
   useEffect(() => {
@@ -69,9 +67,36 @@ let setPrice = ''
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
         const approved = await marketplace.isApproved(character)
-        function approveForListing() {
+        let approving = false
+
+        function approveForListing(character) {
+          // TODO: Actually handle setting approving state to disable button
+          approving = true
           marketplace.approveContract(character)
+          .then(receipt => {
+            // TODO: Reload to show sell button and input
+            // isApproved should return true now
+            console.log(receipt)
+          })
+          .finally(() => {
+            // TODO: Enable approve button (e.g. user rejects or tx fails)
+            approving = false
+          })
         }
+
+        function createListing(tokenId) {
+          // TODO: Disable sell button
+          const price = library.utils.toWei(setPrice.toString())
+          marketplace.createListing(character, tokenId, price)
+          .then(receipt => {
+            // TODO: Reload to remove NFT from sellers NFT list and show in listings
+            console.log(receipt)
+          })
+          .finally(() => {
+            // TODO: Enable sell button (e.g user rejects or tx fails)
+          })
+        }
+        
         const owned = await marketplace.getOwnedTokens(account, character)
         const tokens = await Promise.all(owned.map(async x => {
           const rarity = await nftContract.methods.rarity().call()
@@ -88,14 +113,14 @@ let setPrice = ''
               {approved ?
               <>
               <form>
-              <input type="number" name="sellPrice" placeholder='Input price in BNB'
+              <input type="number" min="0" name="sellPrice" placeholder='Input price in BNB'
               onChange={handleChangeEvent}
               
               />
               </form>
-              <button onClick={() => marketplace.createListing(character, x, library.utils.toWei(setPrice.toString()))}>Sell NFT</button>
+              <button onClick={() => createListing(x)}>Sell NFT</button>
               </>  :
-              <button onClick={() => approveForListing()}>Approve</button>
+              <button onClick={() => approveForListing(character)} disabled={approved || approving}>Approve</button>
               
             }
 
@@ -171,7 +196,17 @@ export function useListings(sort, filter) {
 
         // Map to NFT listing elements
         data = await Promise.all(data.map(async listing => {
-          
+          function purchaseListing() {
+            // TODO: Disable purchase button
+            marketplace.purchaseListing(listing.id)
+            .then(receipt => {
+              // TODO: Refresh to remove listing and add to buyer's list
+              console.log(receipt)
+            })
+            .finally(() => {
+              // TODO: Enable buy button (e.g. user rejects or tx fails)
+            })
+          }
           const nftContract = getNftContract(listing.nftAddress, library)
           const name = await nftContract.methods.name().call()
           const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
@@ -183,7 +218,7 @@ export function useListings(sort, filter) {
               <h3>Token ID: {listing.tokenId}</h3>
               <h3>Rarity: {Rarities[listing.rarity]}</h3>
               <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
-              <button onClick={() => marketplace.purchaseListing(listing.id)}>Buy NFT</button>
+              <button onClick={purchaseListing}>Buy NFT</button>
             </div>
           )
         }))

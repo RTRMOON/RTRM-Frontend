@@ -198,6 +198,10 @@ h1 {
   padding: 3px 25px;
 }
 
+.nft button[disabled] {
+  opacity: 0.5;
+}
+
 .nftBuyBox button{
   font-size: 1.2rem; 
 }
