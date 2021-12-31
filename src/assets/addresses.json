@@ -3,6 +3,7 @@
     "BNB": "0xB8c77482e45F1F44dE1745F52C74426C631bDD52",
     "Moon Invaders": "0x186DCc42DcD2cf015a74D5355593D48bAfFBc1ee",
     "Marketplace": "0x7903925E6382734C6c22D1c23394166615410415",
+    "Token Staking": "",
     "Angry Scientist": "0x69F30c6299ECc32524Dcac20410Fa2Ca46d15F4F",
     "Anonymous Hitman": "0x3338569f335D6B85c5456b89b9A7CBF3ec5864b1",
     "Assassin": "0x0Eb19aF3123c9A603318C2c0a310009A51160084",
@@ -48,5 +49,7 @@
     "Testnet Angry Scientist": "0x8480b7D793FEB3144DaF1C0175b33f5fff8585F8",
     "Testnet Stealthy Snake": "0x83734bf1E2E461cb4f288b5d75dd7C8D91f48202",
     "Testnet The Adventurer": "0xE25dd7EA8d9602EE1A44FfAa0f7c15E2f624B9Ca",
-    "Testnet Marketplace": "0x86Bbae6289F525D7D15a4eAcF17C2A00BA8ad6dD"
+    "Testnet Retromoon": "0xA6Da8e4550138086F73c1551F510BF11ab431afF",
+    "Testnet Marketplace": "0x86Bbae6289F525D7D15a4eAcF17C2A00BA8ad6dD",
+    "Testnet Token Staking": "0x628894d3f6708fE2Ad64a842Ef27bF768b0A725d"
 }

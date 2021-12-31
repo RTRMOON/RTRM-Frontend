@@ -21,10 +21,11 @@
 
 .stakingContent {
   width: 47%;
-  height: 88%;
-  margin: auto;
-  margin-top: 6vh;
+  max-height: 88%;
+  max-height: 73.5vh;
+  margin: 25px auto 29px auto;
   font-size: 3vh;
+  overflow: scroll;
 }
 
 .stakingContent p {
@@ -104,12 +105,30 @@ input:focus {
   height: 5vh;
   margin-top: 1vh;
 }
+
+.stake-button:disabled,
+.claim-button:disabled {
+  opacity: 0.5;
+}
+
 .claim-button {
   font-family: superstar;
   color: white;
   background: url("../images/button-large.png") no-repeat;
   border: none;
   width: 47vh;
+  background-size: contain;
+  font-size: 3vh;
+  height: 5vh;
+  margin-top: 1vh;
+}
+
+.refresh-button {
+  font-family: superstar;
+  color: white;
+  background: url("../images/ButtonBG.png") no-repeat;
+  border: none;
+  width: 22vh;
   background-size: contain;
   font-size: 3vh;
   height: 5vh;

@@ -90,8 +90,8 @@ class App extends Component {
             <div className="listItem 1 notactive">
             <h2>NFT Farming</h2>
             </div>
-            {/*<div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>*/}
-            <div className='listItem 1 notactive'>
+            <div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>
+            {/* <div className='listItem 1 notactive'> */}
             <h2>Staking</h2>
             </div>
           </div>
@@ -124,8 +124,8 @@ class App extends Component {
         </div>
       </div>
       <div className="col-right">
-      {this.state.active  === "arcade" && <GameWindow />}
-      {/*{this.state.active  === "staking" && <Staking />}*/}
+      {/* {this.state.active  === "arcade" && <GameWindow />} */}
+      {this.state.active  === "staking" && <Staking />}
       {this.state.active  === "marketplace" && <Marketplace />}
       </div>
       <div class="background-container">
