@@ -45,54 +45,45 @@ export function usePurchaseFee() {
   return [purchaseFee]
 }
 
-export function useOwnedNfts() {
+export function useOwnedNfts(updated, setUpdated) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [nfts, setNfts] = useState([])
-  let setPrice = ''
+  const [price, setPrice] = useState({})
+  const [approving, setApproving] = useState({})
+  const [creating, setCreating] = useState({})
 
 
   useEffect(() => {
     let isCancelled = false;
     
     (async () => {
-      
-      function handleChangeEvent(e) {
-        setPrice = e.target.value;
-      }
-
       const ownedNfts = []
       const characters = await marketplace.getNftsByPlayer(account)
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
         const approved = await marketplace.isApproved(character)
-        let approving = false
 
         function approveForListing(character) {
-          // TODO: Actually handle setting approving state to disable button
-          approving = true
+          setApproving({...approving, [character]: true})
           marketplace.approveContract(character)
           .then(receipt => {
-            // TODO: Reload to show sell button and input
-            // isApproved should return true now
-            console.log(receipt)
+            setUpdated(updated + 1)
           })
           .finally(() => {
-            // TODO: Enable approve button (e.g. user rejects or tx fails)
-            approving = false
+            setApproving({...approving, [character]: false})
           })
         }
 
         function createListing(tokenId) {
-          // TODO: Disable sell button
-          const price = library.utils.toWei(setPrice.toString())
-          marketplace.createListing(character, tokenId, price)
+          setCreating({...creating, [tokenId+character]: true})
+          const wei = library.utils.toWei(price[tokenId+character].toString())
+          marketplace.createListing(character, tokenId, wei)
           .then(receipt => {
-            // TODO: Reload to remove NFT from sellers NFT list and show in listings
-            console.log(receipt)
+            setUpdated(updated + 1)
           })
           .finally(() => {
-            // TODO: Enable sell button (e.g user rejects or tx fails)
+            setCreating({...creating, [tokenId+character]: false})
           })
         }
         
@@ -112,14 +103,16 @@ export function useOwnedNfts() {
               {approved ?
               <>
               <form>
-              <input type="number" min="0" name="sellPrice" placeholder='Input price in BNB'
-              onChange={handleChangeEvent}
+              <input type="number" min="0" name="sellPrice" placeholder='Input price in BNB' value={price[x+character]}
+              onChange={(e) => setPrice({...price, [x+character]: e.target.value})}
               
               />
               </form>
-              <button onClick={() => createListing(x)}>Sell NFT</button>
+              <button onClick={() => createListing(x)} disabled={creating[x+character] || !approved || (!price[x+character] && price[x+character] !== 0)}>
+                Sell NFT
+              </button>
               </>  :
-              <button onClick={() => approveForListing(character)} disabled={approved || approving}>Approve</button>
+              <button onClick={() => approveForListing(character)} disabled={approved || approving[character]}>Approve</button>
               
             }
 
@@ -139,27 +132,15 @@ export function useOwnedNfts() {
     return () => {
       isCancelled = true
     }
-  }, [account, library])
+  }, [price, creating, approving, updated, account, library])
   return nfts
 }
 
-export function useListings(sort, filter) {
+export function useListings(updated, setUpdated, sort, filter) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [listings, setListings] = useState([])
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const amountForSale = 0;
-  function openBuyModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const [purchasing, setPurchasing] = useState({})
   useEffect(() => {
     let isCancelled = false;
     
@@ -168,7 +149,7 @@ export function useListings(sort, filter) {
       let data
 
       // Use filter if any
-      if (filter[Filters.Rarity] >= 0) {
+      if (filter && filter[Filters.Rarity] >= 0) {
         data = await marketplace.getActiveListingsByRarity(filter[Filters.Rarity])
       }
       else {
@@ -196,14 +177,13 @@ export function useListings(sort, filter) {
         // Map to NFT listing elements
         data = await Promise.all(data.map(async listing => {
           function purchaseListing() {
-            // TODO: Disable purchase button
+            setPurchasing({...purchasing, [listing.id]: true})
             marketplace.purchaseListing(listing.id)
             .then(receipt => {
-              // TODO: Refresh to remove listing and add to buyer's list
-              console.log(receipt)
+              setUpdated(updated + 1)
             })
             .finally(() => {
-              // TODO: Enable buy button (e.g. user rejects or tx fails)
+              setPurchasing({...purchasing, [listing.id]: false})
             })
           }
           const nftContract = getNftContract(listing.nftAddress, library)
@@ -217,7 +197,7 @@ export function useListings(sort, filter) {
               <h3>Token ID: {listing.tokenId}</h3>
               <h3>Rarity: {Rarities[listing.rarity]}</h3>
               <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
-              <button onClick={purchaseListing}>Buy NFT</button>
+              <button onClick={purchaseListing} disabled={purchasing[listing.id]}>Buy NFT</button>
             </div>
           )
         }))
@@ -229,14 +209,17 @@ export function useListings(sort, filter) {
     return () => {
       isCancelled = true
     }
-  }, [sort, filter, library, account])
+  }, [purchasing, updated, sort, filter, library, account])
   return [listings]
 }
 
-export function useOwnedListings() {
+export function useOwnedListings(updated, setUpdated) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [listings, setListings] = useState([])
+  const [updating, setUpdating] = useState({})
+  const [removing, setRemoving] = useState({})
+  const [price, setPrice] = useState({})
 
   useEffect(() => {
     let isCancelled = false;
@@ -250,32 +233,25 @@ export function useOwnedListings() {
 
         // Map to NFT listing elements
         data = await Promise.all(data.map(async listing => {
-          let setPrice = library.utils.fromWei(listing.price)
-          function handleChangeEvent(e) {
-            setPrice = e.target.value;
-          }
-
           function updateListing() {
-            // TODO: Disable purchase button
-            marketplace.updateListing(listing.id, library.utils.toWei(setPrice))
+            setUpdating({...updating, [listing.id]: true})
+            marketplace.updateListing(listing.id, library.utils.toWei(price[listing.id].toString()))
             .then(receipt => {
-              // TODO: Refresh to remove listing and add to buyer's list
-              console.log(receipt)
+              setUpdated(updated + 1)
             })
             .finally(() => {
-              // TODO: Enable buy button (e.g. user rejects or tx fails)
+              setUpdating({...updating, [listing.id]: false})
             })
           }
 
           function removeListing() {
-            // TODO: Disable remove button
+            setRemoving({...removing, [listing.id]: true})
             marketplace.removeListing(listing.id)
             .then(receipt => {
-              // TODO: Refresh to remove listing
-              console.log(receipt)
+              setUpdated(updated + 1)
             })
             .finally(() => {
-              // TODO: Enable remove button (e.g. user rejects or tx fails)
+              setRemoving({...removing, [listing.id]: false})
             })
           }
           const nftContract = getNftContract(listing.nftAddress, library)
@@ -290,13 +266,13 @@ export function useOwnedListings() {
               <h3>Rarity: {Rarities[listing.rarity]}</h3>
               <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
               <form>
-              <input type="number" min="0" defaultValue={library.utils.fromWei(listing.price)} name="sellPrice" placeholder='Input price in BNB'
-              onChange={handleChangeEvent}
-              
+              <input type="number" min="0" defaultValue={library.utils.fromWei(listing.price)}
+                value={price[listing.id]} name="sellPrice" placeholder='Input price in BNB'
+                onChange={(e) => setPrice({...price, [listing.id]: e.target.value})}
               />
               </form>
-              <button onClick={updateListing}>Update</button>
-              <button onClick={removeListing}>Remove</button>
+              <button onClick={updateListing} disabled={updating[listing.id] || (!price[listing.id] && price[listing.id] !== 0)}>Update</button>
+              <button onClick={removeListing} disabled={removing[listing.id]}>Remove</button>
             </div>
           )
         }))
@@ -308,6 +284,6 @@ export function useOwnedListings() {
     return () => {
       isCancelled = true
     }
-  }, [library, account])
+  }, [price, removing, updating, updated, library, account])
   return [listings]
 }

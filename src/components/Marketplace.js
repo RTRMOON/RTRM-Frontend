@@ -16,6 +16,7 @@ export default function Marketplace() {
   const [tab, setTab] = useState('for-sale');
   const [sort, setSort] = useState(SortOrders.PriceAsc)
   const [filter, setFilter] = useState({})
+  const [updated, setUpdated] = useState(0)
   const { active, account, activate } = useWeb3React()
 
   const [BNBbalance] = useBalance(addresses.BNB, "18");
@@ -38,9 +39,9 @@ export default function Marketplace() {
   const onModalClose = () => console.log('closeMenu');
 
 
-  const listings = useListings(sort, filter)
-  const nfts = useOwnedNfts()
-  const sellerListings = useOwnedListings()
+  const listings = useListings(updated, setUpdated, sort, filter)
+  const nfts = useOwnedNfts(updated, setUpdated)
+  const sellerListings = useOwnedListings(updated, setUpdated)
 
   function checkNftAmount(){
     if(nfts.length === 0) {
