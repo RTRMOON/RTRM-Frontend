@@ -3,7 +3,6 @@ import { useMarketplaceContract } from '../assets/MarketplaceContract'
 import { useWeb3React } from '@web3-react/core'
 import { ZERO_ADDRESS } from '../utils'
 import { getNftContract } from '../store/contractStore'
-import BigNumber from "bignumber.js";
 
 export const Rarities = ["COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"]
 
@@ -46,32 +45,48 @@ export function usePurchaseFee() {
   return [purchaseFee]
 }
 
-export function useOwnedNfts() {
+export function useOwnedNfts(updated, setUpdated) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [nfts, setNfts] = useState([])
-  const [title, setTitle] = useState('')
-let setPrice = ''
+  const [price, setPrice] = useState({})
+  const [approving, setApproving] = useState({})
+  const [creating, setCreating] = useState({})
 
 
   useEffect(() => {
     let isCancelled = false;
     
     (async () => {
-      
-      function handleChangeEvent(e) {
-        console.log(e.target.value);
-        setPrice = e.target.value;
-      }
-
       const ownedNfts = []
       const characters = await marketplace.getNftsByPlayer(account)
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
         const approved = await marketplace.isApproved(character)
-        function approveForListing() {
+
+        function approveForListing(character) {
+          setApproving({...approving, [character]: true})
           marketplace.approveContract(character)
+          .then(receipt => {
+            setUpdated(updated + 1)
+          })
+          .finally(() => {
+            setApproving({...approving, [character]: false})
+          })
         }
+
+        function createListing(tokenId) {
+          setCreating({...creating, [tokenId+character]: true})
+          const wei = library.utils.toWei(price[tokenId+character].toString())
+          marketplace.createListing(character, tokenId, wei)
+          .then(receipt => {
+            setUpdated(updated + 1)
+          })
+          .finally(() => {
+            setCreating({...creating, [tokenId+character]: false})
+          })
+        }
+        
         const owned = await marketplace.getOwnedTokens(account, character)
         const tokens = await Promise.all(owned.map(async x => {
           const rarity = await nftContract.methods.rarity().call()
@@ -88,14 +103,16 @@ let setPrice = ''
               {approved ?
               <>
               <form>
-              <input type="number" name="sellPrice" placeholder='Input price in BNB'
-              onChange={handleChangeEvent}
+              <input type="number" min="0" name="sellPrice" placeholder='Input price in BNB' value={price[x+character]}
+              onChange={(e) => setPrice({...price, [x+character]: e.target.value})}
               
               />
               </form>
-              <button onClick={() => marketplace.createListing(character, x, library.utils.toWei(setPrice.toString()))}>Sell NFT</button>
+              <button onClick={() => createListing(x)} disabled={creating[x+character] || !approved || (!price[x+character] && price[x+character] !== 0)}>
+                Sell NFT
+              </button>
               </>  :
-              <button onClick={() => approveForListing()}>Approve</button>
+              <button onClick={() => approveForListing(character)} disabled={approved || approving[character]}>Approve</button>
               
             }
 
@@ -115,27 +132,15 @@ let setPrice = ''
     return () => {
       isCancelled = true
     }
-  }, [account, library])
+  }, [price, creating, approving, updated, account, library])
   return nfts
 }
 
-export function useListings(sort, filter) {
+export function useListings(updated, setUpdated, sort, filter) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const [listings, setListings] = useState([])
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const amountForSale = 0;
-  function openBuyModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const [purchasing, setPurchasing] = useState({})
   useEffect(() => {
     let isCancelled = false;
     
@@ -144,7 +149,7 @@ export function useListings(sort, filter) {
       let data
 
       // Use filter if any
-      if (filter[Filters.Rarity] >= 0) {
+      if (filter && filter[Filters.Rarity] >= 0) {
         data = await marketplace.getActiveListingsByRarity(filter[Filters.Rarity])
       }
       else {
@@ -171,7 +176,16 @@ export function useListings(sort, filter) {
 
         // Map to NFT listing elements
         data = await Promise.all(data.map(async listing => {
-          
+          function purchaseListing() {
+            setPurchasing({...purchasing, [listing.id]: true})
+            marketplace.purchaseListing(listing.id)
+            .then(receipt => {
+              setUpdated(updated + 1)
+            })
+            .finally(() => {
+              setPurchasing({...purchasing, [listing.id]: false})
+            })
+          }
           const nftContract = getNftContract(listing.nftAddress, library)
           const name = await nftContract.methods.name().call()
           const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
@@ -183,7 +197,7 @@ export function useListings(sort, filter) {
               <h3>Token ID: {listing.tokenId}</h3>
               <h3>Rarity: {Rarities[listing.rarity]}</h3>
               <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
-              <button onClick={() => marketplace.purchaseListing(listing.id)}>Buy NFT</button>
+              <button onClick={purchaseListing} disabled={purchasing[listing.id]}>Buy NFT</button>
             </div>
           )
         }))
@@ -195,6 +209,81 @@ export function useListings(sort, filter) {
     return () => {
       isCancelled = true
     }
-  }, [sort, filter, library, account])
+  }, [purchasing, updated, sort, filter, library, account])
+  return [listings]
+}
+
+export function useOwnedListings(updated, setUpdated) {
+  const { account, library } = useWeb3React()
+  const marketplace = useMarketplaceContract()
+  const [listings, setListings] = useState([])
+  const [updating, setUpdating] = useState({})
+  const [removing, setRemoving] = useState({})
+  const [price, setPrice] = useState({})
+
+  useEffect(() => {
+    let isCancelled = false;
+    
+    (async () => {
+      let data = await marketplace.getSellerListings(account)
+
+      if (!isCancelled) {
+        // Ensure we have only valid listings (contract may return empty listings to fill array length)
+        data = data.filter(x => x.seller !== ZERO_ADDRESS)
+
+        // Map to NFT listing elements
+        data = await Promise.all(data.map(async listing => {
+          function updateListing() {
+            setUpdating({...updating, [listing.id]: true})
+            marketplace.updateListing(listing.id, library.utils.toWei(price[listing.id].toString()))
+            .then(receipt => {
+              setUpdated(updated + 1)
+            })
+            .finally(() => {
+              setUpdating({...updating, [listing.id]: false})
+            })
+          }
+
+          function removeListing() {
+            setRemoving({...removing, [listing.id]: true})
+            marketplace.removeListing(listing.id)
+            .then(receipt => {
+              setUpdated(updated + 1)
+            })
+            .finally(() => {
+              setRemoving({...removing, [listing.id]: false})
+            })
+          }
+          const nftContract = getNftContract(listing.nftAddress, library)
+          const name = await nftContract.methods.name().call()
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
+          return (
+            <div className='nft sellNFT'
+            key={listing.tokenId + listing.nftAddress}
+            >
+              <video className='NFTvideo' src={media} width="180" height="248" autoPlay loop muted controls=''/>
+              <h3>Token ID: {listing.tokenId}</h3>
+              <h3>Rarity: {Rarities[listing.rarity]}</h3>
+              <h3>Price: <a className='NFTprice'>{library.utils.fromWei(listing.price)} BNB</a></h3>
+              <form>
+              <input type="number" min="0" defaultValue={library.utils.fromWei(listing.price)}
+                value={price[listing.id]} name="sellPrice" placeholder='Input price in BNB'
+                onChange={(e) => setPrice({...price, [listing.id]: e.target.value})}
+              />
+              </form>
+              <button onClick={updateListing} disabled={updating[listing.id] || (!price[listing.id] && price[listing.id] !== 0)}>Update</button>
+              <button onClick={removeListing} disabled={removing[listing.id]}>Remove</button>
+            </div>
+          )
+        }))
+        
+        setListings(data)
+      }
+    })()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [price, removing, updating, updated, library, account])
   return [listings]
 }

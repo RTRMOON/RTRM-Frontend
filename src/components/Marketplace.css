@@ -195,7 +195,11 @@ h1 {
   border: none;
   font-size: 1.3rem;
   margin: 7px 0px;
-  padding: 3px 25px;
+  padding: 0 25px;
+}
+
+.nft button[disabled] {
+  opacity: 0.5;
 }
 
 .nftBuyBox button{
