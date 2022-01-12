@@ -8,6 +8,7 @@ import { useWeb3React } from '@web3-react/core'
 export default function useBalance(
   tokenAddress,
   decimals,
+  updated
 ) {
   const [balance, setBalance] = useState('0')
 
@@ -66,6 +67,6 @@ export default function useBalance(
     return () => {
       isCancelled = true
     }
-  }, [tokenAddress, library, decimals, account])
+  }, [tokenAddress, library, decimals, account, updated])
   return [balance]
 }

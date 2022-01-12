@@ -13,9 +13,6 @@ import { useStakingContract } from '../assets/StakingContract'
 function Staking() {
     const { active, account, activate, chainId, library } = useWeb3React()
 
-    const [BNBbalance] = useBalance(addresses.BNB, "18");
-    const [Rmoonbalance] = useBalance(chainId === 56 ? addresses.Retromoon : addresses['Testnet Retromoon'], "18");
-
     async function connect() {
         try {
             await activate(injected)
@@ -33,6 +30,8 @@ function Staking() {
     const onModalClose = () => console.log('closeMenu');
 
     const [updated, setUpdated] = useState(0)
+    const [BNBbalance] = useBalance(addresses.BNB, "18", updated);
+    const [Rmoonbalance] = useBalance(chainId === 56 ? addresses.Retromoon : addresses['Testnet Retromoon'], "18", updated);
     const stakingContract = useStakingContract()
     const apy = useAPY()
     const canDeposit = useCanDeposit()
@@ -111,21 +110,20 @@ function Staking() {
             <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} onModalClose={onModalClose} />
             <div>
                 <div className='button-wrapper'>
-                    <div className='connector-button'>
-                        {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}
-                    </div>
                 </div>
                 <div className='stakingWindow'>
-                    <div className='stakingHeader'>Staking</div>
+                    <div className='stakingHeader'>
+                    {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}     
+                    </div>
                     <div className='stakingContent'>
                         <p>Total Value Locked (TVL):</p>
-                        <p>{parseFloat(tvl).toFixed(4)}... $RETRO</p>
-                        <p className='TVLUSD'>$2,523,444</p>
+                        <p>{parseFloat(tvl).toFixed(3)}... $RETRO</p>
+                        <p className='TVLUSD'>$?,???,???</p>
                         <div className='stakingInfo'>
                             <div className='col-2'>
                                 <p>Earned</p>
-                                <p><a className='tokenNumber'>{parseFloat(earned).toFixed(4)}...</a> $RETRO</p>
-                                <p>Staked</p><p><a className='tokenNumber'>{balance}</a> $RETRO</p>
+                                <p><a className='tokenNumber'>{parseFloat(earned).toFixed(3)}...</a> $RETRO</p>
+                                <p>Staked</p><p><a className='tokenNumber'>{parseFloat(balance).toFixed(3)}...</a> $RETRO</p>
                             </div>
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>
