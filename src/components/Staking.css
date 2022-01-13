@@ -90,7 +90,8 @@ input:focus {
 }
 .max-button:hover,
 .stake-button:hover,
-.claim-button:hover {
+.claim-button:hover,
+.refresh-button:hover {
   cursor: pointer;
   transform: translate(0px, 1px);
 }

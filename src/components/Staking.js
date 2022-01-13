@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAPY, useEarnedBalance, useStakedBalance, useTotalBalance, useApproved, useCanDeposit } from '../actions/useStaking'
+import { useAPY, useEarnedBalance, useStakedBalance, useApproved, useCanDeposit, useTotalDeposited, useMaxStake } from '../actions/useStaking'
 import './Staking.css'
 
 import addresses from '../assets/addresses.json'
@@ -34,10 +34,11 @@ function Staking() {
     const [Rmoonbalance] = useBalance(chainId === 56 ? addresses.Retromoon : addresses['Testnet Retromoon'], "18", updated);
     const stakingContract = useStakingContract()
     const apy = useAPY()
+    const maxStakeValue = useMaxStake()
     const canDeposit = useCanDeposit()
     const earned = useEarnedBalance(updated)
     const balance = useStakedBalance(updated)
-    const tvl = useTotalBalance(updated)
+    const tvl = useTotalDeposited(updated)
 
     const [approving, setApproving] = useState(false) 
     const [staking, setStaking] = useState(false)
@@ -48,7 +49,7 @@ function Staking() {
     const approved = useApproved(stakeAmount, updated)
 
     function maxStake() {
-        setStakeAmount(Rmoonbalance)
+        return Math.min(maxStakeValue - balance, Rmoonbalance).toString()
     }
 
     function maxUnstake() {
@@ -74,6 +75,7 @@ function Staking() {
         .then(receipt => {
             console.log(receipt)
             setUpdated(updated + 1)
+            setStakeAmount('0')
         })
         .finally(() => {
             setStaking(false)
@@ -87,6 +89,7 @@ function Staking() {
         .then(receipt => {
             console.log(receipt)
             setUpdated(updated + 1)
+            setUnstakeAmount('0')
         })
         .finally(() => {
             setUnstaking(false)
@@ -127,12 +130,12 @@ function Staking() {
                             </div>
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>
-                                <p> </p><button className='refresh-button' onClick={() => setUpdated(updated + 1)}>Refresh</button>
+                                <button className='refresh-button' onClick={() => setUpdated(updated + 1)}>Refresh</button>
                             </div>
                         </div>
                         <div className='stakeButtons'>
-                            <input placeholder='0' type='number' min='0' max={Rmoonbalance} value={stakeAmount} onChange={(e) => setStakeAmount(e.target.value)}></input>
-                            <button className='max-button' onClick={maxStake}>MAX</button>
+                            <input placeholder='0' type='number' min='0' max={maxStake()} value={stakeAmount} onChange={(e) => setStakeAmount(e.target.value)}></input>
+                            <button className='max-button' onClick={() => setStakeAmount(maxStake())}>MAX</button>
                             {approved ? 
                             <button className='stake-button' onClick={stakeTokens} disabled={staking || !canDeposit || !library}>STAKE</button>
                             : <button className='stake-button' onClick={approveTokens} disabled={approving || !library}>APPROVE</button> }

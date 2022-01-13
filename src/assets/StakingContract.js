@@ -50,6 +50,36 @@ export default class RetromoonStake {
         }
     }
 
+    // Get end date
+    getEndDate() {
+        try {
+            return this.contract.methods.endDate().call()
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
+    // Get max balance
+    getMaxBalance() {
+        try {
+            return this.contract.methods.maxBalance().call()
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
+    // Get max stake
+    getMaxStake() {
+        try {
+            return this.contract.methods.maxStake().call()
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
     // Get APY
     getAPY() {
         try {
@@ -70,10 +100,30 @@ export default class RetromoonStake {
         }
     }
 
+    // Get total deposited for staking
+    getTotalDeposited() {
+        try {
+            return this.contract.methods.totalDeposited().call()
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
+    // Get total stakers
+    getTotalStakers() {
+        try {
+            return this.contract.methods.totalStakers().call()
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
     // Get balance of account
     getBalance(account) {
         try {
-            return this.contract.methods.balances(account).call()
+            return this.contract.methods.balanceOf(account).call()
         }
         catch (ex) {
             return 0
@@ -84,16 +134,6 @@ export default class RetromoonStake {
     getRemainingRewards() {
         try {
             return this.contract.methods.remainingRewards().call()
-        }
-        catch (ex) {
-            return 0
-        }
-    }
-
-    // Get calculated remaining rewards at end of pool
-    getRemainingCalculatedRewards() {
-        try {
-            return this.contract.methods.remainingCalculatedRewards().call()
         }
         catch (ex) {
             return 0

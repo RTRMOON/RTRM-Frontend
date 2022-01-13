@@ -46,6 +46,28 @@ export function useAPY() {
   return apy
 }
 
+export function useMaxStake() {
+  const { account, library } = useWeb3React()
+  const staking = useStakingContract()
+  const [maxStake, setMaxStake] = useState('0')
+  
+  useEffect(() => {
+    let isCancelled = false;
+
+    (async () => {
+      const data = await staking.getMaxStake()
+      if (!isCancelled) {
+        setMaxStake(library ? library.utils.fromWei(data.toString()) : data)
+      }
+    })()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [library, account])
+  return maxStake
+}
+
 export function useStakedBalance(updates) {
   const { account, library } = useWeb3React()
   const staking = useStakingContract()
@@ -90,7 +112,7 @@ export function useEarnedBalance(updates) {
   return earned
 }
 
-export function useTotalBalance(updates) {
+export function useTotalDeposited(updates) {
   const { account, library } = useWeb3React()
   const staking = useStakingContract()
   const [locked, setLocked] = useState('0')
@@ -99,7 +121,7 @@ export function useTotalBalance(updates) {
     let isCancelled = false;
 
     (async () => {
-      const data = await staking.getTotalBalance()
+      const data = await staking.getTotalDeposited()
       if (!isCancelled) {
         setLocked(library ? library.utils.fromWei(data.toString()) : data)
       }
