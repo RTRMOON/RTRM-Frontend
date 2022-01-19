@@ -4,6 +4,7 @@
     "Moon Invaders": "0x186DCc42DcD2cf015a74D5355593D48bAfFBc1ee",
     "Marketplace": "0x7903925E6382734C6c22D1c23394166615410415",
     "Token Staking": "",
+    "NFT Staking": "",
     "Angry Scientist": "0x69F30c6299ECc32524Dcac20410Fa2Ca46d15F4F",
     "Anonymous Hitman": "0x3338569f335D6B85c5456b89b9A7CBF3ec5864b1",
     "Assassin": "0x0Eb19aF3123c9A603318C2c0a310009A51160084",
@@ -51,5 +52,6 @@
     "Testnet The Adventurer": "0xE25dd7EA8d9602EE1A44FfAa0f7c15E2f624B9Ca",
     "Testnet Retromoon": "0xA6Da8e4550138086F73c1551F510BF11ab431afF",
     "Testnet Marketplace": "0x86Bbae6289F525D7D15a4eAcF17C2A00BA8ad6dD",
-    "Testnet Token Staking": "0x65166e00064dd892AFffB38e215aE2296e7Ed236"
+    "Testnet Token Staking": "0x65166e00064dd892AFffB38e215aE2296e7Ed236",
+    "Testnet NFT Staking": "0x68986c6b8314d91cAF7c6dCE8a1381dF5BbAc06c"
 }
