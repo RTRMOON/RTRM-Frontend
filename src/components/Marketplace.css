@@ -194,8 +194,8 @@ h1 {
   background-size: contain;
   border: none;
   font-size: 1.3rem;
+  min-width: 111px;
   margin: 7px 0px;
-  padding: 3px 25px;
 }
 
 .nftBuyBox button{
@@ -205,4 +205,46 @@ h1 {
 
 .nft-selected{
   margin-top: 0px;
+}
+
+.nftStaking .nftBuyBox{
+  display: inline-table;
+  min-height: 410px;
+}
+
+.rarityOverview{
+  display: flex;
+  font-family: superstar;
+  color: white;
+  font-size: 30px;
+  margin-top: 80px;
+}
+.nftRarity{
+  margin: auto;
+}
+
+.rarityOverview th{
+  border-bottom: 1px solid;
+}
+
+.rarityOverview table{
+  border-spacing: 0;
+}
+
+.nftStaking button{
+  display: block;
+  margin: 10px auto;
+}
+
+.yourRmoon{
+  margin: auto;
+  font-family: superstar;
+  color: white;
+  font-size: 20px;
+  padding-top: 20px;
+  text-align: left;
+}
+
+.yourRmoon td{
+  padding-right: 25px;
 }
