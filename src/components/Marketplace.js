@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Marketplace.css';
-import { useListings, SortOrders, useOwnedNfts } from '../actions/useMarketplace';
+import { useListings, SortOrders, useOwnedNfts, useOwnedListings } from '../actions/useMarketplace';
 import nftExample from '../images/nftexample.png'
 import addresses from '../assets/addresses.json'
 import { WalletMenu } from './WalletMenu'
@@ -16,6 +16,7 @@ export default function Marketplace() {
   const [tab, setTab] = useState('for-sale');
   const [sort, setSort] = useState(SortOrders.PriceAsc)
   const [filter, setFilter] = useState({})
+  const [updated, setUpdated] = useState(0)
   const { active, account, activate } = useWeb3React()
 
   const [BNBbalance] = useBalance(addresses.BNB, "18");
@@ -38,17 +39,17 @@ export default function Marketplace() {
   const onModalClose = () => console.log('closeMenu');
 
 
-  const listings = useListings(sort, filter)
-  const nfts = useOwnedNfts()
-  console.log(nfts)
+  const listings = useListings(updated, setUpdated, sort, filter)
+  const nfts = useOwnedNfts(updated, setUpdated)
+  const sellerListings = useOwnedListings(updated, setUpdated)
 
   function checkNftAmount(){
-  if(nfts.length === 0) {
-    return(
-      <h1>You currently don't own any NFTs, get playing!</h1>
-    )
+    if(nfts.length === 0) {
+      return(
+        <h1>You currently don't own any NFTs, get playing!</h1>
+      )
+    }
   }
-}
   return (
     <>
       <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} onModalClose={onModalClose} />
@@ -80,28 +81,16 @@ export default function Marketplace() {
           </div>
         }
         {tab === "your-nft" &&
-          <div className='nft-selected'>
           <div className='nftBox'>
           {active ? 
             checkNftAmount()
           : <h1>Connect your wallet to see NFTs</h1>}
             {nfts}
-          </div>
-          {/*
-            <div className='top-section'>
-              <div className='nft-image'>
-                <img src={nftExample}></img>
-              </div>
-              <div className='nft-description'>
-                <h1>Mining Zombie</h1>
-                <h2>Rarity: Common</h2>
-                <h2>Staking: 1.5X</h2>
-                <h2>Token ID: 0</h2>
-                <p>Common Mining Zombie from Series 1 of Retromoon Arcade Platform NFTs</p>
-                <div className='sell-btn'>Sell your NFT</div>
-              </div>
-            </div>
-          */}
+            {active ? 
+              <>
+              <h1>Your Listings</h1>
+              {sellerListings}
+              </> : ''}
           </div>
 
         }
