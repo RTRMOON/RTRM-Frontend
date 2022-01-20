@@ -56,10 +56,14 @@ export default class RetromoonNFTStake {
             const retroCost = 0.00000115 // TODO
             const reward = BigNumber.from(rewardPerTier).sub(deposit.rewardPerToken)
             const now = Math.floor(new Date() / 1000)
-            const period = BigNumber.from((now - deposit.timestamp).toString()).mul(this.library.utils.toWei('100'))
-            const year = BigNumber.from('31536000').mul(this.library.utils.toWei('100'))
-            const yearly = reward.mul(year.div(period))
-            const retroRate = this.library.utils.fromWei(yearly.toString()) * retroCost
+            const year = BigNumber.from('31536000')
+            const period = BigNumber.from((now - deposit.timestamp).toString())
+            const start = BigNumber.from((now - period).toString())
+            const end = start.add(year)
+            const period2 = end.sub(now)
+            const rate = BigNumber.from(await this.contract.methods.getRewardRate(tier).call())
+            const yearly = rate.mul(period2).div(year)
+            const retroRate = this.library.utils.fromWei(reward.add(yearly).toString()) * retroCost
             return retroRate / mintCost * 100
         }
         catch (ex) {
