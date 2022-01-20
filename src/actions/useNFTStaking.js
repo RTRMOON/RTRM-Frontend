@@ -58,9 +58,15 @@ export function useAPY(rarity, updates) {
     let isCancelled = false;
 
     (async () => {
-      const data = await staking.getAPY(rarity)
-      if (!isCancelled) {
-        setAPY(data)
+      const staked = await staking.getTotalRarityStaked(rarity)
+      if (!isCancelled && +staked === 0) {
+        setAPY('Infinity')
+      }
+      else if (!isCancelled && +staked > 0) {
+        const apy = await staking.getAPY(rarity)
+        if (!isCancelled) {
+          setAPY(apy)
+        }
       }
     })()
 
@@ -121,7 +127,7 @@ export function useOwnedNfts(updated, setUpdated) {
   const { account, library } = useWeb3React()
   const marketplace = useMarketplaceContract()
   const staking = useNFTStakingContract()
-  const [nfts, setNfts] = useState([])
+  const [nfts, setNfts] = useState([<h1 className='loading'>Loading...</h1>])
 
 
   useEffect(() => {

@@ -217,6 +217,11 @@ h1 {
   min-height: 410px;
 }
 
+.loading {
+  font-family: superstar;
+  color: white;
+}
+
 .rarityOverview{
   display: flex;
   font-family: superstar;
