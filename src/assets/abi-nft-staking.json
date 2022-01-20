@@ -2,7 +2,7 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
+				"internalType": "contract IERC20",
 				"name": "_token",
 				"type": "address"
 			}
@@ -196,8 +196,8 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "gameAddress",
+				"internalType": "contract RetromoonGame",
+				"name": "game",
 				"type": "address"
 			}
 		],
@@ -236,7 +236,7 @@
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "balance",
 				"type": "uint256"
 			}
 		],
@@ -304,6 +304,47 @@
 		"name": "claimRewards",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "deposits",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "nftAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rewardPerToken",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct RetromoonNFTStake.Deposit[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -512,8 +553,8 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "gameAddress",
+				"internalType": "contract RetromoonGame",
+				"name": "game",
 				"type": "address"
 			}
 		],
@@ -594,6 +635,25 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "rewardsPaid",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "_nftAddress",
 				"type": "address"
 			},
@@ -640,19 +700,48 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_nftAddress",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"name": "stakedTokens",
 		"outputs": [
 			{
-				"internalType": "uint256[]",
+				"components": [
+					{
+						"internalType": "address",
+						"name": "nftAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rewardPerToken",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct RetromoonNFTStake.Deposit[]",
 				"name": "",
-				"type": "uint256[]"
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "stakers",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
 			}
 		],
 		"stateMutability": "view",
@@ -712,6 +801,19 @@
 			}
 		],
 		"name": "totalNFTStaked",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalPaid",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -831,16 +933,9 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "withdrawExtraRewards",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
-				"internalType": "address",
+				"internalType": "contract IERC20",
 				"name": "_token",
 				"type": "address"
 			},
@@ -851,6 +946,13 @@
 			}
 		],
 		"name": "withdrawNonRewardToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withdrawRewardsIfNoStakers",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

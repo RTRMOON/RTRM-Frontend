@@ -58,15 +58,9 @@ export function useAPY(rarity, updates) {
     let isCancelled = false;
 
     (async () => {
-      const staked = await staking.getTotalRarityStaked(rarity)
-      if (!isCancelled && +staked === 0) {
-        setAPY('Infinity')
-      }
-      else if (!isCancelled && +staked > 0) {
-        const apy = await staking.getAPY(rarity)
-        if (!isCancelled) {
-          setAPY(apy)
-        }
+      const apy = await staking.getAPY(rarity)
+      if (!isCancelled) {
+        setAPY(apy)
       }
     })()
 
@@ -101,6 +95,28 @@ export function useTotalBalance(updates) {
   return balance
 }
 
+export function useTotalClaimed(updates) {
+  const { account, library } = useWeb3React()
+  const staking = useNFTStakingContract()
+  const [claimed, setStaked] = useState('0')
+  
+  useEffect(() => {
+    let isCancelled = false;
+
+    (async () => {
+      const data = await staking.getTotalClaimed(account)
+      if (!isCancelled) {
+        setStaked(library ? library.utils.fromWei(data.toString()) : data)
+      }
+    })()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [updates, library, account])
+  return claimed
+}
+
 export function useTotalRarityStaked(rarity, updates) {
   const { account, library } = useWeb3React()
   const staking = useNFTStakingContract()
@@ -129,13 +145,61 @@ export function useOwnedNfts(updated, setUpdated) {
   const staking = useNFTStakingContract()
   const [nfts, setNfts] = useState([<h1 className='loading'>Loading...</h1>])
 
+  function approveForStaking(nft) {
+    // TODO: disable button
+    staking.approveContract(nft).then(() => {
+      setUpdated(updated + 1)
+    })
+    .finally(() => {
+      // TODO: enable button
+    })
+  }
+  function stake(nft, id) {
+    // TODO: disable button
+    staking.stake(nft, id).then(() => {
+      setUpdated(updated + 1)
+    })
+    .finally(() => {
+      // TODO: enable button
+    })
+  }
+  function unstake(nft, id) {
+    // TODO: disable button
+    staking.unstake(nft, id).then(() => {
+      setUpdated(updated + 1)
+    })
+    .finally(() => {
+      // TODO: enable button
+    })
+  }
+
 
   useEffect(() => {
     let isCancelled = false;
     
     (async () => {
       const ownedNfts = []
-      const characters = await staking.getNFTAddresses()
+      const staked = await staking.getStakedTokens()
+      ownedNfts.push(await Promise.all(await staked.map(async x => {
+        const nftContract = getNftContract(x.nftAddress, library)
+
+        const rarity = await nftContract.methods.rarity().call()
+        const name = await nftContract.methods.name().call()
+        const apy = await staking.getAPYForToken(x, rarity)
+        const rewards = await staking.getRewardsForDeposit(x, rarity);
+        const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
+        return (
+          <div className='nft nftBuyBox' key={x.tokenId + x.nftAddress}>
+            <video src={media} width="180" height="248" autoPlay loop muted controls='' />
+            <h3>Token ID: {x.tokenId}</h3>
+            <h3>Rarity: {Rarities[rarity]}</h3>
+            <h3>Rewards: ~{Math.round(rewards)}</h3>
+            <h3>APY: {Math.round(apy)}%</h3>
+            <button onClick={() => unstake(x.nftAddress, x.tokenId)}>Unstake</button>
+          </div>
+        )
+      })))
+      const characters = await marketplace.getNftsByPlayer(account)
       for (const character of characters) {
         const nftContract = getNftContract(character, library)
 
@@ -145,48 +209,9 @@ export function useOwnedNfts(updated, setUpdated) {
         const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
 
         const approved = await staking.isApproved(character)
-        function approveForStaking(nft) {
-          // TODO: disable button
-          staking.approveContract(character).then(() => {
-            setUpdated(updated + 1)
-          })
-          .finally(() => {
-            // TODO: enable button
-          })
-        }
-        function stake(nft, id) {
-          // TODO: disable button
-          staking.stake(nft, id).then(() => {
-            setUpdated(updated + 1)
-          })
-          .finally(() => {
-            // TODO: enable button
-          })
-        }
-        function unstake(nft, id) {
-          // TODO: disable button
-          staking.unstake(nft, id).then(() => {
-            setUpdated(updated + 1)
-          })
-          .finally(() => {
-            // TODO: enable button
-          })
-        }
-        const staked = await staking.getStakedTokens(character)
+        
         const owned = await marketplace.getOwnedTokens(account, character)
-        const stakedtokens = staked.map(x => {
-          return (
-            <div className='nft nftBuyBox' key={x + character}>
-              <video src={media} width="180" height="248" autoPlay loop muted controls='' />
-              <h3>Token ID: {x}</h3>
-              <h3>Rarity: {Rarities[rarity]}</h3>
-              <h3>APY: {Math.round(apy)}%</h3>
-              <button onClick={() => unstake(character, x)}>Unstake</button>
-            </div>
-          )
-          
-        })
-        const tokens = owned.map(x => {
+        ownedNfts.push(owned.map(x => {
           return (
             <div className='nft nftBuyBox' key={x + character}>
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
@@ -200,9 +225,7 @@ export function useOwnedNfts(updated, setUpdated) {
               }
             </div>
           )
-        })
-
-        ownedNfts.push(...stakedtokens, ...tokens)
+        }))
       }
       
       if (!isCancelled) {

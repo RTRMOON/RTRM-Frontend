@@ -1,6 +1,7 @@
 import { getNftContract, getNFTStakingContract } from '../store/contractStore'
 import { useWeb3React } from '@web3-react/core'
 import addresses from './addresses.json'
+import { BigNumber } from 'ethers'
 
 export function useNFTStakingContract() {
     const { account, library, chainId } = useWeb3React()
@@ -48,27 +49,66 @@ export default class RetromoonNFTStake {
         }
     }
 
+    async getAPYForToken(deposit, tier) {
+        try {
+            const rewardPerTier = await this.contract.methods.rewardPerTier(tier).call();
+            const mintCost = 0.2 // TODO
+            const retroCost = 0.00000115 // TODO
+            const reward = BigNumber.from(rewardPerTier).sub(deposit.rewardPerToken)
+            const now = Math.floor(new Date() / 1000)
+            const period = BigNumber.from((now - deposit.timestamp).toString()).mul(this.library.utils.toWei('100'))
+            const year = BigNumber.from('31536000').mul(this.library.utils.toWei('100'))
+            const yearly = reward.mul(year.div(period))
+            const retroRate = this.library.utils.fromWei(yearly.toString()) * retroCost
+            return retroRate / mintCost * 100
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
     // Get APY for address
     async getAPY(rarity) {
         try {
-            const yearly = await this.contract.methods.getRewardRate(rarity).call()
-            const bnbCost = 500 // TODO
-            const retroCost = 0.000544757 // TODO
-            const mintCost = 0.2 // TODO
-            const mintUSD = bnbCost * mintCost
+            const staked = await this.getTotalRarityStaked(rarity)
+            if (+staked === 0) return 'Infinity';
 
-            const rateUSD = this.library.utils.fromWei(yearly, 'ether') * retroCost
-            return rateUSD / mintUSD * 100
+            const yearly = await this.contract.methods.getRewardRate(rarity).call()
+            const retroCost = 0.00000115 // TODO
+            const mintCost = 0.2 // TODO
+
+            const retroRate = this.library.utils.fromWei(yearly) * retroCost
+            return retroRate / mintCost * 100
         }
         catch (ex) {
+            return 0
+        }
+    }
 
+    getTotalClaimed(account) {
+        try {
+            return this.contract.methods.rewardsPaid(account).call()
+        }
+        catch (ex) {
+            return 0
+        }
+    }
+
+    async getRewardsForDeposit(deposit, tier) {
+        try {
+            const rewardPerTier = await this.contract.methods.rewardPerTier(tier).call();
+            const rewards = BigNumber.from(rewardPerTier).sub(deposit.rewardPerToken);
+            return this.library.utils.fromWei(rewards.toString());
+        }
+        catch (ex) {
+            return 0
         }
     }
 
     // Get staked token Ids for NFT 
-    getStakedTokens(nftAddress) {
+    getStakedTokens() {
         try {
-            return this.contract.methods.stakedTokens(nftAddress).call()
+            return this.contract.methods.stakedTokens().call()
         }
         catch (ex) {
             return []

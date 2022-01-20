@@ -9,7 +9,7 @@ import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
 import Modal from 'react-modal/lib/components/Modal';
-import { useTotalBalance, useOwnedNfts, useTotalRarityStaked, useCalculateTotalRewards, useAPY } from '../actions/useNFTStaking';
+import { useTotalBalance, useOwnedNfts, useTotalRarityStaked, useCalculateTotalRewards, useAPY, useTotalClaimed } from '../actions/useNFTStaking';
 import { useNFTStakingContract } from '../assets/NFTStakingContract';
 
 
@@ -54,6 +54,7 @@ export default function NFTFarming() {
 
   const total = useTotalBalance(updated)
   const totalRewards = useCalculateTotalRewards(updated)
+  const totalClaimed = useTotalClaimed(updated)
   const stakingContract = useNFTStakingContract()
 
   function claimAllRewards() {
@@ -89,7 +90,7 @@ export default function NFTFarming() {
               </tr>
               <tr>
                 <td>Total Claimed:</td>
-                <td> $R</td>
+                <td> {totalClaimed} $RETRO</td>
               </tr>
             </table>
             <button onClick={claimAllRewards}>Claim Rewards</button>
