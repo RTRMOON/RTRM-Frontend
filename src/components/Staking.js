@@ -110,6 +110,10 @@ function Staking() {
         })
     }
 
+    function usdValue(amount) {
+        return parseFloat((amount * rmoonPrice).toFixed(2)).toLocaleString()
+    }
+
     return (
         <>
             <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} onModalClose={onModalClose} />
@@ -123,12 +127,14 @@ function Staking() {
                     <div className='stakingContent'>
                         <p>Total Value Locked (TVL):</p>
                         <p>{parseFloat(tvl).toLocaleString()}... $RETRO</p>
-                        <p className='TVLUSD'>${parseFloat((tvl * rmoonPrice).toFixed(2)).toLocaleString()}</p>
+                        <p className='TVLUSD'>${usdValue(tvl)}</p>
                         <div className='stakingInfo'>
                             <div className='col-2'>
                                 <p>Earned</p>
                                 <p><a className='tokenNumber'>{parseFloat(earned).toLocaleString()}...</a> $RETRO</p>
+                                <p className='TVLUSD'>${usdValue(earned)}</p>
                                 <p>Staked</p><p><a className='tokenNumber'>{parseFloat(balance).toLocaleString()}...</a> $RETRO</p>
+                                <p className='TVLUSD'>${usdValue(balance)}</p>
                             </div>
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>
