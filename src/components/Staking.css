@@ -24,9 +24,8 @@
   width: 47%;
   max-height: 88%;
   max-height: 73.5vh;
-  margin: 25px auto 29px auto;
+  margin: 51px auto 29px auto;
   font-size: 3vh;
-  overflow: scroll;
 }
 
 .stakingContent p {
@@ -54,7 +53,7 @@
 }
 
 .right-col p {
-  padding-left: 90px;
+  text-align: right;
 }
 
 .stakeButtons input,
@@ -110,7 +109,7 @@ input:focus {
 
 .stake-button:disabled,
 .claim-button:disabled {
-  opacity: 0.5;
+  opacity: 0.25;
 }
 
 .claim-button {
@@ -134,9 +133,15 @@ input:focus {
   background-size: contain;
   font-size: 3vh;
   height: 5vh;
-  margin-top: 1vh;
+  margin: auto;
+  margin-right: 0;
+  margin-top: 20px;
 }
 
 .unstakeButtons {
   margin-top: 3vh;
+}
+
+.mw{
+  width: 100%
 }

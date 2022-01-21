@@ -154,7 +154,7 @@ h1 {
   font-size: 3vh;
   padding: 5px 2vh 0;
 }
-.sell-btn:hover {
+.sell-btn:hover, .nft-button:hover{
   cursor: pointer;
   transform: translate(0px, 1px);
 }
@@ -196,7 +196,6 @@ h1 {
   font-size: 1.3rem;
   min-width: 111px;
   margin: 7px 0px;
-  padding: 0 25px;
 }
 
 .nft button[disabled] {
@@ -204,7 +203,7 @@ h1 {
 }
 
 .nftBuyBox button{
-  font-size: 1.2rem; 
+  font-size: 1.3rem; 
 }
 ::-webkit-scrollbar-corner { background: rgba(0,0,0,0); }
 
@@ -214,7 +213,6 @@ h1 {
 
 .nftStaking .nftBuyBox{
   display: inline-table;
-  min-height: 410px;
 }
 
 .loading {

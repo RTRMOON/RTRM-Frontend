@@ -52,9 +52,9 @@ export default function NFTFarming() {
 
   const nfts = useOwnedNfts(updated, setUpdated)
 
-  const total = useTotalBalance(updated)
-  const totalRewards = useCalculateTotalRewards(updated)
-  const totalClaimed = useTotalClaimed(updated)
+  const total = Math.round(useTotalBalance(updated))
+  const totalRewards = Math.round(useCalculateTotalRewards(updated))
+  const totalClaimed = Math.round(useTotalClaimed(updated))
   const stakingContract = useNFTStakingContract()
 
   function claimAllRewards() {
@@ -70,7 +70,7 @@ export default function NFTFarming() {
       <div className="game-window">
         <div className='button-wrapper'>
           <div className='connector-button'>
-            {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}
+            {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Math.round(Rmoonbalance)} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}
           </div>
         </div>
         <div className='nft-menu'>
@@ -111,27 +111,27 @@ export default function NFTFarming() {
                 <tr>
                   <td>COMMON</td>
                   <td>{commonBalance}</td>
-                  <td>{commonAPY}%</td>
+                  <td>{Math.round(commonAPY)}%</td>
                 </tr>
                 <tr>
                   <td>UNCOMMON</td>
                   <td>{uncommonBalance}</td>
-                  <td>{uncommonAPY}%</td>
+                  <td>{Math.round(uncommonAPY)}%</td>
                 </tr>
                 <tr>
                   <td>RARE</td>
                   <td>{rareBalance}</td>
-                  <td>{rareAPY}%</td>
+                  <td>{Math.round(rareAPY)}%</td>
                 </tr>
                 <tr>
                   <td>EPIC</td>
                   <td>{epicBalance}</td>
-                  <td>{epicAPY}%</td>
+                  <td>{Math.round(epicAPY)}%</td>
                 </tr>
                 <tr>
                   <td>LEGENDARY</td>
                   <td>{legendaryBalance}</td>
-                  <td>{legendaryAPY}%</td>
+                  <td>{Math.round(legendaryAPY)}%</td>
                 </tr>
               </table>
             </div>
