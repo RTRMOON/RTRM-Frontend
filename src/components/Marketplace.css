@@ -172,7 +172,7 @@ h1 {
   display: block;
 }
 
-.nft button:hover{
+.nft-button, .nft button:hover{
   cursor: pointer;
   transform: translate(0px, 1px);
 }
@@ -187,7 +187,7 @@ h1 {
   padding-top: 2.5px;
 }
 
-.nft button{
+.nft-button, .nft button{
   font-family: superstar;
   color: white;
   background: url("../images/ButtonBG.png") no-repeat;

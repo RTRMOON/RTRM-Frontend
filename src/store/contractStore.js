@@ -3,6 +3,15 @@ import marketplaceABI from '../assets/abi-marketplace.json'
 import nftABI from '../assets/abi-nft.json'
 import stakingABI from '../assets/abi-staking.json'
 import nftStakingABI from '../assets/abi-nft-staking.json'
+import pancakeABI from '../assets/abi-pancakepair.json'
+
+export function getPancakePair(pairAddress, web3) {
+  return web3
+    ? new web3.eth.Contract(pancakeABI, pairAddress, {
+      from: web3.eth.defaultAccount
+    })
+    : null
+}
 
 export function getERC20Contract(tokenAddress, web3) {
   return web3

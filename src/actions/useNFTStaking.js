@@ -193,8 +193,8 @@ export function useOwnedNfts(updated, setUpdated) {
             <video src={media} width="180" height="248" autoPlay loop muted controls='' />
             <h3>Token ID: {x.tokenId}</h3>
             <h3>Rarity: {Rarities[rarity]}</h3>
-            <h3>Rewards: ~{Math.round(rewards)}</h3>
-            <h3>APY: {Math.round(apy)}%</h3>
+            <h3>Rewards: ~{Math.round(rewards).toLocaleString()}</h3>
+            <h3>APY: {Math.round(apy).toLocaleString()}%</h3>
             <button onClick={() => unstake(x.nftAddress, x.tokenId)}>Unstake</button>
           </div>
         )
@@ -217,7 +217,7 @@ export function useOwnedNfts(updated, setUpdated) {
               <video src={media} width="180" height="248" autoPlay loop muted controls='' />
               <h3>Token ID: {x}</h3>
               <h3>Rarity: {Rarities[rarity]}</h3>
-              <h3>APY: {Math.round(apy)}%</h3>
+              <h3>APY: {Math.round(apy).toLocaleString()}%</h3>
               {
                 approved ?
                 <button onClick={() => stake(character, x)}>Stake</button> :

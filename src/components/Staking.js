@@ -9,6 +9,7 @@ import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
 import { useStakingContract } from '../assets/StakingContract'
+import { useRetromoonPrice } from '../actions/usePrice'
 
 function Staking() {
     const { active, account, activate, chainId, library } = useWeb3React()
@@ -32,6 +33,7 @@ function Staking() {
     const [updated, setUpdated] = useState(0)
     const [BNBbalance] = useBalance(addresses.BNB, "18", updated);
     const [Rmoonbalance] = useBalance(chainId === 56 ? addresses.Retromoon : addresses['Testnet Retromoon'], "18", updated);
+    const rmoonPrice = useRetromoonPrice(updated)
     const stakingContract = useStakingContract()
     const apy = useAPY()
     const maxStakeValue = useMaxStake()
@@ -120,13 +122,13 @@ function Staking() {
                     </div>
                     <div className='stakingContent'>
                         <p>Total Value Locked (TVL):</p>
-                        <p>{parseFloat(tvl).toFixed(3)}... $RETRO</p>
-                        <p className='TVLUSD'>$?,???,???</p>
+                        <p>{parseFloat(tvl).toLocaleString()}... $RETRO</p>
+                        <p className='TVLUSD'>${parseFloat((tvl * rmoonPrice).toFixed(2)).toLocaleString()}</p>
                         <div className='stakingInfo'>
                             <div className='col-2'>
                                 <p>Earned</p>
-                                <p><a className='tokenNumber'>{parseFloat(earned).toFixed(3)}...</a> $RETRO</p>
-                                <p>Staked</p><p><a className='tokenNumber'>{parseFloat(balance).toFixed(3)}...</a> $RETRO</p>
+                                <p><a className='tokenNumber'>{parseFloat(earned).toLocaleString()}...</a> $RETRO</p>
+                                <p>Staked</p><p><a className='tokenNumber'>{parseFloat(balance).toLocaleString()}...</a> $RETRO</p>
                             </div>
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>

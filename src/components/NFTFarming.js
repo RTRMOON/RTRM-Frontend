@@ -93,8 +93,8 @@ export default function NFTFarming() {
                 <td> {totalClaimed} $RETRO</td>
               </tr>
             </table>
-            <button onClick={claimAllRewards}>Claim Rewards</button>
-            <button onClick={() => setUpdated(updated + 1)}>Refresh</button>
+            <button className='nft-button' onClick={claimAllRewards}>Claim</button>
+            <button className='nft-button' onClick={() => setUpdated(updated + 1)}>Refresh</button>
             { nfts }
           </div>
         }

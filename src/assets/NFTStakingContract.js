@@ -2,6 +2,7 @@ import { getNftContract, getNFTStakingContract } from '../store/contractStore'
 import { useWeb3React } from '@web3-react/core'
 import addresses from './addresses.json'
 import { BigNumber } from 'ethers'
+import { getBNBPrice, getRetromoonPrice } from '../actions/usePrice'
 
 export function useNFTStakingContract() {
     const { account, library, chainId } = useWeb3React()
@@ -51,9 +52,9 @@ export default class RetromoonNFTStake {
 
     async getAPYForToken(deposit, tier) {
         try {
-            const rewardPerTier = await this.contract.methods.rewardPerTier(tier).call();
-            const mintCost = 0.2 // TODO
-            const retroCost = 0.00000115 // TODO
+            const rewardPerTier = await this.contract.methods.rewardPerTier(tier).call()
+            const mintCost = (await getBNBPrice()) * 0.2
+            const retroCost = await getRetromoonPrice()
             const reward = BigNumber.from(rewardPerTier).sub(deposit.rewardPerToken)
             const now = Math.floor(new Date() / 1000)
             const year = BigNumber.from('31536000')
@@ -78,8 +79,8 @@ export default class RetromoonNFTStake {
             if (+staked === 0) return 'Infinity';
 
             const yearly = await this.contract.methods.getRewardRate(rarity).call()
-            const retroCost = 0.00000115 // TODO
-            const mintCost = 0.2 // TODO
+            const retroCost = await getRetromoonPrice()
+            const mintCost = (await getBNBPrice()) * 0.2
 
             const retroRate = this.library.utils.fromWei(yearly) * retroCost
             return retroRate / mintCost * 100
