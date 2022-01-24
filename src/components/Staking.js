@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAPY, useEarnedBalance, useStakedBalance, useApproved, useCanDeposit, useTotalDeposited, useMaxStake } from '../actions/useStaking'
+import { useAPY, useEarnedBalance, useStakedBalance, useApproved, useCanDeposit, useTotalDeposited, useMaxStake, useMaxBalance } from '../actions/useStaking'
 import './Staking.css'
 
 import addresses from '../assets/addresses.json'
@@ -36,6 +36,7 @@ function Staking() {
     const rmoonPrice = useRetromoonPrice(updated)
     const stakingContract = useStakingContract()
     const apy = useAPY()
+    const maxBalanceValue = useMaxBalance()
     const maxStakeValue = useMaxStake()
     const canDeposit = useCanDeposit()
     const earned = useEarnedBalance(updated)
@@ -51,7 +52,7 @@ function Staking() {
     const approved = useApproved(stakeAmount, updated)
 
     function maxStake() {
-        return Math.min(maxStakeValue - balance, Rmoonbalance).toString()
+        return Math.min(maxBalanceValue - tvl, maxStakeValue - balance, Rmoonbalance).toString()
     }
 
     function maxUnstake() {

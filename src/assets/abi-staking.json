@@ -1,5 +1,7 @@
-[{
-        "inputs": [{
+[
+    {
+        "inputs": [
+            {
                 "internalType": "uint256",
                 "name": "_maxBalance",
                 "type": "uint256"
@@ -20,7 +22,7 @@
                 "type": "uint256"
             },
             {
-                "internalType": "address",
+                "internalType": "contract IERC20",
                 "name": "_token",
                 "type": "address"
             }
@@ -30,7 +32,8 @@
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "address",
                 "name": "account",
@@ -48,7 +51,8 @@
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "bytes32",
                 "name": "role",
@@ -72,7 +76,8 @@
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "bytes32",
                 "name": "role",
@@ -96,7 +101,8 @@
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "bytes32",
                 "name": "role",
@@ -120,7 +126,8 @@
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "address",
                 "name": "account",
@@ -138,7 +145,8 @@
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "address",
                 "name": "account",
@@ -157,52 +165,64 @@
     {
         "inputs": [],
         "name": "DEFAULT_ADMIN_ROLE",
-        "outputs": [{
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-        }],
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "apy",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-        }],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
         "name": "balanceOf",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-        }],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
         "name": "calculateRewards",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
@@ -216,70 +236,64 @@
     {
         "inputs": [],
         "name": "depositsActive",
-        "outputs": [{
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-        }],
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "endDate",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "extraRewards",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
-            "internalType": "bytes32",
-            "name": "role",
-            "type": "bytes32"
-        }],
-        "name": "getRoleAdmin",
-        "outputs": [{
-            "internalType": "bytes32",
-            "name": "",
-            "type": "bytes32"
-        }],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [{
+        "inputs": [
+            {
                 "internalType": "bytes32",
                 "name": "role",
                 "type": "bytes32"
-            },
-            {
-                "internalType": "address",
-                "name": "account",
-                "type": "address"
             }
         ],
-        "name": "grantRole",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "getRoleAdmin",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
+        "inputs": [
+            {
                 "internalType": "bytes32",
                 "name": "role",
                 "type": "bytes32"
@@ -291,201 +305,193 @@
             }
         ],
         "name": "hasRole",
-        "outputs": [{
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-        }],
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "maxBalance",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "maxStake",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [{
-            "internalType": "bool",
-            "name": "_paused",
-            "type": "bool"
-        }],
-        "name": "pauseDeposits",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "payoutAll",
-        "outputs": [],
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "pendingRewards",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "rewards",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "rewards",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "remainingRewards",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
-                "internalType": "bytes32",
-                "name": "role",
-                "type": "bytes32"
-            },
+        "inputs": [
             {
                 "internalType": "address",
-                "name": "account",
+                "name": "",
                 "type": "address"
             }
         ],
-        "name": "renounceRole",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [{
-                "internalType": "bytes32",
-                "name": "role",
-                "type": "bytes32"
-            },
+        "name": "rewardsPaid",
+        "outputs": [
             {
-                "internalType": "address",
-                "name": "account",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
-        "name": "revokeRole",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-        }],
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
         "name": "stake",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
     },
     {
-        "inputs": [{
-            "internalType": "bytes4",
-            "name": "interfaceId",
-            "type": "bytes4"
-        }],
+        "inputs": [
+            {
+                "internalType": "bytes4",
+                "name": "interfaceId",
+                "type": "bytes4"
+            }
+        ],
         "name": "supportsInterface",
-        "outputs": [{
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-        }],
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "token",
-        "outputs": [{
-            "internalType": "contract IERC20",
-            "name": "",
-            "type": "address"
-        }],
+        "outputs": [
+            {
+                "internalType": "contract IERC20",
+                "name": "",
+                "type": "address"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "totalBalance",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "totalDeposited",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "totalPaid",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "totalStakers",
-        "outputs": [{
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
-        "inputs": [{
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-        }],
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
         "name": "unstake",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "unstakeAll",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdrawExtraRewards",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

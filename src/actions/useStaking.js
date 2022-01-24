@@ -46,6 +46,28 @@ export function useAPY() {
   return apy
 }
 
+export function useMaxBalance() {
+  const { account, library } = useWeb3React()
+  const staking = useStakingContract()
+  const [maxBalance, setMaxBalance] = useState('0')
+  
+  useEffect(() => {
+    let isCancelled = false;
+
+    (async () => {
+      const data = await staking.getMaxBalance()
+      if (!isCancelled) {
+        setMaxBalance(library ? library.utils.fromWei(data.toString()) : data)
+      }
+    })()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [library, account])
+  return maxBalance
+}
+
 export function useMaxStake() {
   const { account, library } = useWeb3React()
   const staking = useStakingContract()
