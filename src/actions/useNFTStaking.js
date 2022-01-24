@@ -139,48 +139,21 @@ export function useTotalRarityStaked(rarity, updates) {
   return staked
 }
 
-export function useOwnedNfts(updated, setUpdated) {
+export function useNfts(updated, setUpdated) {
   const { account, library } = useWeb3React()
-  const marketplace = useMarketplaceContract()
   const staking = useNFTStakingContract()
-  const [nfts, setNfts] = useState([<h1 className='loading'>Loading...</h1>])
-
-  function approveForStaking(nft) {
-    // TODO: disable button
-    staking.approveContract(nft).then(() => {
-      setUpdated(updated + 1)
-    })
-    .finally(() => {
-      // TODO: enable button
-    })
-  }
-  function stake(nft, id) {
-    // TODO: disable button
-    staking.stake(nft, id).then(() => {
-      setUpdated(updated + 1)
-    })
-    .finally(() => {
-      // TODO: enable button
-    })
-  }
-  function unstake(nft, id) {
-    // TODO: disable button
-    staking.unstake(nft, id).then(() => {
-      setUpdated(updated + 1)
-    })
-    .finally(() => {
-      // TODO: enable button
-    })
-  }
-
+  const marketplace = useMarketplaceContract()
+  const [nfts, setNfts] = useState([])
 
   useEffect(() => {
     let isCancelled = false;
     
     (async () => {
-      const ownedNfts = []
+      let ownedNfts = []
+
       const staked = await staking.getStakedTokens()
-      ownedNfts.push(await Promise.all(await staked.map(async x => {
+
+      ownedNfts = ownedNfts.concat(await Promise.all(await staked.map(async x => {
         const nftContract = getNftContract(x.nftAddress, library)
 
         const rarity = await nftContract.methods.rarity().call()
@@ -188,46 +161,43 @@ export function useOwnedNfts(updated, setUpdated) {
         const apy = await staking.getAPYForToken(x, rarity)
         const rewards = await staking.getRewardsForDeposit(x, rarity);
         const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
-        return (
-          <div className='nft nftBuyBox' key={x.tokenId + x.nftAddress}>
-            <video src={media} width="180" height="248" autoPlay loop muted controls='' />
-            <h3>Token ID: {x.tokenId}</h3>
-            <h3>Rarity: {Rarities[rarity]}</h3>
-            <h3>Rewards: ~{Math.round(rewards).toLocaleString()}</h3>
-            <h3>APY: {Math.round(apy).toLocaleString()}%</h3>
-            <button onClick={() => unstake(x.nftAddress, x.tokenId)}>Unstake</button>
-          </div>
-        )
+        return {
+          tokenId: x.tokenId,
+          nftAddress: x.nftAddress,
+          rarity: Rarities[rarity],
+          apy,
+          staked: true,
+          rewards,
+          media,
+          approved: true,
+        }
       })))
       const characters = await marketplace.getNftsByPlayer(account)
-      for (const character of characters) {
-        const nftContract = getNftContract(character, library)
-
-        const rarity = await nftContract.methods.rarity().call()
-        const name = await nftContract.methods.name().call()
-        const apy = await staking.getAPY(rarity)
-        const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
-
-        const approved = await staking.isApproved(character)
-        
+      for (const character of characters) {        
         const owned = await marketplace.getOwnedTokens(account, character)
-        ownedNfts.push(owned.map(x => {
-          return (
-            <div className='nft nftBuyBox' key={x + character}>
-              <video src={media} width="180" height="248" autoPlay loop muted controls='' />
-              <h3>Token ID: {x}</h3>
-              <h3>Rarity: {Rarities[rarity]}</h3>
-              <h3>APY: {Math.round(apy).toLocaleString()}%</h3>
-              {
-                approved ?
-                <button onClick={() => stake(character, x)}>Stake</button> :
-                <button onClick={() => approveForStaking(character)}>Approve</button>
-              }
-            </div>
-          )
-        }))
+        if (owned.length) {
+          const nftContract = getNftContract(character, library)
+
+          const rarity = await nftContract.methods.rarity().call()
+          const name = await nftContract.methods.name().call()
+          const apy = await staking.getAPY(rarity)
+          const { default: media } = await import(`../images/nfts/${name.toLowerCase().replace(/[^a-z]/gi, '').trim()}.mp4`)
+
+          const approved = await staking.isApproved(character)
+          ownedNfts = ownedNfts.concat(owned.map(x => {
+            return {
+              tokenId: x,
+              nftAddress: character,
+              rarity: Rarities[rarity],
+              apy,
+              staked: false,
+              media,
+              approved,
+            }
+          }))
+        }
       }
-      
+
       if (!isCancelled) {
         setNfts(ownedNfts)
       }

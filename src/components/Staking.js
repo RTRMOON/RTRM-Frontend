@@ -110,8 +110,24 @@ function Staking() {
         })
     }
 
+    function formatLocale(amount) {
+        return parseFloat(parseFloat(amount).toFixed(2)).toLocaleString()
+    }
+
     function usdValue(amount) {
-        return parseFloat((amount * rmoonPrice).toFixed(2)).toLocaleString()
+        return Intl.NumberFormat('en-US', {
+            notation: 'compact',
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 2,
+        }).format(amount * rmoonPrice)
+    }
+
+    function formatNumber(amount) {
+        return Intl.NumberFormat('en-US', {
+            notation: "compact",
+            maximumFractionDigits: 2,
+        }).format(amount);
     }
 
     return (
@@ -126,19 +142,28 @@ function Staking() {
                     </div>
                     <div className='stakingContent'>
                         <p>Total Value Locked (TVL):</p>
-                        <p>{parseFloat(tvl).toLocaleString()}... $RETRO</p>
-                        <p className='TVLUSD'>${usdValue(tvl)}</p>
+                        <p title={tvl}>{formatLocale(tvl)} $RETRO</p>
+                        <p title={tvl * rmoonPrice} className='TVLUSD'>{usdValue(tvl)}</p>
                         <div className='stakingInfo'>
                             <div className='col-2'>
+                                <p>Staked</p>
+                                <p title={balance}>
+                                    <a title={balance} className='tokenNumber'>{formatNumber(balance)}</a> $R 
+                                    <span title={balance * rmoonPrice} className='TVLUSD'> {usdValue(balance)}</span>
+                                </p>
+
                                 <p>Earned</p>
-                                <p><a className='tokenNumber'>{parseFloat(earned).toLocaleString()}...</a> $RETRO</p>
-                                <p className='TVLUSD'>${usdValue(earned)}</p>
-                                <p>Staked</p><p><a className='tokenNumber'>{parseFloat(balance).toLocaleString()}...</a> $RETRO</p>
-                                <p className='TVLUSD'>${usdValue(balance)}</p>
+                                <p>
+                                    <a title={earned}className='tokenNumber'>{formatNumber(earned)}</a> $R 
+                                    <span title={earned * rmoonPrice} className='TVLUSD'> {usdValue(earned)}</span>
+                                </p>
                             </div>
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>
-                                <div classname='mw'><button className='refresh-button' onClick={() => setUpdated(updated + 1)}>Refresh</button></div>
+                                <div className='mw'>
+                                <button className='refresh-button' onClick={claimRewards} disabled={claiming || !library}>Claim</button>
+                                    <button className='refresh-button' onClick={() => setUpdated(updated + 1)} disabled={claiming || !library}>Refresh</button>
+                                </div>
                             </div>
                         </div>
                         <div className='stakeButtons'>
@@ -152,7 +177,6 @@ function Staking() {
                             <input placeholder='0' type='number' min='0' max={balance} value={unstakeAmount} onChange={(e) => setUnstakeAmount(e.target.value)}></input>
                             <button className='max-button' onClick={maxUnstake}>MAX</button>
                             <button className='stake-button' onClick={unstakeTokens} disabled={unstaking || !library}>UNSTAKE</button>
-                            <button className='claim-button' onClick={claimRewards} disabled={claiming || !library}>Claim Rewards</button>
                         </div>
                     </div>
                 </div>

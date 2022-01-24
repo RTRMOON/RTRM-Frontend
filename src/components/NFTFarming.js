@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import './Marketplace.css';
-import { useListings, SortOrders } from '../actions/useMarketplace';
-import nftExample from '../images/nftexample.png'
 import addresses from '../assets/addresses.json'
 import { WalletMenu } from './WalletMenu'
 import useBalance from '../actions/useBalance';
@@ -9,14 +7,13 @@ import BNBlogo from '../images/binance-coin-bnb-logo.webp'
 import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
 import Modal from 'react-modal/lib/components/Modal';
-import { useTotalBalance, useOwnedNfts, useTotalRarityStaked, useCalculateTotalRewards, useAPY, useTotalClaimed } from '../actions/useNFTStaking';
+import { useTotalBalance, useTotalRarityStaked, useCalculateTotalRewards, useAPY, useTotalClaimed, useNfts, useCanDeposit } from '../actions/useNFTStaking';
 import { useNFTStakingContract } from '../assets/NFTStakingContract';
+import { useRetromoonPrice } from '../actions/usePrice';
 
 
 export default function NFTFarming() {
   const [tab, setTab] = useState('your-nft');
-  const [sort, setSort] = useState(SortOrders.PriceAsc)
-  const [filter, setFilter] = useState({})
   const { active, account, activate, chainId } = useWeb3React()
 
   const [updated, setUpdated] = useState(0)
@@ -50,18 +47,60 @@ export default function NFTFarming() {
   const onModalClose = () => console.log('closeMenu');
 
 
-  const nfts = useOwnedNfts(updated, setUpdated)
+  const nfts = useNfts(updated, setUpdated)
 
+  const canDeposit = useCanDeposit()
+  const rmoonPrice = useRetromoonPrice(updated)
   const total = Math.round(useTotalBalance(updated))
-  const totalRewards = Math.round(useCalculateTotalRewards(updated))
-  const totalClaimed = Math.round(useTotalClaimed(updated))
+  const totalRewards = useCalculateTotalRewards(updated)
+  const totalClaimed = useTotalClaimed(updated)
   const stakingContract = useNFTStakingContract()
+  const [acting, setActing] = useState({})
 
   function claimAllRewards() {
     stakingContract.claimAllRewards().then(() => {
       setUpdated(updated + 1)
     })
   }
+
+  function approveForStaking(nft) {
+    setActing({...acting, [nft]: true });
+    stakingContract.approveContract(nft).then(() => {
+      setUpdated(updated + 1)
+    })
+    .finally(() => {
+      setActing({...acting, [nft]: false })
+    })
+  }
+
+  function stake(nft, id) {
+    setActing({...acting, [nft+id]: true })
+    stakingContract.stake(nft, id).then(() => {
+      setUpdated(updated + 1)
+    })
+    .finally(() => {
+      setActing({...acting, [nft+id]: false })
+    })
+  }
+  
+  function unstake(nft, id) {
+    setActing({...acting, [nft+id]: true })
+    stakingContract.unstake(nft, id).then(() => {
+      setUpdated(updated + 1)
+    })
+    .finally(() => {
+      setActing({...acting, [nft+id]: false })
+    })
+  }
+
+  function usdValue(amount) {
+    return Intl.NumberFormat('en-US', {
+        notation: 'compact',
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 2,
+    }).format(amount * rmoonPrice)
+}
 
   return (
     <>
@@ -82,20 +121,43 @@ export default function NFTFarming() {
             <table className='yourRmoon'>
               <tr>
                 <td>Wallet Balance:</td>
-                <td>{Rmoonbalance} $RETRO</td>
+                <td title={Rmoonbalance}>{Math.round(Rmoonbalance).toLocaleString()} $RETRO <span title={Rmoonbalance * rmoonPrice} className='TVLUSD'>{usdValue(Rmoonbalance)}</span></td>
               </tr>
               <tr>
                 <td>Unclaimed:</td>
-                <td> {totalRewards} $RETRO</td>
+                <td title={totalRewards}>{Math.round(totalRewards).toLocaleString()} $RETRO <span title={totalRewards * rmoonPrice} className='TVLUSD'>{usdValue(totalRewards)}</span></td>
               </tr>
               <tr>
                 <td>Total Claimed:</td>
-                <td> {totalClaimed} $RETRO</td>
+                <td title={totalClaimed}>{Math.round(totalClaimed).toLocaleString()} $RETRO <span title={totalClaimed * rmoonPrice} className='TVLUSD'>{usdValue(totalClaimed)}</span></td>
               </tr>
             </table>
             <button className='nft-button' onClick={claimAllRewards}>Claim</button>
             <button className='nft-button' onClick={() => setUpdated(updated + 1)}>Refresh</button>
-            { nfts }
+            { nfts ? nfts.map(nft => {
+              return nft.staked ? (
+                <div className='nft nftBuyBox' key={nft.tokenId + nft.nftAddress}>
+                  <video src={nft.media} width="180" height="248" autoPlay loop muted controls='' />
+                  <h3>Token ID: {nft.tokenId}</h3>
+                  <h3>Rarity: {nft.rarity}</h3>
+                  <h3 title={nft.rewards}>Rewards: {Math.round(nft.rewards).toLocaleString()}</h3>
+                  <h3 title={nft.apy + '%'}>APY: {Math.round(nft.apy).toLocaleString()}%</h3>
+                  <button onClick={() => unstake(nft.nftAddress,  nft.tokenId)} disabled={acting[nft.nftAddress+nft.tokenId]}>Unstake</button>
+                </div>
+              ) : (
+                <div className='nft nftBuyBox' key={nft.tokenId + nft.nftAddress}>
+                  <video src={nft.media} width="180" height="248" autoPlay loop muted controls='' />
+                  <h3>Token ID: {nft.tokenId}</h3>
+                  <h3>Rarity: {nft.rarity}</h3>
+                  <h3 title={nft.apy + '%'}>APY: {Math.round(nft.apy).toLocaleString()}%</h3>
+                  {
+                    nft.approved ?
+                    <button onClick={() => stake(nft.nftAddress, nft.tokenId)} disabled={!canDeposit || acting[nft.nftAddress+nft.tokenId]}>Stake</button> :
+                    <button onClick={() => approveForStaking(nft.nftAddress)} disabled={acting[nft.nftAddress]}>Approve</button>
+                  }
+                </div>
+              )
+            }) : <>Loading...</>}
           </div>
         }
         {tab === "nft-overview" &&

@@ -64,7 +64,7 @@ export default function Marketplace() {
           <div className={tab === 'for-sale' ? 'menu-item for-sale' : 'menu-item for-sale inactive'} onClick={() => setTab("for-sale")}>For Sale</div>
           <div className={tab === 'your-nft' ? 'menu-item your-nft' : 'menu-item your-nft inactive'} onClick={() => setTab("your-nft")}>Your NFT</div>
         </div>
-        {tab === "for-sale" && <div class="dropdown">
+        {tab === "for-sale" && <div className="dropdown">
           <button className="dropbtn menu-item">Sort By:</button>
           <div className="dropdown-content">
             <a href="#" onClick={() => setSort(SortOrders.PriceAsc)}>Lowest Price</a>

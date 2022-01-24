@@ -130,9 +130,9 @@ class App extends Component {
       {this.state.active  === "nftfarming" && <NFTFarming />}
       {this.state.active  === "marketplace" && <Marketplace />}
       </div>
-      <div class="background-container">
-          <div class="stars"></div>
-          <div class="twinkling"></div>
+      <div className="background-container">
+          <div className="stars"></div>
+          <div className="twinkling"></div>
       </div>
     </div>
     </Web3ReactProvider>
