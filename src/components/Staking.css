@@ -89,8 +89,7 @@ input:focus {
 }
 .max-button:hover,
 .stake-button:hover,
-.claim-button:hover,
-.refresh-button:hover {
+.small-button:hover {
   cursor: pointer;
   transform: translate(0px, 1px);
 }
@@ -108,32 +107,20 @@ input:focus {
 }
 
 .stake-button:disabled,
-.claim-button:disabled,
-.refresh-button:disabled {
+.small-button:disabled {
   opacity: 0.25;
 }
 
-.claim-button {
-  font-family: superstar;
-  color: white;
-  background: url("../images/button-large.png") no-repeat;
-  border: none;
-  width: 47vh;
-  background-size: contain;
-  font-size: 3vh;
-  height: 5vh;
-  margin-top: 1vh;
-}
-
-.refresh-button {
+.small-button {
   font-family: superstar;
   color: white;
   background: url("../images/ButtonBG.png") no-repeat;
   border: none;
-  width: 22vh;
+  width: 13vh;
   background-size: contain;
-  font-size: 3vh;
-  height: 5vh;
+  font-size: 2vh;
+  height: 3vh;
+  text-align: center;
   margin: auto;
   margin-right: 0;
   margin-top: 20px;

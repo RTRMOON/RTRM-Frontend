@@ -161,8 +161,8 @@ function Staking() {
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>
                                 <div className='mw'>
-                                <button className='nft-button' onClick={claimRewards} disabled={claiming || !library}>Claim</button>
-                                    <button className='nft-button' onClick={() => setUpdated(updated + 1)} disabled={claiming || !library}>Refresh</button>
+                                <button className='small-button' onClick={claimRewards} disabled={claiming || !library}>Claim</button>
+                                    <button className='small-button' onClick={() => setUpdated(updated + 1)} disabled={claiming || !library}>Refresh</button>
                                 </div>
                             </div>
                         </div>
