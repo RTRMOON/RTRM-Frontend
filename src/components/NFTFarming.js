@@ -125,15 +125,15 @@ export default function NFTFarming() {
             <table className='yourRmoon'>
               <tr>
                 <td>Wallet Balance:</td>
-                <td title={Rmoonbalance}>{Math.round(Rmoonbalance).toLocaleString()} $RETRO <span title={Rmoonbalance * rmoonPrice} className='TVLUSD'>{usdValue(Rmoonbalance)}</span></td>
+                <td title={Rmoonbalance}>{Math.round(Rmoonbalance).toLocaleString()} $RETRO <span title={Rmoonbalance * rmoonPrice} className='usd-label'>{usdValue(Rmoonbalance)}</span></td>
               </tr>
               <tr>
                 <td>Unclaimed:</td>
-                <td title={totalRewards}>{Math.round(totalRewards).toLocaleString()} $RETRO <span title={totalRewards * rmoonPrice} className='TVLUSD'>{usdValue(totalRewards)}</span></td>
+                <td title={totalRewards}>{Math.round(totalRewards).toLocaleString()} $RETRO <span title={totalRewards * rmoonPrice} className='usd-label'>{usdValue(totalRewards)}</span></td>
               </tr>
               <tr>
                 <td>Total Claimed:</td>
-                <td title={totalClaimed}>{Math.round(totalClaimed).toLocaleString()} $RETRO <span title={totalClaimed * rmoonPrice} className='TVLUSD'>{usdValue(totalClaimed)}</span></td>
+                <td title={totalClaimed}>{Math.round(totalClaimed).toLocaleString()} $RETRO <span title={totalClaimed * rmoonPrice} className='usd-label'>{usdValue(totalClaimed)}</span></td>
               </tr>
             </table>
             <button className='nft-button' onClick={claimAllRewards} disabled={acting['claiming'] || !active}>Claim</button>

@@ -143,26 +143,26 @@ function Staking() {
                     <div className='stakingContent'>
                         <p>Total Value Locked (TVL):</p>
                         <p title={tvl}>{formatLocale(tvl)} $RETRO</p>
-                        <p title={tvl * rmoonPrice} className='TVLUSD'>{usdValue(tvl)}</p>
+                        <p title={tvl * rmoonPrice} className='usd-label'>{usdValue(tvl)}</p>
                         <div className='stakingInfo'>
                             <div className='col-2'>
                                 <p>Staked</p>
                                 <p title={balance}>
                                     <a title={balance} className='tokenNumber'>{formatNumber(balance)}</a> $R 
-                                    <span title={balance * rmoonPrice} className='TVLUSD'> {usdValue(balance)}</span>
+                                    <span title={balance * rmoonPrice} className='usd-label'> {usdValue(balance)}</span>
                                 </p>
 
                                 <p>Earned</p>
                                 <p>
                                     <a title={earned}className='tokenNumber'>{formatNumber(earned)}</a> $R 
-                                    <span title={earned * rmoonPrice} className='TVLUSD'> {usdValue(earned)}</span>
+                                    <span title={earned * rmoonPrice} className='usd-label'> {usdValue(earned)}</span>
                                 </p>
                             </div>
                             <div className='col-2 right-col'>
                                 <p>APY</p><p><a className='tokenNumber'>{apy}%</a></p>
                                 <div className='mw'>
-                                <button className='refresh-button' onClick={claimRewards} disabled={claiming || !library}>Claim</button>
-                                    <button className='refresh-button' onClick={() => setUpdated(updated + 1)} disabled={claiming || !library}>Refresh</button>
+                                <button className='nft-button' onClick={claimRewards} disabled={claiming || !library}>Claim</button>
+                                    <button className='nft-button' onClick={() => setUpdated(updated + 1)} disabled={claiming || !library}>Refresh</button>
                                 </div>
                             </div>
                         </div>
