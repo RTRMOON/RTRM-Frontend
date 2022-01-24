@@ -198,7 +198,7 @@ h1 {
   margin: 7px 0px;
 }
 
-.nft button[disabled] {
+.nft button[disabled], .nft-button:disabled {
   opacity: 0.5;
 }
 

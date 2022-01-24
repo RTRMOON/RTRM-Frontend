@@ -108,7 +108,8 @@ input:focus {
 }
 
 .stake-button:disabled,
-.claim-button:disabled {
+.claim-button:disabled,
+.refresh-button:disabled {
   opacity: 0.25;
 }
 

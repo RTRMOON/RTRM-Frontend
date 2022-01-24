@@ -58,8 +58,12 @@ export default function NFTFarming() {
   const [acting, setActing] = useState({})
 
   function claimAllRewards() {
+    setActing({...acting, 'claiming': true })
     stakingContract.claimAllRewards().then(() => {
       setUpdated(updated + 1)
+    })
+    .finally(() => {
+      setActing({...acting, 'claiming': false })
     })
   }
 
@@ -132,8 +136,8 @@ export default function NFTFarming() {
                 <td title={totalClaimed}>{Math.round(totalClaimed).toLocaleString()} $RETRO <span title={totalClaimed * rmoonPrice} className='TVLUSD'>{usdValue(totalClaimed)}</span></td>
               </tr>
             </table>
-            <button className='nft-button' onClick={claimAllRewards}>Claim</button>
-            <button className='nft-button' onClick={() => setUpdated(updated + 1)}>Refresh</button>
+            <button className='nft-button' onClick={claimAllRewards} disabled={acting['claiming'] || !active}>Claim</button>
+            <button className='nft-button' onClick={() => setUpdated(updated + 1)} disabled={acting['claiming'] || !active}>Refresh</button>
             { nfts ? nfts.map(nft => {
               return nft.staked ? (
                 <div className='nft nftBuyBox' key={nft.tokenId + nft.nftAddress}>
