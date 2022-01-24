@@ -7,6 +7,7 @@ import GameWindow from './components/GameWindow';
 import Marketplace from './components/Marketplace'
 import MobileWindow from './components/MobileWindow';
 import Staking from './components/Staking'
+import NFTFarming from './components/NFTFarming'
 import homeIcon from './images/social/home.png';
 import twitterIcon from './images/social/twitter.png'
 import chartIcon from './images/social/chart.png'
@@ -87,11 +88,11 @@ class App extends Component {
             {/*<div className="listItem 1 notactive">*/}
               <h2>Marketplace</h2>
             </div>
-            <div className="listItem 1 notactive">
+            <div className={this.state.active === 'nftfarming' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "nftfarming" })}>
             <h2>NFT Farming</h2>
             </div>
-            {/*<div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>*/}
-            <div className='listItem 1 notactive'>
+            <div className={this.state.active === 'staking' ? 'listItem 1 active' : 'listItem 1 notSet'} onClick={() => this.setState({ active: "staking" })}>
+            {/* <div className='listItem 1 notactive'> */}
             <h2>Staking</h2>
             </div>
           </div>
@@ -125,12 +126,13 @@ class App extends Component {
       </div>
       <div className="col-right">
       {this.state.active  === "arcade" && <GameWindow />}
-      {/*{this.state.active  === "staking" && <Staking />}*/}
+      {this.state.active  === "staking" && <Staking />}
+      {this.state.active  === "nftfarming" && <NFTFarming />}
       {this.state.active  === "marketplace" && <Marketplace />}
       </div>
-      <div class="background-container">
-          <div class="stars"></div>
-          <div class="twinkling"></div>
+      <div className="background-container">
+          <div className="stars"></div>
+          <div className="twinkling"></div>
       </div>
     </div>
     </Web3ReactProvider>

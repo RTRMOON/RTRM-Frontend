@@ -15,15 +15,16 @@
   height: 47px;
   width: 310px;
   margin: auto;
-  font-size: 2.2rem;
+  font-size: 1.0rem;
   line-height: 6vh;
+  cursor: pointer;
 }
 
 .stakingContent {
   width: 47%;
-  height: 88%;
-  margin: auto;
-  margin-top: 6vh;
+  max-height: 88%;
+  max-height: 73.5vh;
+  margin: 51px auto 29px auto;
   font-size: 3vh;
 }
 
@@ -32,7 +33,7 @@
   margin-top: 10px;
 }
 
-.TVLUSD {
+.usd-label {
   font-size: 2.5vh;
   color: #b7b7b7;
   margin-top: 0px !important;
@@ -45,14 +46,14 @@
 .stakingInfo {
   display: flex;
   text-align: left;
-  margin: 4vh 0px;
+  margin-bottom: 4vh;
 }
 .col-2 {
   width: 50%;
 }
 
 .right-col p {
-  padding-left: 90px;
+  text-align: right;
 }
 
 .stakeButtons input,
@@ -88,7 +89,7 @@ input:focus {
 }
 .max-button:hover,
 .stake-button:hover,
-.claim-button:hover {
+.small-button:hover {
   cursor: pointer;
   transform: translate(0px, 1px);
 }
@@ -104,18 +105,31 @@ input:focus {
   height: 5vh;
   margin-top: 1vh;
 }
-.claim-button {
+
+.stake-button:disabled,
+.small-button:disabled {
+  opacity: 0.25;
+}
+
+.small-button {
   font-family: superstar;
   color: white;
-  background: url("../images/button-large.png") no-repeat;
+  background: url("../images/ButtonBG.png") no-repeat;
   border: none;
-  width: 47vh;
+  width: 13vh;
   background-size: contain;
-  font-size: 3vh;
-  height: 5vh;
-  margin-top: 1vh;
+  font-size: 2vh;
+  height: 3vh;
+  text-align: center;
+  margin: auto;
+  margin-right: 0;
+  margin-top: 20px;
 }
 
 .unstakeButtons {
   margin-top: 3vh;
+}
+
+.mw{
+  width: 100%
 }

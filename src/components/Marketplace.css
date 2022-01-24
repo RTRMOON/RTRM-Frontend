@@ -154,7 +154,7 @@ h1 {
   font-size: 3vh;
   padding: 5px 2vh 0;
 }
-.sell-btn:hover {
+.sell-btn:hover, .nft-button:hover{
   cursor: pointer;
   transform: translate(0px, 1px);
 }
@@ -172,7 +172,7 @@ h1 {
   display: block;
 }
 
-.nft button:hover{
+.nft-button, .nft button:hover{
   cursor: pointer;
   transform: translate(0px, 1px);
 }
@@ -187,26 +187,72 @@ h1 {
   padding-top: 2.5px;
 }
 
-.nft button{
+.nft-button, .nft button{
   font-family: superstar;
   color: white;
   background: url("../images/ButtonBG.png") no-repeat;
   background-size: contain;
   border: none;
   font-size: 1.3rem;
+  min-width: 111px;
   margin: 7px 0px;
-  padding: 0 25px;
 }
 
-.nft button[disabled] {
+.nft button[disabled], .nft-button:disabled {
   opacity: 0.5;
 }
 
 .nftBuyBox button{
-  font-size: 1.2rem; 
+  font-size: 1.3rem; 
 }
 ::-webkit-scrollbar-corner { background: rgba(0,0,0,0); }
 
 .nft-selected{
   margin-top: 0px;
+}
+
+.nftStaking .nftBuyBox{
+  display: inline-table;
+}
+
+.loading {
+  font-family: superstar;
+  color: white;
+}
+
+.rarityOverview{
+  display: flex;
+  font-family: superstar;
+  color: white;
+  font-size: 30px;
+  margin-top: 80px;
+}
+.nftRarity{
+  margin: auto;
+}
+
+.rarityOverview th{
+  border-bottom: 1px solid;
+}
+
+.rarityOverview table{
+  border-spacing: 0;
+}
+
+.nftStaking button{
+  display: block;
+  margin: 10px auto;
+}
+
+.yourRmoon{
+  margin: auto;
+  font-family: superstar;
+  color: white;
+  font-size: 3vh;
+  padding-top: 20px;
+  text-align: left;
+}
+
+.yourRmoon td{
+  padding-right: 25px;
 }

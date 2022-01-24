@@ -57,14 +57,14 @@ export default function Marketplace() {
       <div className="game-window">
         <div className='button-wrapper'>
           <div className='connector-button'>
-            {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}
+            {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{Math.round(BNBbalance)}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}
           </div>
         </div>
         <div className='nft-menu'>
           <div className={tab === 'for-sale' ? 'menu-item for-sale' : 'menu-item for-sale inactive'} onClick={() => setTab("for-sale")}>For Sale</div>
           <div className={tab === 'your-nft' ? 'menu-item your-nft' : 'menu-item your-nft inactive'} onClick={() => setTab("your-nft")}>Your NFT</div>
         </div>
-        {tab === "for-sale" && <div class="dropdown">
+        {tab === "for-sale" && <div className="dropdown">
           <button className="dropbtn menu-item">Sort By:</button>
           <div className="dropdown-content">
             <a href="#" onClick={() => setSort(SortOrders.PriceAsc)}>Lowest Price</a>
