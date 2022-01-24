@@ -125,7 +125,7 @@ class App extends Component {
         </div>
       </div>
       <div className="col-right">
-      {/* {this.state.active  === "arcade" && <GameWindow />} */}
+      {this.state.active  === "arcade" && <GameWindow />}
       {this.state.active  === "staking" && <Staking />}
       {this.state.active  === "nftfarming" && <NFTFarming />}
       {this.state.active  === "marketplace" && <Marketplace />}
