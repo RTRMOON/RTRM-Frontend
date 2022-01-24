@@ -1,3 +1,10 @@
+## [1.0.25](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.24...v1.0.25) (2022-01-24)
+
+
+### Bug Fixes
+
+* Launch Staking ([#8](https://github.com/RTRMOON/RTRM-Frontend/issues/8)) ([5ef1133](https://github.com/RTRMOON/RTRM-Frontend/commit/5ef11333a450dde5fee3b22b7cdc39f4ae1cc431))
+
 ## [1.0.24](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.23...v1.0.24) (2022-01-01)
 
 
