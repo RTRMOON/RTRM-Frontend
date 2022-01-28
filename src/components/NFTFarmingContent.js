@@ -90,6 +90,7 @@ export default function NFTFarmingContent({ updated, setUpdated }) {
 				</table>
 				<button className='small-button' onClick={claimAllRewards} disabled={acting['claiming'] || !active}>Claim</button>
 				<button className='small-button' onClick={() => setUpdated(updated + 1)} disabled={acting['claiming'] || !active}>Refresh</button>
+				<div className='nfts'>
 				{nfts ? nfts.map(nft => {
 					return nft.staked ? (
 						<div className='nft nftBuyBox' key={nft.tokenId + nft.nftAddress}>
@@ -114,6 +115,7 @@ export default function NFTFarmingContent({ updated, setUpdated }) {
 						</div>
 					)
 				}) : <>Loading...</>}
+				</div>
 			</div>
 		</>
 	)

@@ -72,6 +72,24 @@
   overflow: none;
 }
 
+.mobileContainer .nfts {
+  width: auto;
+  margin: 5px;
+  text-align: center;
+}
+
+.mobileContainer .nft {
+  margin: 0px;
+}
+
+@media only screen and (max-width: 393px) {
+  .mobileContainer .nft {
+    margin: 0;
+    width: 60vw;
+    margin-bottom: 5px;
+  }
+}
+
 .connect-button {
   font-family: superstar;
   color: #2d323c;
