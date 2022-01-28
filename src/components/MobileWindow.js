@@ -21,7 +21,7 @@ function MobileWindow() {
     return (
         <div className='mobileWindow'>
             <div className='mobileContainer'>
-                <Dropdown options={['staking', 'farming']} onChange={(e) => setTab(e.value)} />
+                <Dropdown className='mobile-dropdown' options={['staking', 'farming']} onChange={(e) => setTab(e.value)} value='Menu...' />
                 { active ? 
                     <button className='connect-button' onClick={() => deactivate(connector)}>Disconnect</button> :
                     <button className='connect-button' onClick={() => activate(injected)}>Connect</button>

@@ -9,6 +9,10 @@
   z-index: 0;
 }
 
+.mobile-dropdown {
+  font-size: 2em;
+}
+
 .gameboy {
   background: url("../images/Gameboy.png") no-repeat;
   background-size: contain;
