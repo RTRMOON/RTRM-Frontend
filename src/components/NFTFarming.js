@@ -1,23 +1,19 @@
 import React, { useState } from 'react'
 import './Marketplace.css';
 import addresses from '../assets/addresses.json'
-import { WalletMenu } from './WalletMenu'
 import useBalance from '../actions/useBalance';
-import BNBlogo from '../images/binance-coin-bnb-logo.webp'
-import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
-import Modal from 'react-modal/lib/components/Modal';
-import { useTotalBalance, useTotalRarityStaked, useCalculateTotalRewards, useAPY, useTotalClaimed, useNfts, useCanDeposit } from '../actions/useNFTStaking';
+import { useTotalRarityStaked, useCalculateTotalRewards, useAPY, useTotalClaimed, useNfts, useCanDeposit } from '../actions/useNFTStaking';
 import { useNFTStakingContract } from '../assets/NFTStakingContract';
 import { useRetromoonPrice } from '../actions/usePrice';
+import Wallet from './Wallet';
 
 
 export default function NFTFarming() {
   const [tab, setTab] = useState('your-nft');
-  const { active, account, activate, chainId } = useWeb3React()
+  const { active, chainId } = useWeb3React()
 
   const [updated, setUpdated] = useState(0)
-  const [BNBbalance] = useBalance(addresses.BNB, "18");
   const [Rmoonbalance] = useBalance(chainId === 56 ? addresses.Retromoon : addresses['Testnet Retromoon'], "18", updated);
   const commonBalance = useTotalRarityStaked(0, updated)
   const uncommonBalance = useTotalRarityStaked(1, updated)
@@ -30,28 +26,10 @@ export default function NFTFarming() {
   const epicAPY = useAPY(3, updated)
   const legendaryAPY = useAPY(4, updated)
 
-  async function connect() {
-    try {
-      await activate(injected)
-    } catch (ex) {
-      console.log(ex)
-    }
-  }
-
-  const [showModal, setShowModal] = useState(false)
-
-  const openModal = () => {
-    setShowModal(prev => !prev)
-  }
-
-  const onModalClose = () => console.log('closeMenu');
-
-
   const nfts = useNfts(updated, setUpdated)
 
   const canDeposit = useCanDeposit()
   const rmoonPrice = useRetromoonPrice(updated)
-  const total = Math.round(useTotalBalance(updated))
   const totalRewards = useCalculateTotalRewards(updated)
   const totalClaimed = useTotalClaimed(updated)
   const stakingContract = useNFTStakingContract()
@@ -108,14 +86,8 @@ export default function NFTFarming() {
 
   return (
     <>
-      <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} onModalClose={onModalClose} />
-
+      <Wallet></Wallet>
       <div className="game-window">
-        <div className='button-wrapper'>
-          <div className='connector-button'>
-            {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{BNBbalance}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Math.round(Rmoonbalance)} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}
-          </div>
-        </div>
         <div className='nft-menu'>
           <div className={tab === 'your-nft' ? 'menu-item your-nft' : 'menu-item your-nft inactive'} onClick={() => setTab("your-nft")}>Your NFT</div>
           <div className={tab === 'nft-overview' ? 'menu-item nft-overview' : 'menu-item nft-overview inactive'} onClick={() => setTab("nft-overview")}>Overview</div>
@@ -202,21 +174,6 @@ export default function NFTFarming() {
               </table>
             </div>
           </div>
-          {/*
-            <div className='top-section'>
-              <div className='nft-image'>
-                <img src={nftExample}></img>
-              </div>
-              <div className='nft-description'>
-                <h1>Mining Zombie</h1>
-                <h2>Rarity: Common</h2>
-                <h2>Staking: 1.5X</h2>
-                <h2>Token ID: 0</h2>
-                <p>Common Mining Zombie from Series 1 of Retromoon Arcade Platform NFTs</p>
-                <div className='sell-btn'>Sell your NFT</div>
-              </div>
-            </div>
-          */}
           </div>
 
         }

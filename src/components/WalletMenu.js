@@ -1,14 +1,15 @@
-import React, {useCallback, useRef, useEffect} from 'react'
+import React, { useRef } from 'react'
 import {useSpring, animated} from 'react-spring'
 import './WalletMenu.css'
 import walletBG from '../images/ModalMenu.png'
 import closeBTN from '../images/closeBTN.png'
-import coinLogo from '../images/coinLogo.png'
 import BNBlogo from '../images/binance-coin-bnb-logo.webp'
+import { useWeb3React } from '@web3-react/core'
 
 
 export const WalletMenu = ({showModal, setShowModal, onModalClose, BNBbalance, Rmoonbalance, account}) => {
 
+    const { connector, deactivate } = useWeb3React()
     const modalRef = useRef()
 
     const animation = useSpring ({
@@ -33,6 +34,12 @@ export const WalletMenu = ({showModal, setShowModal, onModalClose, BNBbalance, R
         }
     };
 
+    const disconnect = () => {
+        setShowModal(false)
+        onModalClose()
+        deactivate(connector)
+    }
+
     return (
         <>{showModal ? 
             <animated.div style={fadeAnimation}>
@@ -41,13 +48,14 @@ export const WalletMenu = ({showModal, setShowModal, onModalClose, BNBbalance, R
             <div className='wallet-modal'>
                 <div className='wallet-actions'>
                 <h2>Your Wallet</h2>
-                    <p>Your address: <a className='yourWallet'>...{account.substring(33, 43)}</a></p>
-                    <p>$BNB Balance: <a className='coins'>{BNBbalance}</a><img className='BNBlogo' src={BNBlogo}/></p>
-                    <p>$RETRO Balance: <a className='coins RMOON'>{Rmoonbalance} $R</a></p>
-                    <a href='https://pancakeswap.finance/swap#/swap?outputCurrency=0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54' target='_blank'><button className='deposit btn' onClick="window.open('https://pancakeswap.finance/swap#/swap?outputCurrency=0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54')">Buy $RETRO Tokens</button></a>
+                    <p title={account}>Your address: <span className='yourWallet'>{account.substring(0, 5)}...{account.substring(38, 43)}</span></p>
+                    <p>$BNB Balance: <span className='coins'>{BNBbalance}</span><img alt="BNB" className='BNBlogo' src={BNBlogo}/></p>
+                    <p>$RETRO Balance: <span className='coins RMOON'>{Rmoonbalance} $R</span></p>
+                    <a href='https://pancakeswap.finance/swap#/swap?outputCurrency=0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54' target='_blank' rel='noreferrer'><button className='deposit btn' onClick="window.open('https://pancakeswap.finance/swap#/swap?outputCurrency=0xE81FE8bBBEA13A0fd5Cc0AAFb6062631C659eC54')">Buy $RETRO Tokens</button></a>
+                    <button className='deposit btn' onClick={disconnect}>Disconnect Account</button>
                 </div>
-                <img src={closeBTN} className='closeBTN' onClick={() => setShowModal(prev => !prev)}/>
-                <img src={walletBG} className='modalBG'/>
+                <img alt="X" src={closeBTN} className='closeBTN' onClick={() => setShowModal(prev => !prev)}/>
+                <img alt="Background" src={walletBG} className='modalBG'/>
             </div>
             </animated.div>
         </div>

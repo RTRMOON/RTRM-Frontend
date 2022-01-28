@@ -7,6 +7,17 @@
   height: 100%;
   background-color: #000000c9;
 }
+
+.connect-container {
+  position: absolute;
+  color: white;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #000000c9;
+}
+
 .animationFront {
   margin: auto;
 }
@@ -19,25 +30,76 @@
   height: 500px;
 }
 
+.connect-modal {
+  margin: auto;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 500px;
+}
+
+
 .modalBG {
   height: 500px;
 }
 
-.closeBTN {
+.wallet-modal .closeBTN {
   margin-left: 21px;
   margin-top: 65px;
   position: absolute;
 }
+
+.connect-modal .closeBTN {
+  margin-left: 25px;
+  margin-top: 90px;
+  width: 25px;
+  position: absolute;
+}
+
 .closeBTN:hover {
   cursor: pointer;
 }
 
-.wallet-actions h2 {
+.wallet-actions h2, .connect-actions h2 {
   position: relative;
   color: white;
   width: 100%;
   margin: 7px;
   margin-bottom: 70px;
+}
+
+.connect-actions h2 {
+  font-size: 2em;
+}
+
+.metamask-btn {
+  background-image: url("../images/metamaskBTN.png");
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  font-size: 2.5em;
+  color: white;
+  font-family: Superstar;
+  padding: 5px 0 0 55px;
+  margin: 0px 36px 0px;
+  overflow: visible;
+  height: 120px;
+  width: 80%;
+}
+
+.walletconnect-btn {
+  background-image: url("../images/walletconnectBTN.png");
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  font-size: 2.5em;
+  color: white;
+  font-family: Superstar;
+  padding: 5px 0 0 55px;
+  margin: 50px 36px 0px;
+  overflow: visible;
+  height: 120px;
+  width: 80%;
 }
 
 .btn {
@@ -49,17 +111,17 @@
   color: white;
   font-family: Superstar;
   padding: 13px 39px;
-  margin: 50px 36px 0px;
+  margin: 25px 36px 0px;
   overflow: visible;
 }
 
-.btn:hover {
+.btn:hover, .walletconnect-btn:hover, .metamask-btn:hover {
   cursor: pointer;
   color: #f8fbc5;
   transform: translate(0px, 1px);
 }
 
-.wallet-actions {
+.wallet-actions, .connect-actions {
   position: absolute;
   width: 100%;
 }

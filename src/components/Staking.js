@@ -3,35 +3,17 @@ import { useAPY, useEarnedBalance, useStakedBalance, useApproved, useCanDeposit,
 import './Staking.css'
 
 import addresses from '../assets/addresses.json'
-import { WalletMenu } from './WalletMenu'
 import useBalance from '../actions/useBalance';
-import BNBlogo from '../images/binance-coin-bnb-logo.webp'
-import { injected } from '../wallet/connectors';
 import { useWeb3React } from '@web3-react/core';
 import { useStakingContract } from '../assets/StakingContract'
 import { useRetromoonPrice } from '../actions/usePrice'
+import Wallet from './Wallet'
 
 function Staking() {
-    const { active, account, activate, chainId, library } = useWeb3React()
+    const { chainId, library } = useWeb3React()
 
-    async function connect() {
-        try {
-            await activate(injected)
-        } catch (ex) {
-            console.log(ex)
-        }
-    }
-
-    const [showModal, setShowModal] = useState(false)
-
-    const openModal = () => {
-        setShowModal(prev => !prev)
-    }
-
-    const onModalClose = () => console.log('closeMenu');
 
     const [updated, setUpdated] = useState(0)
-    const [BNBbalance] = useBalance(addresses.BNB, "18", updated);
     const [Rmoonbalance] = useBalance(chainId === 56 ? addresses.Retromoon : addresses['Testnet Retromoon'], "18", updated);
     const rmoonPrice = useRetromoonPrice(updated)
     const stakingContract = useStakingContract()
@@ -133,14 +115,10 @@ function Staking() {
 
     return (
         <>
-            <WalletMenu showModal={showModal} setShowModal={setShowModal} BNBbalance={BNBbalance} Rmoonbalance={Rmoonbalance} account={account} onModalClose={onModalClose} />
             <div>
-                <div className='button-wrapper'>
-                </div>
+                <Wallet></Wallet>
                 <div className='stakingWindow'>
-                    <div className='stakingHeader'>
-                    {active ? <div className='connect-wallet' onClick={openModal}><a className='coins'><a className='BNB-token'>{Math.round(BNBbalance)}<img className='BNBlogo' src={BNBlogo} /></a><a className='RMOON-Token'>{Rmoonbalance} $R</a></a>{/*<img className='coinLogo' src={coinLogo} /> <a className='nowConnected'>click to deposit</a>*/}</div> : <div className='connect-wallet' onClick={connect}>Connect Wallet</div>}     
-                    </div>
+                        
                     <div className='stakingContent'>
                         <p>Total Value Locked (TVL):</p>
                         <p title={tvl}>{formatLocale(tvl)} $RETRO</p>

@@ -11,20 +11,12 @@
   background-size: contain;
 }
 
-.stakingHeader {
-  height: 47px;
-  width: 310px;
-  margin: auto;
-  font-size: 1.0rem;
-  line-height: 6vh;
-  cursor: pointer;
-}
-
 .stakingContent {
   width: 47%;
   max-height: 88%;
   max-height: 73.5vh;
-  margin: 51px auto 29px auto;
+  margin: 55px auto 29px auto;
+  padding-top: 15px;
   font-size: 3vh;
 }
 
