@@ -7,7 +7,7 @@ import telegramIcon from '../images/social/telegram.png'
 import instagramIcon from '../images/social/ig.png'
 import StakingContent from './StakingContent';
 import { useWeb3React } from '@web3-react/core';
-import { walletconnect } from '../wallet/connectors';
+import { injected } from '../wallet/connectors';
 import NFTFarmingContent from './NFTFarmingContent';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
@@ -24,7 +24,7 @@ function MobileWindow() {
                 <Dropdown options={['staking', 'farming']} onChange={(e) => setTab(e.value)} />
                 { active ? 
                     <button className='connect-button' onClick={() => deactivate(connector)}>Disconnect</button> :
-                    <button className='connect-button' onClick={() => activate(walletconnect)}>Connect</button>
+                    <button className='connect-button' onClick={() => activate(injected)}>Connect</button>
                 }
                 
                 { tab === 'staking' && <StakingContent /> }
