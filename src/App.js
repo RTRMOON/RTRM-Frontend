@@ -138,7 +138,9 @@ class App extends Component {
     </Web3ReactProvider>
     </BrowserView>
     <MobileView>
-      <MobileWindow />
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <MobileWindow />
+      </Web3ReactProvider>
     </MobileView>
     </Route>
     </Switch>
