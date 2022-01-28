@@ -4,7 +4,7 @@ import './WalletMenu.css'
 import walletBG from '../images/connectMenu.png'
 import closeBTN from '../images/closeBTN.png'
 import { useWeb3React } from '@web3-react/core'
-import { injected, walletconnect } from '../wallet/connectors'
+import { injected, resetWalletConnector, walletconnect } from '../wallet/connectors'
 
 
 export const ConnectMenu = ({showModal, setShowModal, onModalClose}) => {
@@ -35,7 +35,9 @@ export const ConnectMenu = ({showModal, setShowModal, onModalClose}) => {
     };
 
 	const connect = (provider) => {
-		activate(provider)
+        activate(provider, undefined, true).catch(err => {
+            resetWalletConnector(provider)
+        })
 		setShowModal(false)
 		onModalClose()
 	}

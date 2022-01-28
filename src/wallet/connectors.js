@@ -12,3 +12,9 @@ export const walletconnect = new WalletConnectConnector({
   qrcode: true,
   pollingInterval: 12000
 })
+
+export function resetWalletConnector(connector) {
+  if (connector && connector instanceof WalletConnectConnector) {
+    connector.walletConnectProvider = undefined;
+  }
+}
