@@ -9,6 +9,23 @@
   z-index: 0;
 }
 
+.gameboy {
+  background: url("../images/Gameboy.png") no-repeat;
+  background-size: contain;
+  margin: auto;
+  height: 75%;
+  width: 86%;
+  margin-top: 5vh;
+  font-family: superstar;
+}
+
+.gameboy p {
+  font-size: 32px;
+  color: #f9fbc6;
+  padding: 0px 22px;
+  text-align: center;
+}
+
 .header-bar h1 {
   font-size: 3rem;
   text-align: center;

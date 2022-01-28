@@ -15,7 +15,7 @@ import 'react-dropdown/style.css'
 function MobileWindow() {
 
     const { activate, active, deactivate, connector } = useWeb3React()
-    const [tab, setTab] = useState('farming')
+    const [tab, setTab] = useState('default')
     const [updated, setUpdated] = useState(0)
 
     return (
@@ -26,7 +26,14 @@ function MobileWindow() {
                     <button className='connect-button' onClick={() => deactivate(connector)}>Disconnect</button> :
                     <button className='connect-button' onClick={() => activate(injected)}>Connect</button>
                 }
-                
+                { tab === 'default' && <>
+                <div className='gameboy'>
+                    <div className='header-bar'>
+                    <h1>RETROMOON</h1>
+                    </div>
+                    <p>The RetroMoon game only works on your computer! Checkout staking and farming above.</p>
+                </div>
+                </>}
                 { tab === 'staking' && <StakingContent /> }
                 { tab === 'farming' && <NFTFarmingContent updated={updated} setUpdated={setUpdated} /> }
             </div>
