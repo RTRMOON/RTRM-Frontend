@@ -1,3 +1,10 @@
+## [1.0.26](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.25...v1.0.26) (2022-01-28)
+
+
+### Bug Fixes
+
+* Mobile view ([#9](https://github.com/RTRMOON/RTRM-Frontend/issues/9)) ([05caa08](https://github.com/RTRMOON/RTRM-Frontend/commit/05caa087ce2e85fabfefab1e3c69c5e280a50180))
+
 ## [1.0.25](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.24...v1.0.25) (2022-01-24)
 
 
