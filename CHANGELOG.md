@@ -1,3 +1,10 @@
+## [1.0.28](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.27...v1.0.28) (2022-02-13)
+
+
+### Bug Fixes
+
+* Game file config ([e687194](https://github.com/RTRMOON/RTRM-Frontend/commit/e68719450bad63217e105eca210a630287bd8882))
+
 ## [1.0.27](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.26...v1.0.27) (2022-02-13)
 
 
