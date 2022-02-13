@@ -1,3 +1,10 @@
+## [1.0.27](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.26...v1.0.27) (2022-02-13)
+
+
+### Bug Fixes
+
+* Valentine's Challenge Game Files ([d080063](https://github.com/RTRMOON/RTRM-Frontend/commit/d080063af2d339827fcaf463f5517eb5317e4bc8))
+
 ## [1.0.26](https://github.com/RTRMOON/RTRM-Frontend/compare/v1.0.25...v1.0.26) (2022-01-28)
 
 
