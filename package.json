@@ -6,7 +6,7 @@
   "dependencies": {
     "@ethersproject/providers": "^5.5.0",
     "@ethersproject/units": "^5.5.0",
-    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^27.0.1",
@@ -28,11 +28,11 @@
     "react-jinke-music-player": "^4.24.2",
     "react-modal": "^3.14.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.0",
     "react-spring": "^9.3.0",
     "styled-components": "^5.3.1",
     "web-vitals": "^1.0.1",
-    "web3": "^1.6.0"
+    "web3": "^4.0.1"
   },
   "scripts": {
     "predeploy": "npm run build",
