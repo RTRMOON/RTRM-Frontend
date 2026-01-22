@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+# 🎮 Retro Play-to-Earn (P2E) Multichain Gaming Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A retro-style **Play-to-Earn gaming platform** where players compete for high scores, climb leaderboards, and **mint exclusive NFTs** by achieving top rankings.  
+The platform is **multichain**, fully on-chain for rewards, and distributes earnings via **creator fees** back to players.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Concept Overview
 
-### `yarn start`
+This project brings classic arcade-style gameplay into Web3:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Players compete in retro games
+- High scores are tracked on global and seasonal leaderboards
+- **Top leaderboard players automatically mint NFTs**
+- NFTs generate **creator fee rewards**, redistributed to players
+- Fully **multichain** (EVM-compatible chains)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The goal is to blend:
+- Skill-based gameplay
+- Transparent on-chain rewards
+- Sustainable P2E economics (no inflationary token spam)
 
-### `yarn test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧩 Architecture
 
-### `yarn build`
+The system is split into **four independent repositories**:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1️⃣ Frontend
+- Game UI & menus
+- Wallet connection
+- Leaderboards display
+- NFT & rewards dashboard
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Tech stack**
+- React / Next.js
+- Web3 wallet integration
+- Game rendering (Canvas / WebGL)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+### 2️⃣ Backend
+- User profiles
+- Score validation
+- Leaderboard aggregation
+- Reward calculation logic
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Responsibilities**
+- Anti-cheat & score verification
+- Cross-chain data indexing
+- Creator fee accounting
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 3️⃣ Game Server
+- Real-time gameplay logic
+- Score submission & verification
+- Session handling
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Focus**
+- Deterministic score generation
+- Cheat resistance
+- Low-latency gameplay
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 4️⃣ Infrastructure
+- Smart contracts
+- Multichain deployment
+- Indexers & off-chain services
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Includes**
+- NFT minting contracts
+- Creator fee distribution logic
+- Chain configuration & deployment scripts
+- Indexing services (events, scores, rewards)
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🏆 Leaderboards & NFT Minting
 
-### Analyzing the Bundle Size
+- Leaderboards can be:
+  - Global
+  - Seasonal
+  - Game-specific
+- At the end of each cycle:
+  - **Top players automatically mint an NFT**
+  - NFT metadata reflects:
+    - Game
+    - Season
+    - Rank
+    - Score
+- NFTs are **on-chain proof of achievement**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 💰 Rewards & Creator Fees
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- NFTs generate creator fees on:
+  - Secondary sales
+  - Marketplace interactions
+- Fees are redistributed to:
+  - Top players
+  - NFT holders
+- No centralized custody — rewards are handled on-chain
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🌐 Multichain Support
 
-### Deployment
+- Designed for EVM-compatible chains
+- Chain-agnostic architecture
+- Supports:
+  - Multiple deployments
+  - Unified leaderboard view
+  - Cross-chain reward aggregation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `yarn build` fails to minify
+## 🛠️ Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Prerequisites
+- Node.js ≥ 18
+- Yarn / PNPM
+- Docker (optional)
+- Web3 wallet
+
+### Local Development
+Each repository can be run independently.
+
+```bash
+git clone <repo-url>
+cd <repo-name>
+yarn install
+yarn dev
